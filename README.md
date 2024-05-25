@@ -1,5 +1,8 @@
-
 # King Pong (Transcendence)
+![Version](https://img.shields.io/badge/version-0.0.0-blue)
+![GitHub Issues](https://img.shields.io/github/issues/vitorsantanna2/transcendence.svg) 
+![Live Demo](https://img.shields.io/badge/status-offline-red.svg)
+
 
 Este projeto consiste em um jogo de Ping Pong multiplayer, e foi criado com a finalidade de finalizar o currículo básico(common-core) da 42Rio.
 
