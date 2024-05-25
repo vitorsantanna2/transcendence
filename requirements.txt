@@ -1,2 +1,3 @@
 django
 "psycopg[binary]"
+python-dotenv
