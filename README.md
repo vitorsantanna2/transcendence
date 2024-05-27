@@ -25,9 +25,6 @@ Este projeto consiste em um jogo de Ping Pong multiplayer, e foi criado com a fi
 
 
 ## Rodando localmente
-
-Instale os requisitos da aplicação e execute o servidor:
-
 Instale o poetry para o versionamento:
 ```bash
   make setup
