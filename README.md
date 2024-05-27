@@ -28,12 +28,21 @@ Este projeto consiste em um jogo de Ping Pong multiplayer, e foi criado com a fi
 
 Instale os requisitos da aplicação e execute o servidor:
 
+Instale o poetry para o versionamento:
 ```bash
-    pip install -r requirements.txt
-    cd kingkong
-    python3 manage.py runserver
+  make setup
+```
+Crie um arquivo dentro da pasta local com o nome de settings.dev.py para armazenar as variáveis de ambiente.
+Existe um template aqui do [arquivo](https://github.com/vitorsantanna2/transcendence/blob/main/core/kingkong/settings/templates/settings.dev.py)
+
+Execute o programa:
+```bash
+    make run
 ```
 
-## Dicas para o desenvolvimento
-Lembre-se de sempre usar ambientes virtuais durante o desenvolvimento pra evitar conflitos de dependências,
-recomendo o uso de [Conda](https://www.anaconda.com/download), mas também é possível criar usando o [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments) que já vem embutido no Python.
+## Contribuindo
+
+Instale o pre-commit (faz com que o código seja corrigido dentro da norma antes de ser commitado):
+```bash
+   make install-pre-commit
+```
