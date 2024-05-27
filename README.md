@@ -1,6 +1,6 @@
 # King Pong (Transcendence)
 ![Version](https://img.shields.io/badge/version-0.0.0-blue)
-![GitHub Issues](https://img.shields.io/github/issues/vitorsantanna2/transcendence.svg) 
+![GitHub Issues](https://img.shields.io/github/issues/vitorsantanna2/transcendence.svg)
 ![Live Demo](https://img.shields.io/badge/status-offline-red.svg)
 
 
@@ -33,7 +33,7 @@ Instale os requisitos da aplicação e execute o servidor:
     cd kingkong
     python3 manage.py runserver
 ```
-    
+
 ## Dicas para o desenvolvimento
 Lembre-se de sempre usar ambientes virtuais durante o desenvolvimento pra evitar conflitos de dependências,
 recomendo o uso de [Conda](https://www.anaconda.com/download), mas também é possível criar usando o [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments) que já vem embutido no Python.

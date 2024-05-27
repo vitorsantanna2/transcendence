@@ -8,13 +8,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
-""" 
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# Quick-start development settings - unsuitable for production
-ALLOWED_HOSTS = ["127.0.0.1"]
-
-
+"""
 # Application definition
 
 INSTALLED_APPS = [
@@ -74,7 +68,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -85,7 +78,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

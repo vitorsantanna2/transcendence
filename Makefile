@@ -1,3 +1,10 @@
+setup-mac:
+	brew install pipx
+	pipx ensurepath
+	sudo pipx ensurepath --global
+	pipx install poetry
+	poetry install
+
 setup:
 	sudo apt update
 	sudo apt install pipx
@@ -8,6 +15,9 @@ setup:
 
 install:
 	poetry install
+
+install-pre-commit:
+	poetry run pre-commit uninstall; poetry run pre-commit install
 
 migrate:
 	poetry run python -m core.manage migrate
@@ -21,9 +31,11 @@ createsuperuser:
 
 update: install migrate ;
 
+lint:
+	poetry run pre-commit run --all-files
 
 run:
 	poetry run python -m core.manage runserver
 
 
-.PHONY: install update 
+.PHONY: install update setup
