@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 # Application definition
 
 INSTALLED_APPS = [
+    "core.website.apps.WebsiteConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
