@@ -1,3 +1,11 @@
+setup:
+	sudo apt update
+	sudo apt install pipx
+	pipx ensurepath
+	sudo pipx ensurepath
+	pipx install poetry
+	poetry install
+
 install:
 	poetry install
 
