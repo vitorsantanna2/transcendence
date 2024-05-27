@@ -37,9 +37,17 @@ Execute o programa:
     make run
 ```
 
+
+## Stack utilizada
+
+**Front-end:** Bootstrap
+
+**Back-end:** Django
+
+
 ## Contribuindo
 
-Instale o pre-commit (faz com que o código seja corrigido dentro da norma antes de ser commitado):
+Além das dependências do projeto, instale o pre-commit (faz com que o código seja corrigido dentro da norma antes de ser commitado):
 ```bash
    make install-pre-commit
 ```
