@@ -37,8 +37,8 @@ lint:
 collect:
 	poetry run python -m core.manage collectstatic
 
-wsgi:
-	poetry run python -m core.manage runmodwsgi
+uwsgi:
+	poetry run uwsgi --module=core.kingkong.wsgi:application  --socket=127.0.0.1:8001
 
 run:
 	poetry run python -m core.manage runserver
