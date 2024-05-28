@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: requirements/nginx/Dockerfile
+      args:
+        SSLCRT: ${SSLCRT}
+        SSLKEY: ${SSLKEY}
+    container_name: nginx
+    ports:
+      - "443:443"
+    networks:
+      - inception
+    restart: always
+
+networks:
+    inception:
+        driver: bridge
