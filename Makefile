@@ -34,6 +34,12 @@ update: install migrate ;
 lint:
 	poetry run pre-commit run --all-files
 
+collect:
+	poetry run python -m core.manage collectstatic
+
+wsgi:
+	poetry run python -m core.manage runmodwsgi
+
 run:
 	poetry run python -m core.manage runserver
 
