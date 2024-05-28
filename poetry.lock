@@ -284,6 +284,16 @@ files = [
 ]
 
 [[package]]
+name = "uwsgi"
+version = "2.0.25.1"
+description = "The uWSGI server"
+optional = false
+python-versions = "*"
+files = [
+    {file = "uwsgi-2.0.25.1.tar.gz", hash = "sha256:d653d2d804c194c8cbe2585fa56efa2650313ae75c686a9d7931374d4dfbfc6e"},
+]
+
+[[package]]
 name = "virtualenv"
 version = "20.26.2"
 description = "Virtual Python Environment builder"
@@ -306,4 +316,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "59f214bbe2ce62b33fb1740260a6e35d2c876bb589e65c9345c1192680acdba2"
+content-hash = "c7a75544207cbb50641fb0aa1e581d366bb297591fa1cfc3a5102a8dd841e0d1"
