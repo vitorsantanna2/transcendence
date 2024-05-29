@@ -14,10 +14,10 @@ setup:
 	poetry install
 
 setup-container:
-	python3 -m pip install django -y
-	python3 -m pip install django-split-settings -y
-	python3 -m pip install psycopg -y
-	python3 -m pip install uwsgi -y
+	python3 -m pip install django
+	python3 -m pip install django-split-settings
+	python3 -m pip install psycopg
+	python3 -m pip install uwsgi
 
 install:
 	poetry install
