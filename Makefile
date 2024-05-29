@@ -13,6 +13,12 @@ setup:
 	pipx install poetry
 	poetry install
 
+setup-container:
+	python3 -m pip install django -y
+	python3 -m pip install django-split-settings -y
+	python3 -m pip install psycopg -y
+	python3 -m pip install uwsgi -y
+
 install:
 	poetry install
 
