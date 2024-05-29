@@ -18,7 +18,7 @@ lib/
 lib64/
 parts/
 sdist/
-local/settings.dev.py
+local/*
 var/
 wheels/
 share/python-wheels/
