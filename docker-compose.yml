@@ -3,6 +3,7 @@ name: kingkong
 services:
   db:
     image: postgres
+    container_name: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
     ports:
