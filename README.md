@@ -22,32 +22,8 @@ Este projeto consiste em um jogo de Ping Pong multiplayer, e foi criado com a fi
 - [@amenesca](https://github.com/amenesca)
 - [@nands93](https://github.com/nands93)
 
-
-
-## Rodando localmente
-Instale o poetry para o versionamento:
-```bash
-  make setup
-```
-Crie um arquivo dentro da pasta local com o nome de settings.dev.py para armazenar as variáveis de ambiente.
-Existe um template aqui do [arquivo](https://github.com/vitorsantanna2/transcendence/blob/main/core/kingkong/settings/templates/settings.dev.py)
-
-Execute o programa:
-```bash
-    make run
-```
-
-
 ## Stack utilizada
 
 **Front-end:** Bootstrap
 
 **Back-end:** Django
-
-
-## Contribuindo
-
-Além das dependências do projeto, instale o pre-commit (faz com que o código seja corrigido dentro da norma antes de ser commitado):
-```bash
-   make install-pre-commit
-```

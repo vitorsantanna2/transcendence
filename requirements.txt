@@ -1,0 +1,6 @@
+psycopg
+psycopg2
+pyyaml
+uwsgi
+django
+django-split-settings

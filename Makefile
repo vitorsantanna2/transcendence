@@ -1,53 +1,32 @@
-setup-mac:
-	brew install pipx
-	pipx ensurepath
-	sudo pipx ensurepath --global
-	pipx install poetry
-	poetry install
+all:
+	@printf "Launch configuration ${name}...\n"
+	@docker compose up -d
 
-setup:
-	sudo apt update
-	sudo apt install pipx
-	pipx ensurepath
-	sudo pipx ensurepath
-	pipx install poetry
-	poetry install
+re:
+	@printf "Rebuild configuration ${name}...\n"
+	@docker compose up -d --build
 
-setup-container:
-	python3 -m pip install django -y
-	python3 -m pip install django-split-settings -y
-	python3 -m pip install psycopg -y
-	python3 -m pip install uwsgi -y
+down:
+	@printf "Stopping configuration ${name}...\n"
+	@docker compose down
 
-install:
-	poetry install
-
-install-pre-commit:
-	poetry run pre-commit uninstall; poetry run pre-commit install
-
-migrate:
-	poetry run python -m core.manage migrate
-
-migrations:
-	poetry run python -m core.manage makemigrations
-
-
-createsuperuser:
-	poetry run python -m core.manage createsuperuser
-
-update: install migrate ;
-
-lint:
-	poetry run pre-commit run --all-files
+clean: down
+	@printf "Cleaning configuration ${name}...\n"
+	@docker system prune -a
 
 collect:
-	poetry run python -m core.manage collectstatic
+	python -m core.manage collectstatic
 
-uwsgi:
-	poetry run uwsgi --module=core.kingkong.wsgi:application  --socket=127.0.0.1:8001
+down:
+	@printf "Stopping configuration ${name}...\n"
+	@docker compose down
 
-run:
-	poetry run python -m core.manage runserver
+fclean:
+	@printf "Total clean of all configurations docker\n"
+	@docker stop $$(docker ps -qa)
+	@docker system prune --all --force --volumes
+	@docker network prune --force
+	@docker volume prune --force
+	@rm -rf data
 
-
-.PHONY: install update setup
+.PHONY: all build down re clean fclean

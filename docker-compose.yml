@@ -1,0 +1,51 @@
+name: kingkong
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: always
+  django:
+    build:
+      context: .
+      dockerfile: requirements/django/Dockerfile
+    container_name: django
+    depends_on:
+      - db
+    ports:
+      - "8001:8001"
+    networks:
+      - inception
+    restart: always
+  nginx:
+    build:
+      context: .
+      dockerfile: requirements/nginx/Dockerfile
+    container_name: nginx
+    depends_on:
+      - django
+    ports:
+      - "443:443"
+    volumes:
+      - ./core/website/static/:/var/www/django/static/
+      - ./core/website/static/:/var/www/django/media/
+      - ./requirements/nginx/conf/:/etc/nginx/sites-enabled/
+      - ./local/ssl/:/etc/nginx/ssl/
+    networks:
+      - inception
+    restart: always
+
+networks:
+    inception:
+        driver: bridge
