@@ -13,12 +13,6 @@ setup:
 	pipx install poetry
 	poetry install
 
-setup-container:
-	python3 -m pip install django
-	python3 -m pip install django-split-settings
-	python3 -m pip install psycopg
-	python3 -m pip install uwsgi
-
 install:
 	poetry install
 
@@ -47,7 +41,7 @@ uwsgi:
 	poetry run uwsgi --module=core.kingkong.wsgi:application  --socket=127.0.0.1:8001
 
 run:
-	poetry run python -m core.manage runserver
+	python3 -m core.manage runserver
 
 
 .PHONY: install update setup
