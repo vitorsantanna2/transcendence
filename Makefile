@@ -1,4 +1,4 @@
-all:
+all: collect
 	@printf "Launch configuration ${name}...\n"
 	@docker compose up -d
 
@@ -17,9 +17,8 @@ clean: down
 collect:
 	python -m core.manage collectstatic
 
-down:
-	@printf "Stopping configuration ${name}...\n"
-	@docker compose down
+migrations:
+	python -m core.manage migrate
 
 fclean:
 	@printf "Total clean of all configurations docker\n"

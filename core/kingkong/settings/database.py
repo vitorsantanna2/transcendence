@@ -4,10 +4,10 @@
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "kingkong",
-        "USER": "kingkong",
+        "NAME": "postgres",
+        "USER": "postgres",
         "PASSWORD": PASSWORD,  # noqa
-        "HOST": "localhost",
+        "HOST": "postgres",
         "PORT": "5432",
     }
 }
