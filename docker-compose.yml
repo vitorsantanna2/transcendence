@@ -1,7 +1,7 @@
 name: kingkong
 
 services:
-  postgres:
+  db:
     image: postgres
     container_name: postgres
     volumes:
@@ -11,7 +11,7 @@ services:
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PW}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     env_file:
       - .env
     networks:
@@ -23,7 +23,7 @@ services:
       dockerfile: requirements/django/Dockerfile
     container_name: django
     depends_on:
-      - postgres
+      - db
     ports:
       - "8001:8001"
     networks:
@@ -39,8 +39,8 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./static/:/var/www/django/static/
-      - ./static/:/var/www/django/media/
+      - ./core/website/static/:/var/www/django/static/
+      - ./core/website/static/:/var/www/django/media/
       - ./requirements/nginx/conf/:/etc/nginx/sites-enabled/
       - ./local/ssl/:/etc/nginx/ssl/
     networks:
