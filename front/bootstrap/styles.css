@@ -1,0 +1,47 @@
+    body, html {
+    height: 100vh;
+  }
+
+
+    .main {
+    height: 100vh;
+    width: auto;
+  }
+    .bg-cover {
+    background-image: url('images/fundo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    opacity: 1;
+    align-items: center; /* Center vertically */
+}
+
+  .cover-container {
+    opacity: 0.5;
+    background-color: #DFF9FD;
+/*    margin-top: 7vh;
+    margin-bottom: 7vh;
+    margin-right: 7vh;
+    margin-left: 25vh; */
+    height: 86vh;
+    width: auto;
+    border-radius: 5vh;;
+  }
+
+  .joker {
+    color: #DFF9FD;
+    opacity: 0.0;
+  }
+
+.row {
+  background-color: #DFF9FD;
+  height: 86vh;
+  width: 10vh;
+  opacity: 0.5;
+  border-radius: 2vh;
+  margin-right: 4vh;
+
+}
+
+.
