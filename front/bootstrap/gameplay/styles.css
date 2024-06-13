@@ -1,14 +1,13 @@
     body, html {
-    height: 100vh;
+    min-height: 100vh;
   }
 
     .main {
     height: 100vh;
-    width: auto;
   }
 
   .bg-cover {
-    background-image: url('images/fundo.png');
+    background-image: url('../images/fundo.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -18,16 +17,38 @@
 }
 
   .cover-container {
-    opacity: 0.5;
-    background-color: #DFF9FD;
-    height: 86vh;
-    width: auto;
-    border-radius: 5vh;;
-    }
+  opacity: 0.5;
+  background-color: #DFF9FD;
+  height: 86vh;
+  width: 100vh;
+  border-radius: 5vh;
+  }
 
   .joker {
-    color: #DFF9FD;
-    opacity: 0.0;
+    color: black;
+    opacity: 0;
+  }
+
+ .player1 {
+   height: 86vh;
+ }
+
+  .player1 img {
+    opacity: 1 !important;
+    height: 30vh;
+    width: auto;
+    margin-left: 2vh;
+  }
+
+ .player2 {
+   height: 86vh;
+ }
+
+  .player2 img {
+    justify-content: flex-end;
+    height: 30vh;
+    width: auto;
+    margin-left: 2vh;
   }
 
 .row {
@@ -46,5 +67,9 @@
   justify-content: center;
   height: 5vh;
   width: auto;
+}
+
+.moon {
+  height: 18vh;
   
 }
