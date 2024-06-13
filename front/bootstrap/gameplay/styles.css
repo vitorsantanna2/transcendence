@@ -29,26 +29,20 @@
     opacity: 0;
   }
 
- .player1 {
-   height: 86vh;
- }
-
-  .player1 img {
+  .player1 {
     opacity: 1 !important;
     height: 30vh;
     width: auto;
     margin-left: 2vh;
+
   }
 
- .player2 {
-   height: 86vh;
- }
-
-  .player2 img {
+  .player2 {
     justify-content: flex-end;
     height: 30vh;
     width: auto;
     margin-left: 2vh;
+    transform: scaleX(-1);
   }
 
 .row {
@@ -70,6 +64,6 @@
 }
 
 .moon {
-  height: 18vh;
+  height: 8vh;
   
 }
