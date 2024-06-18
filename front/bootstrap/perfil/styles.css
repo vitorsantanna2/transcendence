@@ -21,14 +21,10 @@ body, html {
 	height: 86vh;
 	width: 100vh;
 	border-radius: 5vh;
+	display: flex;
 }
 
-.joker {
-	color: black;
-	opacity: 0;
-}
-
-.row {
+.tab-lateral {
 	background-color: #DFF9FD;
 	height: 86vh;
 	width: 10vh;
@@ -49,16 +45,25 @@ body, html {
 .perfil-1 {
 	background-color: transparent;
 	border: 0;
+	border-radius: 0;
+	border-right: 1px #4c5d64 solid;
+	width: 18rem;
 }
 
 .card-img-top {
-	height: 25vh;
-	width: 25vh;
+	height: 23vh;
+	width: auto;
 	padding: 2vh;
 	margin-top: 2vh;
+	border-bottom: 1px #4c5d64 solid;
 }
 
 .carousel-img {
 	height: 25vh;
 	width: 25vh;
+}
+
+.carousel-control-prev, .carousel-control-next {
+	top: 50%;
+	transform: translateY(-50%);
 }
