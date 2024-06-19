@@ -17,7 +17,7 @@ body, html {
 }
 
 .cover-container {
-	background-color: rgba(223, 249, 253, 0.5);
+	background-color: #DFF9FD80;
 	height: 86vh;
 	width: 100vh;
 	border-radius: 5vh;
@@ -43,29 +43,30 @@ body, html {
 }
 
 .perfil-1 {
-	background-color: transparent;
-	border: 0;
+	background-color: #4c5d6480;
 	border-radius: 0;
+	border-top-left-radius: 5vh;
+	border-bottom-left-radius: 5vh;
+	border: 0;
 	border-right: 1px #4c5d64 solid;
-	width: 29vh;
+	max-width: 29vh;
 }
 
-.perfil-col-1 {
-	max-width: 29vh;
-	min-width: 15vh;
+.carousel-title, .perfil-1-title {
+	max-width: 20vh;
 }
 
 .card-img-top {
-	height: 23vh;
-	width: auto;
+	max-height: 23vh;
+	max-width: 23vh;
 	padding: 2vh;
 	margin-top: 2vh;
 	border-bottom: 1px #4c5d64 solid;
 }
 
 .carousel-img {
-	height: 25vh;
-	width: 25vh;
+	height: 19vh;
+	width: 19vh;
 }
 
 .carousel-control-prev, .carousel-control-next {
@@ -78,8 +79,8 @@ body, html {
 }
 
 .perfil-col-2 {
-	max-width: 150vh;
-	min-width: 120vh;
+	max-width: 85%;
+	min-width: 70%;
 }
 
 .col-break {
