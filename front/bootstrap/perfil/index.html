@@ -81,38 +81,94 @@
                     <!-- Second col, paragraph -->
                     <div class="perfil-col-2 w-100 h-100">
 
-                        <div class="perfil-content-1 d-flex flex-column justify-content-center align-items-center text-center">
+                        <div class="perfil-content-1 d-flex flex-column justify-content-center">
                             <h1 class="m-0">ZeFrangueto, O catabola</h1>
                         </div>
 
                         <!-- <div class="col-break d-none d-md-block"></div> -->
 
                         <div class="perfil-content-2">
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex, autem porro molestias praesentium minus tempora dolore repellendus omnis accusantium voluptas illo assumenda et commodi fuga explicabo eaque architecto modi recusandae?
-                            </p>
+                            <h2>Sobre mim</h2>
+                            <p>Adoro tomar suco de caju em dias ensolarados.</p>
                         </div>
 
                         <!-- <div class="col-break d-none d-md-block"></div> -->
 
-                        <div class="perfil-content-3">
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum voluptate rem architecto unde repellat reiciendis? Sit eius, quasi dolore magni atque quisquam magnam porro id qui impedit molestias aspernatur laboriosam?</p>
+                        <div class="perfil-content-3 d-flex">
+                            <div class="card player-statistics h-100 w-50">
+                                <div class="card-header statistics-header">
+                                    <h2>
+                                        Estatísticas do Jogador
+                                    </h2>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item statistics-item">
+                                        Partidas ganhas: 100000
+                                    </li>
+                                    
+                                    <li class="list-group-item statistics-item">
+                                        Partidas perdidas: 2
+                                    </li>
+                                    <li class="list-group-item statistics-item">
+                                        Torneios ganhos: 50
+                                    </li>
+                                    <li class="list-group-item statistics-item">
+                                        Torneios perdidos: mais de 8000!!!
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="card h-100 w-50">
+                                <div class="card-header">
+                                    Featured
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        An item
+                                    </li>
+                                    <li class="list-group-item">
+                                        A second item
+                                    </li>
+                                    <li class="list-group-item">
+                                        A third item
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
 
                     </div>
                     <!-- Third col, configurations -->
                     <div class="perfil-col-3 p-0 h-100 text-center">
-                        <div class="card configs h-100 d-flex justify-content-between align-items-center">
-                            <ul class="list-group list-group-flush">
-                              <li class="list-group-item ul-config-item">An item</li>
-                              <li class="list-group-item ul-config-item">A second item</li>
-                              <li class="list-group-item ul-config-item">A third item</li>
-                            </ul>
-                          </div>
+                        <ul class="list-group configs h-100 d-flex justify-content-center align-items-center">
+                            <li class="list-group-item w-100 config-item">
+                                Configurações
+                            </li>
+                            <li class="list-group-item w-100 config-item config-a">
+                                <a href="https://www.google.com/">Editar Perfil</a>
+                            </li>
+                            <li class="list-group-item w-100 config-item config-a">
+                                <a href="https://www.google.com/">Editar Conta</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Bootstrap javascript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+        <script>
+            // Adiciona um evento de clique a todos os elementos <li> com a classe 'config-item'
+            document.querySelectorAll('.config-item').forEach(item => {
+              item.addEventListener('click', event => {
+                // Verifica se o <li> contém um link
+                const link = item.querySelector('a');
+                if (link) {
+                  // Simula o clique no link
+                  link.click();
+                }
+              });
+            });
+          </script>
     </body>
 </html>
