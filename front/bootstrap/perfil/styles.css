@@ -19,7 +19,7 @@ body, html {
 .cover-container {
 	background-color: #DFF9FD80;
 	height: 86vh;
-	width: 100vh;
+	width: 175vh;
 	border-radius: 5vh;
 	display: flex;
 }
@@ -57,8 +57,8 @@ body, html {
 }
 
 .card-img-top {
-	max-height: 23vh;
-	max-width: 23vh;
+	max-height: 23.9vh;
+	max-width: 23.9vh;
 	padding: 2vh;
 	margin-top: 2vh;
 	border-bottom: 1px #4c5d64 solid;
@@ -74,15 +74,40 @@ body, html {
 	transform: translateY(-50%);
 }
 
-.perfil-2 {
-	background-color: transparent;
-}
-
 .perfil-col-2 {
-	max-width: 85%;
-	min-width: 70%;
+	max-width: 125vh;
+	min-width: 120vh;
 }
 
 .col-break {
 	max-height: 1px;
+	border-bottom: 1px #4c5d64 solid;
+}
+
+.perfil-col-3 {
+	min-width: 28vh;
+}
+
+.perfil-content-1 {
+	height: 20%;
+}
+
+.perfil-content-2 {
+	height: 30%;
+}
+
+.perfil-content-3 {
+	height: 50%;
+}
+
+.configs {
+	border-radius: 0;
+	border-top-right-radius: 5vh;
+	border-bottom-right-radius: 5vh;
+	background-color: #4c5d6480;
+}
+
+.ul-config-item {
+	background-color: transparent;
+	border: 1px #4c5d64 solid;
 }
