@@ -1,5 +1,5 @@
 body {
-	background-image: url('../images/fundo.png');
+	background-image: url('../images/black-starry-sky-dark-night-sky-infinity-space-with-shiny-stars-mystery-dark-universe-background-vector.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
@@ -24,10 +24,23 @@ body {
 	height: 86vh;
 	width: 10vh;
 	opacity: 0.5;
-	border-radius: 2vh;
+	border-radius: 3vh;
 	margin-right: 4vh;
 	display: flex;
 	justify-content: center;
+}
+
+.nav-item {
+	height: 10vh;
+}
+
+.nav-item:first-of-type {
+	background-color: #4c5d6480;
+}
+
+.nav-item:hover {
+	background-color: #4c5d6480;
+	cursor: pointer;
 }
 
 .imgs {
@@ -102,10 +115,16 @@ body {
 	background-color: transparent;
 }
 
-.statistics-header {
-	border-radius: 0;
+.my-cards-header {
+	border-radius: 0 !important;
 	background-color: transparent;
 	border-bottom: 1px #4c5d64 solid;
+	background-color: #4c5d6480;
+}
+
+
+.sobre-mim {
+	margin-top: 2vh;
 }
 
 .statistics-item {
@@ -121,15 +140,20 @@ body {
 }
 
 .perfil-content-4 {
-	border-left:  1px #4c5d64 solid;
+	background-color: transparent;
+	border-radius: 0;
+	border: 0 !important;
+	border-left:  1px #4c5d64 solid !important;
 }
 
 .search-bar {
     padding: 10px;
+	margin: 10px;
     margin-bottom: 15px;
     border: 1px #4c5d64 solid;
-    border-radius: 4px;
+    border-radius: 4vh;
     font-size: 16px;
+	width: 58vh;
 }
 
 
@@ -138,11 +162,22 @@ body {
     max-height: 100%; /* Garante que a altura máxima não ultrapasse a do pai */
     padding: 1rem; /* Adiciona um pouco de espaço interno */
     box-sizing: border-box; /* Inclui o padding na largura e altura */
+	width: 58vh;
+}
+
+.friend-item {
+	margin: 10px 0;
+	padding: 10px;
+	padding-left: 20px;
+	border-radius: 2vh;
+	border-bottom: 1px #4c5d64 solid;
+	background-color: #4c5d6480; /* Cor de fundo para itens ímpares */
 }
 
 .friendImg {
-	height: 100px;
+	height: 60px;
 	width: auto;
+	margin-right: 2vh;
 }
 
 .configs {
