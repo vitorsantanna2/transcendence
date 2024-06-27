@@ -1,19 +1,14 @@
-body, html {
-	min-height: 100vh;
-}
-
-.main {
-	height: 100vh;
-}
-
-.bg-cover {
+body {
 	background-image: url('../images/fundo.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
 	display: flex;
-	opacity: 1;
 	align-items: center; /* Center vertically */
+}
+
+.main {
+	height: 100vh;
 }
 
 .cover-container {
@@ -123,6 +118,31 @@ body, html {
 .perfil-col-3 {
 	min-width: 28vh;
 	border-left:  1px #4c5d64 solid;
+}
+
+.perfil-content-4 {
+	border-left:  1px #4c5d64 solid;
+}
+
+.search-bar {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px #4c5d64 solid;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+
+.friendsList {
+    overflow-y: auto; /* Adiciona a barra de rolagem vertical */
+    max-height: 100%; /* Garante que a altura máxima não ultrapasse a do pai */
+    padding: 1rem; /* Adiciona um pouco de espaço interno */
+    box-sizing: border-box; /* Inclui o padding na largura e altura */
+}
+
+.friendImg {
+	height: 100px;
+	width: auto;
 }
 
 .configs {
