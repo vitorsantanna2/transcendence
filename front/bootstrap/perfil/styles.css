@@ -83,7 +83,6 @@ body {
 }
 
 .perfil-col-2 {
-	max-width: 125vh;
 	min-width: 120vh;
 }
 
@@ -92,6 +91,10 @@ body {
 	border-bottom: 1px #4c5d64 solid;
 }
 
+.main-title {
+	background-color: #4c5d6480;
+	border-top-right-radius: 5vh;
+}
 
 .perfil-content-1 {
 	height: 20%;
@@ -153,7 +156,7 @@ body {
     border: 1px #4c5d64 solid;
     border-radius: 4vh;
     font-size: 16px;
-	width: 58vh;
+	width: 68vh;
 }
 
 
@@ -162,7 +165,7 @@ body {
     max-height: 100%; /* Garante que a altura máxima não ultrapasse a do pai */
     padding: 1rem; /* Adiciona um pouco de espaço interno */
     box-sizing: border-box; /* Inclui o padding na largura e altura */
-	width: 58vh;
+	width: 68vh;
 }
 
 .friend-item {
