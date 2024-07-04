@@ -14,13 +14,6 @@ clean: down
 	@printf "Cleaning configuration ${name}...\n"
 	@docker system prune -a
 
-collect:
-	python -m core.manage collectstatic
-
-down:
-	@printf "Stopping configuration ${name}...\n"
-	@docker compose down
-
 fclean:
 	@printf "Total clean of all configurations docker\n"
 	@docker stop $$(docker ps -qa)
