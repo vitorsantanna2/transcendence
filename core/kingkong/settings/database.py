@@ -4,9 +4,9 @@
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
+        "NAME": "artemis",
         "USER": "postgres",
-        "PASSWORD": PASSWORD,  # noqa
+        "PASSWORD": POSTGRES_PW,  # noqa
         "HOST": "postgres",
         "PORT": "5432",
     }
