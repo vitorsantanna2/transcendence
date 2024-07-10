@@ -7,7 +7,12 @@ body {
 	align-items: center; /* Center vertically */
 }
 
+.pages {
+	display: none;
+}
+
 .main {
+	display: flex;
 	height: 100vh;
 }
 
@@ -34,7 +39,7 @@ body {
 	height: 10vh;
 }
 
-.nav-item:first-of-type {
+.nav-item.active {
 	background-color: #4c5d6480;
 }
 
