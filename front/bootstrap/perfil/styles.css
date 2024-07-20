@@ -32,6 +32,14 @@ body {
 	display: flex;
 }
 
+.login-page {
+	background-color: #DFF9FD80;
+	height: 86vh;
+	width: 175vh;
+	border-radius: 5vh;
+	display: none;
+}
+
 .tab-lateral {
 	background-color: #DFF9FD;
 	height: 86vh;
