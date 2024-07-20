@@ -32,8 +32,13 @@ body {
 	display: flex;
 }
 
+.link-login {
+	color: #192abe;
+	text-decoration: underline;
+}
+
 .login-page {
-	background-color: #DFF9FD80;
+	background-color: #008cff80;
 	height: 86vh;
 	width: 175vh;
 	border-radius: 5vh;
