@@ -21,6 +21,14 @@ body {
 	height: 86vh;
 	width: 175vh;
 	border-radius: 5vh;
+	display:none
+}
+
+.intro-page {
+	background-color: #DFF9FD80;
+	height: 86vh;
+	width: 175vh;
+	border-radius: 5vh;
 	display: flex;
 }
 
@@ -31,7 +39,7 @@ body {
 	opacity: 0.5;
 	border-radius: 3vh;
 	margin-right: 4vh;
-	display: flex;
+	display: none;
 	justify-content: center;
 }
 
