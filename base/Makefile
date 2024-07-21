@@ -6,6 +6,14 @@ re:
 	@printf "Rebuild configuration ${name}...\n"
 	@docker compose up -d --build
 
+up:
+	@printf "Stopping configuration ${name}...\n"
+	@docker compose up -d
+
+restart-django:
+	@printf "Restarting Django configuration ${name}...\n"
+	@docker compose restart django
+
 down:
 	@printf "Stopping configuration ${name}...\n"
 	@docker compose down

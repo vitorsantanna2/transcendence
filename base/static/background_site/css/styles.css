@@ -1,0 +1,19 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	display: flex;
+}
+
+body {
+	background-image: url('../../global/images/fundo.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+.intro-page {
+	background-color: #DFF9FD80;
+	height: 100%;
+	width: 1500px;
+	border-radius: 50px;
+}
