@@ -12,7 +12,6 @@ RUN apk update && apk add --no-cache \
 	linux-headers \
 	pcre-dev \
 	libpq-dev \
-	openssl-deve \
 	openssl
 
 RUN pip install --no-cache-dir -r requirements.txt
