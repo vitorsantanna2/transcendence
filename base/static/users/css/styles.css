@@ -38,6 +38,10 @@ body {
 	text-shadow: 4px  4px 0 #000;
 }
 
+.custom-input::placeholder {
+	color: black;
+}
+
 input {
 	padding: 15px;
 	border-radius: 10px;
