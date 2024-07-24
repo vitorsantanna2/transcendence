@@ -3,7 +3,8 @@
 {% block content %}
 	<title>Login</title>
 	<div class="login-page">
-		<form action="#">
+		<form action="{% url 'login' %}" method="POST"> 
+			{% csrf_token %}
 			<h1 class="centered-title">Philosophers Pong</h1>
 			<br><br>
 			<input type="text" id="user" name="username" placeholder="Username" required>

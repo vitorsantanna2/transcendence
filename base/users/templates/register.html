@@ -3,10 +3,10 @@
 {% block content %}
 	<title>Register</title>
     <div class="register-page">
-        <form action="#">
+        <form action="{% url 'register' %}" method="POST"> {% csrf_token %}
             <h2>Register</h2>
             <p> Welcome to the Philosophers Pong! </p>
-            
+
             <input class='custom-input' type="text" id="newName" name="name" placeholder="What's your first name?" required>
 			<br><br>
             <input class='custom-input' type="text" id="newUser" name="username" placeholder="Choose your Username" required>
