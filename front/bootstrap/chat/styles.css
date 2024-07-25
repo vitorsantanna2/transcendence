@@ -99,12 +99,49 @@
 }
 
 .input {
-  opacity: 0.25;
+  opacity: 0.5;
   margin-left: 2vw;
-  margin-right: 0.5vw;
 }
 
 .btn {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.0);
+  transition: 0.3s;
 }
 
+.btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.search {
+  opacity: 0.6;
+  margin-bottom: 3%;
+}
+
+  .list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 80%;
+    width: 90%;
+    border-radius: 5vh;
+  }
+
+.list-container li {
+  margin-right: 3vw;
+}
+
+.list-container h5 {
+  justify-content: center;
+}
+
+.friend {
+  width: 100%;
+
+}
+
+
+.message-status {
+
+  margin-bottom: 3vh;
+}
