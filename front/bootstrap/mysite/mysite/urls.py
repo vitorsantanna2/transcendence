@@ -33,7 +33,7 @@ urlpatterns = [
 # Configuração para servir arquivos estáticos durante o desenvolvimento
 urlpatterns += [
     re_path(r'^images/(?P<path>.*)$', serve, {
-        'document_root': os.path.join('/Users/pedrosydenstricker/Desktop/42/42Cursus/em_andamento/trans_phil/front/bootstrap/mysite/chat/templates/chat', 'images'),
+        'document_root': os.path.join('/Users/pedrosydenstricker/Desktop/42/42Cursus/em_andamento/trans_phil/front/bootstrap/mysite/chat/templates', 'images'),
     }),
     re_path(r'^styles/(?P<path>.*)$', serve, {
         'document_root': '/Users/pedrosydenstricker/Desktop/42/42Cursus/em_andamento/trans_phil/front/bootstrap/mysite/chat/templates/chat',
