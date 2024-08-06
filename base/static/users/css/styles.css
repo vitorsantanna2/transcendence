@@ -21,11 +21,44 @@ body {
 	color: black;
 }
 
+.home-page {
+	background-color: #DFF9FD80;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 50px;
+	padding: 50px;
+	color: white;
+}
+
+.login-page {
+	background-color: #DFF9FD80;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 50px;
+	padding: 50px;
+	display: flex;
+	color: white;
+}
+
+.centered-title {
+	text-align: center;
+	text-shadow: 4px  4px 0 #000;
+}
+
+.custom-input::placeholder {
+	color: black;
+}
+
 input {
 	padding: 15px;
 	border-radius: 10px;
 	outline: none;
 	font-size: 15px;
+	width: 100%;
 }
 
 button {
@@ -35,4 +68,8 @@ button {
 	color: white;
 	font-size: 15px;
 	width: 100%;
+}
+
+.redirect-container {
+	color: black;
 }

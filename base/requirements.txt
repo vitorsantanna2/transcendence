@@ -1,5 +1,4 @@
 psycopg2
-django-htmx
-pyyaml
 django
+bcrypt
 python-decouple
