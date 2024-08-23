@@ -12,15 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.classList.remove("active");
             });
 
-            if (i == 0) {
-                pages[i].style.display = "flex";
-                navItems[i].classList.add("active");
-            }
+            pages[i].style.display = "flex";
+            navItems[i].classList.add("active");
 
-            if (i == 4) {
-                pages[1].style.display = "flex";
-                navItems[i].classList.add("active");
-            }
         });
     }
 });
