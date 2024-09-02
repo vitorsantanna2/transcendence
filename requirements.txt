@@ -4,4 +4,6 @@ pyyaml
 uwsgi
 django
 django-split-settings
-pre-commit
+channels
+daphne
+channels_redis

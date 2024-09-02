@@ -187,7 +187,13 @@
 			</div>
 			<!-- Inicio do Jogo -->
 			<div class="cover-container justify-content-between align-items-center pages">
-				
+				<canvas id="pongCanvas"></canvas>
+				<script>
+					// Defina as URLs dos arquivos estáticos usando a tag static do Django
+					var p1ImageUrl = "{% static 'images/apollo.png' %}";
+					var p2ImageUrl = "{% static 'images/alexandre.png' %}";
+					var ballImageUrl = "{% static 'images/moon.png' %}";
+				</script>
             </div>
 
 			<!-- Fim do jogo -->
@@ -326,7 +332,8 @@
 		<!-- Bootstrap javascript -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-		<script src="{% static 'friendsFilter.js' %}"></script>
+	<script src="{% static 'friendsFilter.js' %}"></script>
+	<script src="{% static 'pong.js' %}"></script>
     <script src="{% static 'navItemClick.js' %}"></script>
     <script src="{% static 'navBar.js' %}"></script>
     <script src="{% static 'login.js' %}"></script>
