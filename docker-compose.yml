@@ -1,6 +1,13 @@
 name: kingkong
 
 services:
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - transcendence
   db:
     image: postgres
     container_name: postgres
@@ -15,7 +22,7 @@ services:
     env_file:
       - .env
     networks:
-      - inception
+      - transcendence
     restart: always
   django:
     build:
@@ -24,10 +31,11 @@ services:
     container_name: django
     depends_on:
       - db
+      - redis
     ports:
       - "8001:8001"
     networks:
-      - inception
+      - transcendence
     restart: always
   nginx:
     build:
@@ -44,9 +52,9 @@ services:
       - ./requirements/nginx/conf/:/etc/nginx/sites-enabled/
       - ./local/ssl/:/etc/nginx/ssl/
     networks:
-      - inception
+      - transcendence
     restart: always
 
 networks:
-    inception:
+    transcendence:
         driver: bridge
