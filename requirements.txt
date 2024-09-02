@@ -4,3 +4,4 @@ pyyaml
 uwsgi
 django
 django-split-settings
+pre-commit
