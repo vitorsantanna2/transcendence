@@ -14,12 +14,31 @@ body {
 .main {
 	display: flex;
 	height: 100vh;
+  width: 100vh;
+}
+
+.png-container {
+  overflow: hidden;
+  filter: opacity(0.95) drop-shadow(0 0 0 white) invert(100%) brightness(1.3);
+}
+
+.png-container2 {
+  overflow: hidden;
+  filter: opacity(0.5) drop-shadow(0 0 0 blue);
+}
+
+.png-container3 {
+  filter: opacity(0.5) drop-shadow(0 0 0 blue);
+}
+
+.png-container4 {
+  filter: opacity(1) drop-shadow(0 0 0 green);
 }
 
 .cover-container {
 	background-color: #DFF9FD80;
 	height: 86vh;
-	width: 175vh;
+	width: 90vw;
 	border-radius: 5vh;
 	display:none
 }
@@ -27,10 +46,23 @@ body {
 .intro-page {
 	background-color: #DFF9FD80;
 	height: 86vh;
-	width: 175vh;
+	width: 90vw;
 	border-radius: 5vh;
 	display: flex;
 }
+
+.container {
+  margin: 50px;
+  display: block;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+
+
+
 
 .link-login {
 	color: #192abe;
@@ -40,7 +72,7 @@ body {
 .login-page {
 	background-color: #DFF9FD80;
 	height: 86vh;
-	width: 175vh;
+	width: 100vh;
 	border-radius: 5vh;
 	display: none;
 }
@@ -83,7 +115,7 @@ body {
 	border-bottom-left-radius: 5vh;
 	border: 0;
 	border-right: 1px #4c5d64 solid;
-	max-width: 29vh;
+	max-width: 15vw;
 }
 
 .carousel-title, .perfil-1-title {
@@ -99,8 +131,8 @@ body {
 }
 
 .carousel-img {
-	height: 19vh;
-	width: 19vh;
+	max-height: 30vh;
+	max-width: 10vw;
 }
 
 .carousel-control-prev, .carousel-control-next {
@@ -109,7 +141,7 @@ body {
 }
 
 .perfil-col-2 {
-	min-width: 120vh;
+	width: 120vh;
 }
 
 .col-break {
@@ -164,7 +196,7 @@ body {
 }
 
 .perfil-col-3 {
-	min-width: 28vh;
+	width: 28vh;
 	border-left:  1px #4c5d64 solid;
 }
 
@@ -177,25 +209,41 @@ body {
 
 .search-bar {
     padding: 10px;
-	margin: 10px;
+    margin: 10px;
     margin-bottom: 15px;
     border: 1px #4c5d64 solid;
     border-radius: 4vh;
     font-size: 16px;
-	width: 68vh;
 }
-
 
 .friendsList {
-    overflow-y: auto; /* Adiciona a barra de rolagem vertical */
-    max-height: 100%; /* Garante que a altura máxima não ultrapasse a do pai */
-    padding: 1rem; /* Adiciona um pouco de espaço interno */
-    box-sizing: border-box; /* Inclui o padding na largura e altura */
-	width: 68vh;
+  overflow-y: auto; /* Adiciona a barra de rolagem vertical */
+  max-height: 24vh; /* Garante que a altura máxima não ultrapasse a do pai */
+  padding: 0; /* Adiciona um pouco de espaço interno */
+  box-sizing: border-box; /* Inclui o padding na largura e altura */
+  width: 100%;
 }
 
+.friendsList::-webkit-scrollbar {
+  width: 0.3vw; /* Largura da barra de rolagem */
+}
+
+.friendsList::-webkit-scrollbar-thumb {
+  background: #888; /* Cor da alça da barra de rolagem */
+  border-radius: 1vw; /* Borda arredondada da alça */
+
+}
+
+.friendsList::-webkit-scrollbar-track {
+
+  background-color: rgba(223, 249, 253, 0.5);
+}
+
+
 .friend-item {
-	margin: 10px 0;
+  display: flex;
+  width: 35vw;
+	margin: 0.5vw;
 	padding: 10px;
 	padding-left: 20px;
 	border-radius: 2vh;
@@ -204,7 +252,7 @@ body {
 }
 
 .friendImg {
-	height: 60px;
+	height: 6vh;
 	width: auto;
 	margin-right: 2vh;
 }
@@ -373,3 +421,77 @@ a {
 }
 
 /* Fim Chat*/
+
+
+
+/* BUTTONS */ 
+
+.pixel-grid {
+  display: grid;
+  row-gap: 0;
+  column-gap:0;
+  grid-template-columns: repeat(20, 20px);
+  grid-template-rows: repeat(11, 20px);
+  
+  filter: drop-shadow(0 20px 0 #545454);
+  
+  cursor: pointer;
+}
+
+.pixel-grid:active {
+  transform: translate(0,20px);
+  filter: drop-shadow(0 0 0 #545454)
+}
+
+
+/* ------------------- pixel styles ------------------- */
+
+.transparent {
+  background-color: transparent;
+  height: 20px;
+  width: 20px;
+}
+
+.black {
+  background-color: black;
+  height: 20px;
+  width: 20px;
+}
+
+.lightg {
+  background-color: #909090;
+  height: 20px;
+  width: 20px;
+}
+
+.white {
+  background-color: white;
+  height: 20px;
+  width: 20px;
+}
+
+.grey {
+  background-color: #545454;
+  height: 20px;
+  width: 20px;
+}
+
+/* ------------------- text styles ------------------- */
+.text {
+  filter: none;
+  position: absolute;
+  display: block;
+  
+  z-index: 5;
+
+  font-size: 40px;
+  width: 100%;
+  height: 100%;
+  top: 28%;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}

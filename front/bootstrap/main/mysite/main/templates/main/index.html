@@ -12,11 +12,15 @@
 		<title>King Pong</title>
 	</head>
   <body style="background-image: url('{% static '/images/fundo.png' %}')">
+
+
 		<!-- Main div -->
-		<div class="main w-100 mx-5 d-flex justify-content-center align-items-center">
+		<div class="main w-100 d-flex justify-content-center align-items-center">
+
+
 			<!-- Lateral Navigation bar -->
 			<div class="tab-lateral">
-				<ul class="nav nav-pills p-0 d-flex justify-content-center align-items-center">
+				<ul class="nav nav-pills p-0 d-flex justify-content-center align-items-center navbar_width">
 					<li class="nav-item active w-100 d-flex justify-content-center align-items-center clickable-item">
 						<a class="nav-link" href="#">
               <img src="{% static '/images/login.png'%}" class="imgs">
@@ -44,10 +48,25 @@
 					</li>
 				</ul>
 			</div>
+
 			<!--	Intro Page Login	-->
+
 			<div class="intro-page justify-content-center align-items-center flex-column">
-				<p>Seja bem vindo ao Pong </p>
-				<p>Crie Sua Conta</p>
+        <div class="png-container3">
+          <img src="{% static '/images/welcome.png' %}" style="height: 3vh; width: 100%; margin-top: 1vh;">    
+        </div>
+        <div class="png-container3">
+          <img src="{% static '/images/the.png' %}" style="height: 3vh; width: 100%; margin-top: 2vh; filter: brightness(0.6);">    
+        </div>
+        <div class="png-container">
+          <img src="{% static '/images/babel_logo.png' %}" style="height: 10vh; width: 100%; margin-top: 2vh; filter: brightness(0.6);">    
+        </div>
+        <div class="png-container2">
+          <img src="{% static '/images/babel_tower.png' %}" style="height: 35vh; margin-top: 2.5vh; color: pink;">
+        </div>
+        <div class="png-container3" style="display: flex !important; justify-content: flex-start !important;">
+        </div>
+
 				<form class="d-flex flex-column align-items-center justify-content-center" action="#">
 					<label for="newUser">Username</label>
 					<input type="text" id="newUser" placeholder="username">
@@ -59,6 +78,8 @@
 					<p>Já tem uma conta? <a class="link-login" href="#">Fazer Login</a> </p>
 				</form>
         </div>
+
+
 			<!-- Login Page -->
 			<div class="login-page justify-content-center align-items-center flex-column">
 				<p>Bem vindo de volta ao Pong </p>
@@ -185,6 +206,8 @@
 				</div>
 				
 			</div>
+
+
 			<!-- Inicio do Jogo -->
 			<div class="cover-container justify-content-between align-items-center pages">
 				
@@ -195,7 +218,7 @@
 			<!-- Inicio Torneio -->
 			<div class="cover-container justify-content-between align-items-center pages">
 				
-            </div>
+      </div>
 
 			<!-- Fim do Torneio -->
 
