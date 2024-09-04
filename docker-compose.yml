@@ -47,8 +47,8 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./core/website/static/:/var/www/django/static/
-      - ./core/website/static/:/var/www/django/media/
+      - ./main/mysite/main/static/:/var/www/django/static/
+      - ./main/mysite/main/media/:/var/www/django/media/
       - ./requirements/nginx/conf/:/etc/nginx/sites-enabled/
       - ./local/ssl/:/etc/nginx/ssl/
     networks:
