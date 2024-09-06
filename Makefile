@@ -12,7 +12,7 @@ down:
 
 collect:
 	@printf "Collecting static files...\n"
-	@docker compose exec web python manage.py collectstatic --noinput
+	@docker compose exec django python /mysite/manage.py collectstatic --noinput
 
 clean: down
 	@printf "Cleaning configuration ${name}...\n"

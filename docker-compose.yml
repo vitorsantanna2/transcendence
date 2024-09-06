@@ -7,7 +7,7 @@ services:
     networks:
       - transcendence
   db:
-    image: postgres
+    image: postgres:latest
     container_name: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data

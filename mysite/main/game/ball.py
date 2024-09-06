@@ -1,6 +1,4 @@
-import pygame
 import random
-
 
 class Ball:
 	def __init__(self, radius, x, y, speed_x, speed_y, width, height):
@@ -15,11 +13,11 @@ class Ball:
 		self.height = height
 		self.x = x
 		self.y = y
-		self.rect = pygame.Rect(width // 2 - radius // 2, height // 2 - radius // 2, radius, radius)
+		# self.rect = pygame.Rect(width // 2 - radius // 2, height // 2 - radius // 2, radius, radius)
 
 	def movement(self):
-		self.rect.x += self.speed_x
-		self.rect.y += self.speed_y
+		self.x += self.speed_x
+		self.y += self.speed_y
 		# print(f"Coordenadas da bola: x={self.rect.x}, y={self.rect.y}")
 
 	def collision(self, player1, player2, game_score):

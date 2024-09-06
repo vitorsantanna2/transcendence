@@ -1,6 +1,3 @@
-import pygame
-
-
 class Player:
 	def __init__(self, x_pos, y_pos, speed, width, height):
 		self.speed = speed
@@ -10,7 +7,7 @@ class Player:
 		self.height = height
 		self.score = 0
 		self.rounds = 0
-		self.rect = pygame.Rect(x_pos, y_pos, width, height)
+		# self.rect = pygame.Rect(x_pos, y_pos, width, height)
 		self.hitbox_width = 5
 		print("Player pronto!")
 
@@ -19,7 +16,7 @@ class Player:
 			self.rect.y -= self.speed
 
 	def move_down(self):
-		if self.rect.bottom < pygame.display.get_surface().get_height():
+		if self.rect.bottom < 600:
 			self.rect.y += self.speed
 
 	def reset_position(self, y_position):
