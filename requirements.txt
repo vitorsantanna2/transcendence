@@ -1,4 +1,4 @@
-Django
+django
 gunicorn
 channels
 daphne
@@ -6,5 +6,4 @@ channels_redis
 psycopg
 psycopg2-binary
 pyyaml
-django
 django-split-settings

@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5g8_trc+o1r-u3&2b7e*i-&^@f)h%42eflt4cw5qa*q78v5x$l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kingkong.tupinymquim.com']
 
 
 # Application definition
@@ -130,9 +130,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Diretório para onde os arquivos estáticos serão coletados
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Diretórios onde o Django deve procurar arquivos estáticos adicionais
 STATICFILES_DIRS = [
-	os.path.join(BASE_DIR, 'main/static'),
+    os.path.join(BASE_DIR, 'main/static'),
 ]
 
 # Default primary key field type
