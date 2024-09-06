@@ -10,16 +10,13 @@ down:
 	@printf "Stopping configuration ${name}...\n"
 	@docker compose down
 
+collect:
+	@printf "Collecting static files...\n"
+	@docker compose exec web python manage.py collectstatic --noinput
+
 clean: down
 	@printf "Cleaning configuration ${name}...\n"
 	@docker system prune -a
-
-collect:
-	python -m core.manage collectstatic
-
-down:
-	@printf "Stopping configuration ${name}...\n"
-	@docker compose down
 
 fclean:
 	@printf "Total clean of all configurations docker\n"
@@ -29,4 +26,4 @@ fclean:
 	@docker volume prune --force
 	@rm -rf data
 
-.PHONY: all build down re clean fclean
+.PHONY: all re down clean collect fclean

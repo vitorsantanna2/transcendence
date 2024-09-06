@@ -4,7 +4,6 @@ from .player import Player, AutoPlayer
 from .ball import Ball
 from .button import Button
 import sys
-# from websocket import PongGame
 from ..consumers import PongConsumer
 import os
 from django.conf import settings
