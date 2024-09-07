@@ -7,7 +7,9 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY mysite /mysite/
+COPY requirements/django/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 ENV PYTHONPATH=/mysite
 
-CMD ["uvicorn", "mysite.asgi:application", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["/entrypoint.sh"]
