@@ -10,4 +10,4 @@ COPY mysite /mysite/
 
 ENV PYTHONPATH=/mysite
 
-CMD ["gunicorn", "mysite.wsgi:application", "--bind", "0.0.0.0:8001"]
+CMD ["gunicorn", "mysite.wsgi:application", "--bind", "0.0.0.0:8001", "--reload", "&", "daphne", "-b", "0.0.0.0", "-p", "8001'", "mysite.asgi:application"]
