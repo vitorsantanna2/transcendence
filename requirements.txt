@@ -1,5 +1,6 @@
 django==5.1.1
-gunicorn==23.0.0
+websockets==13.0.1
+uvicorn==0.30.6
 channels==4.1.0
 daphne==4.1.2
 channels_redis==4.2.0

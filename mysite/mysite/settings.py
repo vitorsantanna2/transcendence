@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kingkong.tupinymquim.com']
 # Application definition
 
 INSTALLED_APPS = [
+    "channels",
 	"daphne",
 	"main",
     'django.contrib.admin',
@@ -75,12 +76,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 ASGI_APPLICATION = 'mysite.asgi.application'
 
 CHANNEL_LAYERS = {
-	"default": {
-		"BACKEND": "channels_redis.core.RedisChannelLayer",
-		"CONFIG": {
-			"hosts": [("127.0.0.1", 6379)],
-		},
-	},
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis", 6379)],
+        },
+    },
 }
 
 
@@ -134,7 +135,7 @@ STATIC_URL = '/static/'
 # Diretórios onde o Django deve procurar arquivos estáticos adicionais
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles'),
+   # os.path.join(BASE_DIR, 'staticfiles'),
     # Add other static directories if needed
 ]
 

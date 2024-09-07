@@ -1,6 +1,6 @@
 services:
   redis:
-    image: redis:7
+    image: redis:latest
     container_name: redis
     ports:
       - "6379:6379"
@@ -26,13 +26,13 @@ services:
     build:
       context: .
       dockerfile: requirements/django/Dockerfile
-    command: daphne -b 0.0.0.0 -p 8001 mysite.asgi:application
+    command: uvicorn mysite.asgi:application --host 0.0.0.0 --port 8000
     container_name: django
     depends_on:
       - db
       - redis
     ports:
-      - "8001:8001"
+      - "8000:8000"
     networks:
       - transcendence
     restart: always

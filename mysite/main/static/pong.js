@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://localhost:8001/ws/main/');
+const socket = new WebSocket('ws://localhost:8000/ws/main/');
     
 const canvas = document.getElementById('pongCanvas');
 const ctx = canvas.getContext('2d');
