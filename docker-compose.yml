@@ -1,6 +1,6 @@
 services:
   redis:
-    image: redis:latest
+    image: redis:7
     container_name: redis
     ports:
       - "6379:6379"
@@ -26,7 +26,7 @@ services:
     build:
       context: .
       dockerfile: requirements/django/Dockerfile
-    command: uvicorn mysite.asgi:application --host 0.0.0.0 --port 8000
+    command: /entrypoint.sh
     container_name: django
     depends_on:
       - db
@@ -36,6 +36,9 @@ services:
     networks:
       - transcendence
     restart: always
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
   nginx:
     build:
       context: .
