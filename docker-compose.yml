@@ -3,14 +3,14 @@ services:
     image: redis:7
     container_name: redis
     ports:
-      - "6379:6379"
+      - "6380:6379"
     networks:
       - transcendence
   db:
     image: postgres:latest
     container_name: postgres
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     environment:
@@ -27,18 +27,19 @@ services:
       context: .
       dockerfile: requirements/django/Dockerfile
     command: /entrypoint.sh
+    volumes:
+      - ./main/mysite/:/var/www/django/
     container_name: django
     depends_on:
       - db
       - redis
     ports:
-      - "8000:8000"
+      - "8001:8001"
+    env_file:
+      - .env
     networks:
       - transcendence
     restart: always
-    environment:
-      - DB_HOST=db
-      - DB_PORT=5432
   nginx:
     build:
       context: .
@@ -47,7 +48,7 @@ services:
     depends_on:
       - django
     ports:
-      - "443:443"
+      - "8443:443"
     volumes:
       - ./main/mysite/main/static/:/var/www/django/static/
       - ./main/mysite/main/media/:/var/www/django/media/
@@ -59,3 +60,5 @@ services:
 networks:
     transcendence:
         driver: bridge
+volumes:
+  postgres_data:
