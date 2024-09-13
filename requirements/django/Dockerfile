@@ -11,5 +11,6 @@ COPY requirements/django/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENV PYTHONPATH=/mysite
+ENV PYTHONBUFFERED=1
 
 ENTRYPOINT ["/entrypoint.sh"]

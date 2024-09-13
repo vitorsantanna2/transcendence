@@ -17,14 +17,11 @@ while ! nc -z $DB_HOST $DB_PORT; do
   sleep 1
 done
 
-# Aplica as migrações do banco de dados
 echo "Aplicando migrações do banco de dados..."
 python ../mysite/manage.py migrate
 
-# Coleta arquivos estáticos
 echo "Coletando arquivos estáticos..."
 python ../mysite/manage.py collectstatic --noinput
 
-# Inicia o servidor ASGI com Daphne
 echo "Iniciando o servidor Daphne..."
-daphne -b 0.0.0.0 -p 8001 mysite.asgi:application
+python ../mysite/manage.py runserver 0.0.0.0:8001

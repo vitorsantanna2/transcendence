@@ -1,5 +1,24 @@
-const socket = new WebSocket('ws://localhost:8001/ws/main/');
-    
+const ws_scheme = window.location.protocol === "https:" ? "wss" : "ws";
+const ws_path = ws_scheme + '://' + window.location.host + "/ws/main/";
+
+const socket = new WebSocket(ws_path);
+
+socket.onopen = function(event) {
+    console.log("WebSocket is open now.");
+};
+
+socket.onmessage = function(event) {
+    console.log("WebSocket message received:", event);
+};
+
+socket.onclose = function(event) {
+    console.error("WebSocket is closed now.", event);
+};
+
+socket.onerror = function(error) {
+    console.error("WebSocket error observed:", error);
+};
+
 const canvas = document.getElementById('pongCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = 800;
