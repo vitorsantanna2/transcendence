@@ -10,6 +10,10 @@ COPY mysite /mysite/
 COPY requirements/django/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+# isso aqui é exclusivo pra mim, pois to rodando no windows
+RUN apt-get install -y dos2unix && dos2unix /entrypoint.sh
+
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONPATH=/mysite
 ENV PYTHONBUFFERED=1
 

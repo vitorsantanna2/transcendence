@@ -5,8 +5,6 @@ all:
 re:
 	@printf "Rebuild configuration ${name}...\n"
 	@docker compose up -d --build
-	@printf "Collecting static files...\n"
-	@docker compose exec django python /mysite/manage.py collectstatic --noinput
 
 down:
 	@printf "Stopping configuration ${name}...\n"
