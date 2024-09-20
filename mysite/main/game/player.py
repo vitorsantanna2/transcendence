@@ -7,21 +7,15 @@ class Player:
 		self.height = height
 		self.score = 0
 		self.rounds = 0
-		# self.rect = pygame.Rect(x_pos, y_pos, width, height)
-		self.hitbox_width = 5
-		print("Player pronto!")
 
 	def move_up(self):
-		if self.rect.top > 0:
-			self.rect.y -= self.speed
+		self.y_pos -= self.speed
 
 	def move_down(self):
-		if self.rect.bottom < 600:
-			self.rect.y += self.speed
+		self.y_pos += self.speed
 
 	def reset_position(self, y_position):
-		self.rect.y = y_position
-
+		self.y_pos = y_position
 
 class AutoPlayer(Player):
 	def __init__(self, x_pos, y_pos, speed, width, height):

@@ -37,7 +37,18 @@ class PongConsumer(AsyncWebsocketConsumer):
             self.ball.speed_y = data['speed_y']
             self.ball.width = data['width']
             self.ball.height = data['height']
-            
+        # elif data['type'] == 'player1_move':
+        #     direction = data['direction']
+        #     if direction == 'up':
+        #         await self.player1.move_up()
+        #     elif direction == 'down':
+        #         await self.player1.move_down() 
+        # elif data['type'] == 'player2_move':
+        #     direction = data['direction']
+        #     if direction == 'up':
+        #         await self.player2.move_up()
+        #     elif direction == 'down':
+        #         await self.player2.move_down() 
 
     async def update_player1_position(self):
         while True:
@@ -49,7 +60,6 @@ class PongConsumer(AsyncWebsocketConsumer):
                     "y": self.player1.y_pos
                 }
             )
-            #print(f"Player 1 position sent: x={self.player1.x_pos}, y={self.player1.y_pos}")
             await asyncio.sleep(0.05)
 
     async def update_player2_position(self):
@@ -62,7 +72,6 @@ class PongConsumer(AsyncWebsocketConsumer):
                     "y": self.player2.y_pos
                 }
             )
-            #print(f"Player 2 position sent: x={self.player2.x_pos}, y={self.player2.y_pos}")
             await asyncio.sleep(0.05)
 
     async def update_ball_position(self):
@@ -82,17 +91,14 @@ class PongConsumer(AsyncWebsocketConsumer):
                     "height": self.ball.height
                 }
             )
-            print(f"Ball position sent: x={self.ball.x}, y={self.ball.y}")
             await asyncio.sleep(0.05)
             
-    
     async def player1_position(self, event):
         await self.send(text_data=json.dumps({
             'type': 'player1_position',
             'x': event['x'],
             'y': event['y']
         }))
-        #print(f"Player 1 position event sent: x={event['x']}, y={event['y']}")
 
     async def player2_position(self, event):
         await self.send(text_data=json.dumps({
@@ -100,7 +106,6 @@ class PongConsumer(AsyncWebsocketConsumer):
             'x': event['x'],
             'y': event['y']
         }))
-        #print(f"Player 2 position event sent: x={event['x']}, y={event['y']}")
 
     async def ball_position(self, event):
         await self.send(text_data=json.dumps({
@@ -113,4 +118,3 @@ class PongConsumer(AsyncWebsocketConsumer):
             'width': event['width'],
             'height': event['height']
         }))
-        print(f"Ball position event sent: x={event['x']}, y={event['y']}")
