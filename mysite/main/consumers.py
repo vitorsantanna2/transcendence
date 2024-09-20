@@ -6,29 +6,44 @@ import asyncio
 
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        await self.channel_layer.group_add("pong", self.channel_name)
+        self.room_group_name = 'pong'
+        await self.channel_layer.group_add(self.room_group_name, self.channel_name)
         await self.accept()
-        self.player1 = Player(40, 250, 10, 50, 70)
-        self.player2 = Player(710, 250, 10, 50, 70)
-        self.ball = Ball(15, 400, 300, 5.0, 5.0, 800, 600)
-        self.send_player1_position_task = asyncio.create_task(self.update_player1_position())
-        self.send_player2_position_task = asyncio.create_task(self.update_player2_position())
+
+        if not hasattr(self, 'player_id'):
+            self.player_id = 0
+            self.player1 = Player(40, 250, 10, 50, 70, 1)
+            self.player2 = Player(710, 250, 10, 50, 70, 2)
+
+        
+        await self.send(text_data=json.dumps({
+            'player_id': self.player_id
+        }))
+
+        if not hasattr(self, 'ball'):
+            self.ball = Ball(15, 400, 300, 5.0, 5.0, 800, 600)
+        
+        self.send_player1_pos = asyncio.create_task(self.update_player_pos(1))
+        self.send_player2_pos = asyncio.create_task(self.update_player_pos(2))
         self.send_ball_position_task = asyncio.create_task(self.update_ball_position())
 
     async def disconnect(self, close_code):
-        await self.channel_layer.group_discard("pong", self.channel_name)
+        await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
         self.send_ball_position_task.cancel()
-        self.send_player1_position_task.cancel()
-        self.send_player2_position_task.cancel()
+        self.self.send_player1_pos.cancel()
+        self.self.send_player2_pos.cancel()
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        if data['type'] == 'player1_position':
-            self.player1.x_pos = data['x']
-            self.player1.y_pos = data['y']
-        elif data['type'] == 'player2_position':
-            self.player2.x_pos = data['x']
-            self.player2.y_pos = data['y']
+        player_id = data['player']
+        x_pos = data['x']
+        y_pos = data['y']
+        if player_id == 1:
+            self.player1.x_pos = x_pos
+            self.player1.y_pos = y_pos
+        elif player_id == 2:
+            self.player2.x_pos = x_pos
+            self.player2.y_pos = y_pos
         elif data['type'] == 'ball_position':
             self.ball.radius = data['radius']
             self.ball.x = data['x']
@@ -50,36 +65,32 @@ class PongConsumer(AsyncWebsocketConsumer):
         #     elif direction == 'down':
         #         await self.player2.move_down() 
 
-    async def update_player1_position(self):
+    async def update_player_pos(self, player_id):
         while True:
-            await self.channel_layer.group_send(
-                "pong",
-                {
-                    "type": "player1_position",
-                    "x": self.player1.x_pos,
-                    "y": self.player1.y_pos
-                }
-            )
-            await asyncio.sleep(0.05)
+            if player_id == 1:
+                x = self.player1.x_pos
+                y = self.player1.y_pos
+            elif player_id == 2:
+                x = self.player2.x_pos
+                y = self.player2.y_pos
 
-    async def update_player2_position(self):
-        while True:
             await self.channel_layer.group_send(
-                "pong",
-                {
-                    "type": "player2_position",
-                    "x": self.player2.x_pos,
-                    "y": self.player2.y_pos
-                }
-            )
+                    self.room_group_name,
+                    {
+                        "type": 'player_position',
+                        "player": player_id,
+                        "x": x,
+                        "y": y
+                    }
+                )
             await asyncio.sleep(0.05)
-
+    
     async def update_ball_position(self):
         while True:
             self.ball.movement()
             self.ball.collision()
             await self.channel_layer.group_send(
-                "pong",
+                self.room_group_name,
                 {
                     "type": "ball_position",
                     "radius": self.ball.radius,
@@ -93,16 +104,10 @@ class PongConsumer(AsyncWebsocketConsumer):
             )
             await asyncio.sleep(0.05)
             
-    async def player1_position(self, event):
+    async def player_position(self, event):
+        player_id = event['player']
         await self.send(text_data=json.dumps({
-            'type': 'player1_position',
-            'x': event['x'],
-            'y': event['y']
-        }))
-
-    async def player2_position(self, event):
-        await self.send(text_data=json.dumps({
-            'type': 'player2_position',
+            'player': player_id,
             'x': event['x'],
             'y': event['y']
         }))

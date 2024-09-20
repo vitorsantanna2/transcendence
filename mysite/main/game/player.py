@@ -1,5 +1,5 @@
 class Player:
-	def __init__(self, x_pos, y_pos, speed, width, height):
+	def __init__(self, x_pos, y_pos, speed, width, height, player_id):
 		self.speed = speed
 		self.x_pos = x_pos
 		self.y_pos = y_pos
@@ -7,6 +7,7 @@ class Player:
 		self.height = height
 		self.score = 0
 		self.rounds = 0
+		self.player_id = player_id
 
 	def move_up(self):
 		self.y_pos -= self.speed

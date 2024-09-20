@@ -20,6 +20,7 @@ let ballX = 0, ballY = 0;
 let speed_x = 0, speed_y = 0;
 let radius = 0;
 let width = 0, height = 0;
+let playerId;
 
 socket.onopen = function() {
     console.log("WebSocket connection opened");
@@ -29,17 +30,13 @@ socket.onerror = function(error) {
     console.log("WebSocket error: " + error);
 };
 
-socket.onclose = function() {
-    console.log("WebSocket connection closed");
-};
-
 socket.onmessage = function(e) {
     let data = JSON.parse(e.data);
-    
-    if (data.type === 'player1_position') {
+
+    if (data.player === 1) {
         player1_X = data.x;
         player1_Y = data.y;
-    } else if (data.type === 'player2_position') {
+    } else if (data.player === 2) {
         player2_X = data.x;
         player2_Y = data.y;
     } else if (data.type === 'ball_position') {
