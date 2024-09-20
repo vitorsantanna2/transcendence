@@ -24,6 +24,9 @@ fclean:
 	@docker system prune --all --force --volumes
 	@docker network prune --force
 	@docker volume prune --force
-	@rm -rf data
+	@rm -rf /mysite/staticfiles
+	@rm -rf /mysite/media
+	@rm -rf /var/www/django/staticfiles
+	@rm -rf /var/www/django/media
 
 .PHONY: all re down clean collect fclean
