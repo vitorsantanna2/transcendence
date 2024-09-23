@@ -10,15 +10,13 @@ down:
 	@printf "Stopping configuration ${name}...\n"
 	@docker compose down
 
+collect:
+	@printf "Collecting static files...\n"
+	@docker compose exec django python /mysite/manage.py collectstatic --noinput
+
 clean: down
 	@printf "Cleaning configuration ${name}...\n"
 	@docker system prune -a
-
-collect:
-	python -m core.manage collectstatic
-
-migrations:
-	python -m core.manage migrate
 
 fclean:
 	@printf "Total clean of all configurations docker\n"
@@ -26,6 +24,9 @@ fclean:
 	@docker system prune --all --force --volumes
 	@docker network prune --force
 	@docker volume prune --force
-	@rm -rf data
+	@rm -rf /mysite/staticfiles
+	@rm -rf /mysite/media
+	@rm -rf /var/www/django/staticfiles
+	@rm -rf /var/www/django/media
 
-.PHONY: all build down re clean fclean
+.PHONY: all re down clean collect fclean

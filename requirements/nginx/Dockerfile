@@ -1,10 +1,9 @@
-# Use the debian
-FROM debian
+FROM nginx:latest
 
-RUN apt update && apt install nginx  -y
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Expose ports 80 and 443
+COPY requirements/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 443
 
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]

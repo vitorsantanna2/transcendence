@@ -1,6 +1,10 @@
-psycopg
-psycopg2
-pyyaml
-uwsgi
-django
-django-split-settings
+django==5.1.1
+websockets==13.0.1
+channels==4.1.0
+daphne==4.1.2
+channels_redis==4.2.0
+psycopg==3.2.1
+psycopg2-binary==2.9.9
+pyyaml==6.0.2
+django-split-settings==1.3.2
+python-dotenv==1.0.1
