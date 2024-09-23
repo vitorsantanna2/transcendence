@@ -26,6 +26,9 @@ class Ball:
         if self.x <= 0 + self.radius or self.x >= self.width - self.radius:
             self.speed_x *= -1
             print(f"Collision with left/right: speed_x={self.speed_x}")
+        if self.x <= 0 + self.radius or self.x >= self.width - self.radius:
+            self.reset_position()
+            print(f"Collision with left/right: speed_x={self.speed_x}")
 
     #     if self.x <= 0 + self.radius:
     #         # player2.score += 1
@@ -57,25 +60,22 @@ class Ball:
     #         self.speed_x *= -1
     #         print(f"Collision with player2: speed_x={self.speed_x}")
 
-    # def reset_position(self):
-    #     self.x = self.initial_x
-    #     self.y = random.randint(50, self.height - 50)
+    def reset_position(self):
+        self.x = self.initial_x
+        self.y = random.randint(50, self.height - 50)
     
-    #     # Escolher direção e ângulo
-    #     directions = [-1, 1]  # -1: esquerda, 1: direita
-    #     angles = [(7.0, 3.5), (3.5, 3.5), (3.5, 7.0)]  # Combinações de velocidade x e y
+        directions = [-1, 1]
+        angles = [(7.0, 3.5), (3.5, 3.5), (3.5, 7.0)]
     
-    #     dir = random.choice(directions)
-    #     speed_x, speed_y = random.choice(angles)
+        dir = random.choice(directions)
+        speed_x, speed_y = random.choice(angles)
     
-    #     # Ajustar a direção da velocidade
-    #     self.speed_x = dir * speed_x
-    #     self.speed_y = speed_y if random.choice([True, False]) else -speed_y
+        self.speed_x = dir * speed_x
+        self.speed_y = speed_y if random.choice([True, False]) else -speed_y
     
-    #     # Garantir que a velocidade não seja muito baixa
-    #     if abs(self.speed_x) < 1:
-    #         self.speed_x = self.initial_speed_x * random.choice([-1, 1])
-    #     if abs(self.speed_y) < 1:
-    #         self.speed_y = self.initial_speed_y * random.choice([-1, 1])
+        if abs(self.speed_x) < 1:
+            self.speed_x = self.initial_speed_x * random.choice([-1, 1])
+        if abs(self.speed_y) < 1:
+            self.speed_y = self.initial_speed_y * random.choice([-1, 1])
     
-    #     print(f"Reset position: speed_x={self.speed_x}, speed_y={self.speed_y}")
+        print(f"Reset position: speed_x={self.speed_x}, speed_y={self.speed_y}")
