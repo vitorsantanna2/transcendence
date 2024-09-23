@@ -17,18 +17,14 @@ class Ball:
     def movement(self):
         self.x += self.speed_x
         self.y += self.speed_y
-        # print(f"Coordenadas da bola: x={self.rect.x}, y={self.rect.y}")
 
     def collision(self):
         if self.y <= 0 + self.radius or self.y >= self.height - self.radius:
             self.speed_y *= -1
-            print(f"Collision with top/bottom: speed_y={self.speed_y}")
         if self.x <= 0 + self.radius or self.x >= self.width - self.radius:
             self.speed_x *= -1
-            print(f"Collision with left/right: speed_x={self.speed_x}")
         if self.x <= 0 + self.radius or self.x >= self.width - self.radius:
             self.reset_position()
-            print(f"Collision with left/right: speed_x={self.speed_x}")
 
     #     if self.x <= 0 + self.radius:
     #         # player2.score += 1
@@ -77,5 +73,3 @@ class Ball:
             self.speed_x = self.initial_speed_x * random.choice([-1, 1])
         if abs(self.speed_y) < 1:
             self.speed_y = self.initial_speed_y * random.choice([-1, 1])
-    
-        print(f"Reset position: speed_x={self.speed_x}, speed_y={self.speed_y}")
