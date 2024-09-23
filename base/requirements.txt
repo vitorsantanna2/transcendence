@@ -1,4 +1,0 @@
-psycopg2
-django
-bcrypt
-python-decouple
