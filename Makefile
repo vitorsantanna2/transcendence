@@ -1,4 +1,4 @@
-all:
+all: collect
 	@printf "Launch configuration ${name}...\n"
 	@docker compose up -d
 
