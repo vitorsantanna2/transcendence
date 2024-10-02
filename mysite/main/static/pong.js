@@ -33,18 +33,18 @@ socket.onerror = function(error) {
 socket.onmessage = function(e) {
     let data = JSON.parse(e.data);
 
-    if (data.player === 1) {
-        player1_X = data.x;
-        player1_Y = data.y;
-        player1_speed = data.speed;
-        player_id = data.player_id
-        console.log('player1_speed ' + player1_speed)
-    } else if (data.player === 2) {
-        player2_X = data.x;
-        player2_Y = data.y;
-        player2_speed = data.speed;
-        player_id = data.player_id
-    } else if (data.type === 'ball_position') {
+    if (data.type === 'player_position') {
+        if (data.player === 1) {
+            player1_X = data.x;
+            player1_Y = data.y;
+            player1_speed = data.speed;
+        } else if (data.player === 2) {
+            player2_X = data.x;
+            player2_Y = data.y;
+            player2_speed = data.speed;
+        }
+    }
+    if (data.type === 'ball_position') {
         radius = data.radius;
         ballX = data.x;
         ballY = data.y;
@@ -53,8 +53,6 @@ socket.onmessage = function(e) {
         width = data.width;
         height = data.height;
     }
-    
-    draw();
 };
 
 document.addEventListener('keydown', (event) => {
@@ -64,29 +62,26 @@ document.addEventListener('keydown', (event) => {
     if (key === 'w') {
         player1_Y -= player1_speed;
         movement = { player: 1, direction: 'up' };
-    } if (key === 's') {
+    } else if (key === 's') {
         player1_Y += player1_speed;
         movement = { player: 1, direction: 'down' };
-    } if (key === 'ArrowUp') {
+    } else if (key === 'ArrowUp') {
         player2_Y -= player2_speed;
         movement = { player: 2, direction: 'up' };
-    } if (key === 'ArrowDown') {
+    } else if (key === 'ArrowDown') {
         player2_Y += player2_speed;
         movement = { player: 2, direction: 'down' };
     }
-    // Enviando o movimento para o backend via WebSocket
     if (movement) {
         socket.send(JSON.stringify(movement));
     }
 });
-
-
-
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(p1Image, player1_X, player1_Y, 50, 70);
     ctx.drawImage(p2Image, player2_X, player2_Y, 50, 70);
     ctx.drawImage(ballImage, ballX, ballY, 15, 15);
+    requestAnimationFrame(draw);
 }
 draw();

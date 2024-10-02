@@ -43,7 +43,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 self.player1.move_up()
             elif direction == 'down':
                 self.player1.move_down()
-        elif player_id == 2:
+        if player_id == 2:
             if direction == 'up':
                 self.player2.move_up()
             elif direction == 'down':
@@ -109,6 +109,7 @@ class PongConsumer(AsyncWebsocketConsumer):
     async def player_position(self, event):
         player_id = event['player']
         await self.send(text_data=json.dumps({
+            'type': 'player_position',
             'player': player_id,
             'x': event['x'],
             'y': event['y'],
