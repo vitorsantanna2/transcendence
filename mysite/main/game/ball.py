@@ -19,11 +19,12 @@ class Ball:
         self.x += self.speed_x
         self.y += self.speed_y
 
-    def collision(self, player1):
+    def collision(self):
         if self.y <= 0 + self.radius or self.y >= self.height - self.radius:
             self.speed_y *= -1
         if self.x <= 0 + self.radius or self.x >= self.width - self.radius:
             self.reset_position()
+        
         # if (self.x - self.radius <= player1.x + player1.width and
         #     self.y >= player1.y and self.y <= player1.y + player1.height):
         #     self.x = player1.x + player1.width + self.radius

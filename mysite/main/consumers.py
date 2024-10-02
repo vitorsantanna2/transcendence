@@ -30,8 +30,8 @@ class PongConsumer(AsyncWebsocketConsumer):
     async def disconnect(self):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
         self.send_ball_pos.cancel()
-        self.self.send_player1_pos.cancel()
-        self.self.send_player2_pos.cancel()
+        self.send_player1_pos.cancel()
+        self.send_player2_pos.cancel()
 
     async def receive(self, text_data):
         data = json.loads(text_data)
