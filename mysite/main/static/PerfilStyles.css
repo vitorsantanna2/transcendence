@@ -1,4 +1,5 @@
 body {
+	background-image: url('../images/fundo.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
@@ -6,17 +7,21 @@ body {
 	align-items: center; /* Center vertically */
 }
 
+.pages {
+	display: none;
+}
+
 .main {
 	display: flex;
 	height: 100vh;
-  width: 100vh;
 }
 
 .cover-container {
 	background-color: #DFF9FD80;
 	height: 86vh;
-	width: 90vw;
+	width: 175vh;
 	border-radius: 5vh;
+	display: flex;
 }
 
 .tab-lateral {
@@ -26,6 +31,7 @@ body {
 	opacity: 0.5;
 	border-radius: 3vh;
 	margin-right: 4vh;
+	display: flex;
 	justify-content: center;
 }
 
@@ -56,7 +62,7 @@ body {
 	border-bottom-left-radius: 5vh;
 	border: 0;
 	border-right: 1px #4c5d64 solid;
-	max-width: 15vw;
+	max-width: 29vh;
 }
 
 .carousel-title, .perfil-1-title {
@@ -72,8 +78,8 @@ body {
 }
 
 .carousel-img {
-	max-height: 30vh;
-	max-width: 10vw;
+	height: 19vh;
+	width: 19vh;
 }
 
 .carousel-control-prev, .carousel-control-next {
@@ -82,7 +88,12 @@ body {
 }
 
 .perfil-col-2 {
-	width: 120vh;
+	min-width: 120vh;
+}
+
+.col-break {
+	max-height: 1px;
+	border-bottom: 1px #4c5d64 solid;
 }
 
 .main-title {
@@ -119,6 +130,7 @@ body {
 	background-color: #4c5d6480;
 }
 
+
 .sobre-mim {
 	margin-top: 2vh;
 }
@@ -131,7 +143,7 @@ body {
 }
 
 .perfil-col-3 {
-	width: 28vh;
+	min-width: 28vh;
 	border-left:  1px #4c5d64 solid;
 }
 
@@ -144,40 +156,25 @@ body {
 
 .search-bar {
     padding: 10px;
-    margin: 10px;
+	margin: 10px;
     margin-bottom: 15px;
     border: 1px #4c5d64 solid;
     border-radius: 4vh;
     font-size: 16px;
+	width: 68vh;
 }
+
 
 .friendsList {
-  overflow-y: auto; /* Adiciona a barra de rolagem vertical */
-  max-height: 24vh; /* Garante que a altura máxima não ultrapasse a do pai */
-  padding: 0; /* Adiciona um pouco de espaço interno */
-  box-sizing: border-box; /* Inclui o padding na largura e altura */
-  width: 100%;
+    overflow-y: auto; /* Adiciona a barra de rolagem vertical */
+    max-height: 100%; /* Garante que a altura máxima não ultrapasse a do pai */
+    padding: 1rem; /* Adiciona um pouco de espaço interno */
+    box-sizing: border-box; /* Inclui o padding na largura e altura */
+	width: 68vh;
 }
-
-.friendsList::-webkit-scrollbar {
-  width: 0.3vw; /* Largura da barra de rolagem */
-}
-
-.friendsList::-webkit-scrollbar-thumb {
-  background: #888; /* Cor da alça da barra de rolagem */
-  border-radius: 1vw; /* Borda arredondada da alça */
-
-}
-
-.friendsList::-webkit-scrollbar-track {
-  background-color: rgba(223, 249, 253, 0.5);
-}
-
 
 .friend-item {
-  display: flex;
-  width: 35vw;
-	margin: 0.5vw;
+	margin: 10px 0;
 	padding: 10px;
 	padding-left: 20px;
 	border-radius: 2vh;
@@ -186,7 +183,7 @@ body {
 }
 
 .friendImg {
-	height: 6vh;
+	height: 60px;
 	width: auto;
 	margin-right: 2vh;
 }
