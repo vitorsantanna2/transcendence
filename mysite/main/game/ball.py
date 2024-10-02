@@ -1,4 +1,5 @@
 import random
+from .player import Player
 
 class Ball:
     def __init__(self, radius, x, y, speed_x, speed_y, width, height):
@@ -22,9 +23,11 @@ class Ball:
         if self.y <= 0 + self.radius or self.y >= self.height - self.radius:
             self.speed_y *= -1
         if self.x <= 0 + self.radius or self.x >= self.width - self.radius:
-            self.speed_x *= -1
-        if self.x <= 0 + self.radius or self.x >= self.width - self.radius:
             self.reset_position()
+        # if (self.x - self.radius <= player1.x + player1.width and
+        #     self.y >= player1.y and self.y <= player1.y + player1.height):
+        #     self.x = player1.x + player1.width + self.radius
+        #     print("Collision with player1")
 
     #     if self.x <= 0 + self.radius:
     #         # player2.score += 1
