@@ -91,10 +91,6 @@ class PongConsumer(AsyncWebsocketConsumer):
         while True:
             self.ball.movement()
             self.ball.collision(self.player1, self.player2)
-            # if (self.ball.x + self.ball.radius >= self.player1.x_pos and self.ball.x - self.ball.radius <= self.player1.x_pos + self.player1.width) and (self.ball.y - self.ball.radius >= self.player1.y_pos and self.ball.y - self.ball.radius <= self.player1.y_pos + self.player1.height):
-            #     self.ball.speed_x = abs(self.ball.speed_x)
-            # if (self.ball.x + self.ball.radius >= self.player2.x_pos and self.ball.x - self.ball.radius <= self.player2.x_pos + self.player2.width) and (self.ball.y - self.ball.radius >= self.player2.y_pos and self.ball.y - self.ball.radius <= self.player2.y_pos + self.player2.height):
-            #     self.ball.speed_x = -abs(self.ball.speed_x)
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
