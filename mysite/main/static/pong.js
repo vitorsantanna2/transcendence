@@ -20,6 +20,7 @@ let ballX = 0, ballY = 0;
 let speed_x = 0, speed_y = 0;
 let radius = 0;
 let width = 0, height = 0;
+let player1_score = 0, player2_score = 0;
 let playerId;
 
 socket.onopen = function() {
@@ -38,10 +39,12 @@ socket.onmessage = function(e) {
             player1_X = data.x;
             player1_Y = data.y;
             player1_speed = data.speed;
+            player1_score = data.score;
         } else if (data.player === 2) {
             player2_X = data.x;
             player2_Y = data.y;
             player2_speed = data.speed;
+            player2_score = data.score;
         }
     }
     if (data.type === 'ball_position') {
@@ -82,6 +85,9 @@ function draw() {
     ctx.drawImage(p1Image, player1_X, player1_Y, 50, 70);
     ctx.drawImage(p2Image, player2_X, player2_Y, 50, 70);
     ctx.drawImage(ballImage, ballX, ballY, 15, 15);
+    ctx.font = "30px Arial";
+    ctx.fillText(player1_score, 20, 30);
+    ctx.fillText(player2_score, canvas.width - 150, 30);
     requestAnimationFrame(draw);
 }
 draw();

@@ -23,6 +23,8 @@ class Ball:
         if self.y <= 0 + self.radius or self.y >= self.height - self.radius:
             self.speed_y *= -1
         if self.x <= 0 + self.radius or self.x >= self.width - self.radius:
+            player2.score += 1 if self.x <= 0 + self.radius else 0
+            player1.score += 1 if self.x >= self.width - self.radius else 0
             self.reset_position()
             return
         if (self.x + self.radius >= player1.x_pos and self.x - self.radius <= player1.x_pos + player1.width) and \

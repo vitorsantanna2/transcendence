@@ -68,7 +68,8 @@ class PongConsumer(AsyncWebsocketConsumer):
                 'player': player_id,
                 'x': self.player1.x_pos if player_id == 1 else self.player2.x_pos,
                 'y': self.player1.y_pos if player_id == 1 else self.player2.y_pos,
-                'speed': self.player1.speed if player_id == 1 else self.player2.speed
+                'speed': self.player1.speed if player_id == 1 else self.player2.speed,
+                'score': self.player1.score if player_id == 1 else self.player2.score
             }
         )
 
@@ -82,7 +83,8 @@ class PongConsumer(AsyncWebsocketConsumer):
                     "x": self.player1.x_pos if player_id == 1 else self.player2.x_pos,
                     "y": self.player1.y_pos if player_id == 1 else self.player2.y_pos,
                     "speed": self.player1.speed if player_id == 1 else self.player2.speed,
-                    "player_id": self.player1.player_id if player_id == 1 else self.player2.player_id
+                    "player_id": self.player1.player_id if player_id == 1 else self.player2.player_id,
+                    "score": self.player1.score if player_id == 1 else self.player2.score
                 }
             )
             await asyncio.sleep(0.05)
@@ -113,7 +115,8 @@ class PongConsumer(AsyncWebsocketConsumer):
             'player': player_id,
             'x': event['x'],
             'y': event['y'],
-            'speed': event['speed']
+            'speed': event['speed'],
+            'score': event['score'],
         }))
 
     async def ball_position(self, event):
