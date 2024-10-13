@@ -5,3 +5,9 @@ def index(request):
 
 def perfil(request):
     return render(request, 'main/perfil.html')
+
+def login(request):
+    return render(request, 'main/login.html')
+
+def registration(request):
+    return render(request, 'main/registration.html')
