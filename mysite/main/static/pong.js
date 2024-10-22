@@ -1,5 +1,4 @@
-const socket = new WebSocket('ws://' + window.location.host + '/ws/main/');
-
+let socket = new WebSocket(`ws://` + window.location.host + `/ws/main/`);
 const canvas = document.getElementById('pongCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = 800;
@@ -34,6 +33,12 @@ socket.onerror = function(error) {
 socket.onmessage = function(e) {
     let data = JSON.parse(e.data);
 
+    if (data.type === 'game_id') {
+        game_id = data.game_id;
+        console.log("Game ID: " + game_id);
+        socket = new WebSocket(`ws://` + window.location.host + `/ws/main/${game_id}`);
+    }
+    
     if (data.type === 'player_position') {
         if (data.player === 1) {
             player1_X = data.x;

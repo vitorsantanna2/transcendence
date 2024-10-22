@@ -3,24 +3,41 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from .game.ball import Ball
 from .game.player import Player
 import asyncio
+import uuid
+
+games = {}
+
+def create_new_game():
+    game_id = str(uuid.uuid4())  # Gera um ID único
+    games[game_id] = {
+        'player1': Player(40, 250, 10, 50, 70, 1),
+        'player2': Player(710, 250, 10, 50, 70, 2),
+        'ball': Ball(15, 400, 300, 5.0, 5.0, 800, 600),
+    }
+    return game_id
 
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        self.room_group_name = 'pong'
+        self.game_id = create_new_game()
+        
+        self.player1 = games[self.game_id]['player1']
+        self.player2 = games[self.game_id]['player2']
+        self.ball = games[self.game_id]['ball']
+        
+        self.room_group_name = f'game_{self.game_id}'
+        
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
         await self.accept()
 
-        if not hasattr(self, 'player_id'):
-            self.player_id = 0
-            self.player1 = Player(40, 250, 10, 50, 70, 1)
-            self.player2 = Player(710, 250, 10, 50, 70, 2)
-
         await self.send(text_data=json.dumps({
-            'player_id': self.player_id
+            'type': 'game_id',
+            'game_id': self.game_id
         }))
-
-        if not hasattr(self, 'ball'):
-            self.ball = Ball(15, 400, 300, 5.0, 5.0, 800, 600)
+        if not hasattr(self, 'player_id'):
+            self.player_id = 1 if len(games[self.game_id]) == 1 else 2
+            await self.send(text_data=json.dumps({
+                'player_id': self.player_id
+            }))
 
         self.send_player1_pos = asyncio.create_task(self.update_player_pos(1))
         self.send_player2_pos = asyncio.create_task(self.update_player_pos(2))
@@ -40,14 +57,14 @@ class PongConsumer(AsyncWebsocketConsumer):
 
         if player_id == 1:
             if direction == 'up':
-                self.player1.move_up()
+                self.player1.y_pos -= self.player1.speed
             elif direction == 'down':
-                self.player1.move_down()
+                self.player1.y_pos += self.player1.speed
         if player_id == 2:
             if direction == 'up':
-                self.player2.move_up()
+                self.player2.y_pos -= self.player2.speed
             elif direction == 'down':
-                self.player2.move_down()
+                self.player2.y_pos += self.player2.speed
         await self.channel_layer.group_send(
             self.room_group_name,
             {
