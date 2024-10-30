@@ -11,3 +11,15 @@ def login(request):
 
 def registration(request):
     return render(request, 'main/registration.html')
+
+def configuration(request):
+    return render(request, 'main/configuration.html')
+
+def game(request):
+    return render(request, 'main/game.html')
+
+def tournament(request):
+    return render(request, 'main/tournament.html')
+
+def base(request):
+    return render(request, 'main/base.html')

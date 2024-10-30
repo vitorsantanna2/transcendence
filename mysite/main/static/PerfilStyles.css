@@ -7,10 +7,6 @@ body {
 	align-items: center; /* Center vertically */
 }
 
-.pages {
-	display: none;
-}
-
 .main {
 	display: flex;
 	height: 100vh;
@@ -166,7 +162,7 @@ body {
 
 
 .friendsList {
-    overflow-y: auto; /* Adiciona a barra de rolagem vertical */
+    overflow-y: auto; /* Adiciona a barra de rolagem vecortical */
     max-height: 100%; /* Garante que a altura máxima não ultrapasse a do pai */
     padding: 1rem; /* Adiciona um pouco de espaço interno */
     box-sizing: border-box; /* Inclui o padding na largura e altura */
