@@ -23,3 +23,6 @@ def tournament(request):
 
 def base(request):
     return render(request, 'main/base.html')
+
+def chat(request):
+    return render(request, 'main/chat.html')

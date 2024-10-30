@@ -14,7 +14,9 @@
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous" />
         <!-- Style CSS -->
-        <link rel="stylesheet" href="{% static 'PerfilStyles.css' %}" />
+        <link rel="stylesheet" href="{% static 'base.css' %}" />
+        <link rel="stylesheet" href="{% static 'game.css' %}" />
+
         <title>King Pong</title>
     </head>
     <body style="background-image: url('{% static '/images/fundo.png' %}')">
@@ -27,15 +29,7 @@
                     <li
                         class="nav-item active w-100 d-flex justify-content-center align-items-center clickable-item">
                         <a class="nav-link" href="#">
-                            <img src="{% static 'images/.png'%}" class="imgs" />
-                        </a>
-                    </li>
-                    <li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
-                        <a class="nav-link" href="#">
-                            <img
-                                src="{% static 'images/pong.png' %}"
-                                class="imgs" />
+                            <img src="{% static 'images/pong.png'%}" class="imgs" />
                         </a>
                     </li>
                     <li
@@ -55,6 +49,23 @@
                         </a>
                     </li>
                     <li
+                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
+                        <a class="nav-link" href="#">
+                            <img
+                                src="{% static 'images/perfilpage.png' %}"
+                                class="imgs" />
+                        </a>
+                    </li>
+                    <li
+                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item"
+                        id="config-nav">
+                        <a class="nav-link" href="#">
+                            <img
+                                src="{% static '/images/entrar.png' %}"
+                                class="imgs" />
+                        </a>
+                    </li>
+					<li
                         class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item"
                         id="config-nav">
                         <a class="nav-link" href="#">
@@ -68,7 +79,12 @@
 
             <!-- Main Content -->
             <div class="cover-container justify-content-between align-items-center">
-                
+                <canvas id="pongCanvas"></canvas>
+                <script>
+                    var p1ImageUrl = "{% static 'images/apollo.png' %}";
+                    var p2ImageUrl = "{% static 'images/alexandre.png' %}";
+                    var ballImageUrl = "{% static 'images/moon.png' %}";
+                </script>
             </div>
         </div>
         <!-- Bootstrap javascript -->
@@ -76,7 +92,9 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
+    
+	    <script src="{% static 'pong.js' %}"></script>
+        
 
-        <script src="{% static 'friendsFilter.js' %}"></script>
     </body>
 </html>

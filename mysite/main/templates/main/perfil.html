@@ -14,7 +14,8 @@
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous" />
         <!-- Style CSS -->
-        <link rel="stylesheet" href="{% static 'PerfilStyles.css' %}" />
+        <link rel="stylesheet" href="{% static 'perfil.css' %}" />
+        <link rel="stylesheet" href="{% static 'base.css' %}" />
         <title>King Pong</title>
     </head>
     <body style="background-image: url('{% static '/images/fundo.png' %}')">
@@ -25,17 +26,9 @@
                 <ul
                     class="nav nav-pills p-0 d-flex justify-content-center align-items-center">
                     <li
-                        class="nav-item active w-100 d-flex justify-content-center align-items-center clickable-item">
-                        <a class="nav-link" href="#">
-                            <img src="{% static 'images/.png'%}" class="imgs" />
-                        </a>
-                    </li>
-                    <li
                         class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
                         <a class="nav-link" href="#">
-                            <img
-                                src="{% static 'images/pong.png' %}"
-                                class="imgs" />
+                            <img src="{% static 'images/pong.png'%}" class="imgs" />
                         </a>
                     </li>
                     <li
@@ -55,6 +48,23 @@
                         </a>
                     </li>
                     <li
+                        class="nav-item active w-100 d-flex justify-content-center align-items-center clickable-item">
+                        <a class="nav-link" href="#">
+                            <img
+                                src="{% static 'images/perfilpage.png' %}"
+                                class="imgs" />
+                        </a>
+                    </li>
+                    <li
+                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item"
+                        id="config-nav">
+                        <a class="nav-link" href="#">
+                            <img
+                                src="{% static '/images/entrar.png' %}"
+                                class="imgs" />
+                        </a>
+                    </li>
+					<li
                         class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item"
                         id="config-nav">
                         <a class="nav-link" href="#">
