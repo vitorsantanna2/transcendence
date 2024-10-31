@@ -1,0 +1,89 @@
+.cover-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.welcome-text {
+    font-size: 52px; /* Ajuste o tamanho do texto conforme necessário */
+    font-weight: bold;
+    margin-bottom: 20px; /* Espaçamento abaixo do texto */
+    font-family: 'Gideon Roman', serif; /* Fonte personalizada */
+}
+
+h2,label,select {
+    color: #2a2e31;
+    font-family: 'Gideon Roman', serif; /* Fonte personalizada */
+}
+
+.btn {
+    font-family: 'Bona Nova SC', serif; /* Altera a fonte do botão */
+    font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
+}
+
+.content-container {
+    display: flex;
+    align-items: center;
+    width: 75%; /* Ajuste para controlar a largura total */
+    height: 50%;
+}
+
+.content-box {
+    background-color: #dffdf880;
+    color: white; /* Ajuste para o contraste */
+    padding: 20px;
+    width: 100%; /* Ocupa todo o espaço disponível */
+    border-radius: 1vh;
+    text-align: center;
+    height: 80%;
+    
+    /* Centralização do conteúdo */
+    display: flex; /* Ativa o flexbox */
+    flex-direction: column; /* Coloca os elementos em coluna */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+}
+
+
+.divider {
+    width: 2px; /* Espessura da barra */
+    height: 65%; /* Ajuste a altura conforme necessário */
+    background-color: #2e414490; /* Cor da barra */
+    margin: 0 20px; /* Espaçamento entre as divs */
+}
+
+.internal-divider {
+    width: 90%; /* Ajuste conforme necessário */
+    height: 1px; /* Espessura da barra */
+    background-color: #2e414490; /* Cor da barra */
+    margin: 20px auto; /* Espaçamento vertical */
+}
+
+.btn-primary {
+    background-color: #50565c; /* Cinza */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background-color: #33383b; /* Tom de cinza um pouco mais escuro para hover */
+}
+
+.form-select {
+    width: 50%; /* Ajusta a largura do seletor para 50% */
+    max-width: 200px; /* Limita a largura máxima do seletor */
+    padding: 10px; /* Para adicionar espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    border: 1px solid #ccc; /* Borda cinza clara */
+    background-color: #fff; /* Fundo branco */
+    color: #000; /* Texto preto */
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+.form-select:focus {
+    border-color: #6c757d; /* Cor da borda quando o campo está focado */
+    outline: none; /* Remove o contorno padrão */
+}

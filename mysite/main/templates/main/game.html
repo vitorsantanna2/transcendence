@@ -17,9 +17,13 @@
         <link rel="stylesheet" href="{% static 'base.css' %}" />
         <link rel="stylesheet" href="{% static 'game.css' %}" />
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Gideon+Roman&display=swap" rel="stylesheet">
+
         <title>King Pong</title>
     </head>
-    <body style="background-image: url('{% static '/images/fundo.png' %}')">
+    <body style="background-image: url('../../static/images/fundo.png')">
         <!-- Main div -->
         <div class="main w-100 mx-5 d-flex justify-content-center align-items-center">
             <!-- Lateral Navigation bar -->
@@ -56,15 +60,6 @@
                                 class="imgs" />
                         </a>
                     </li>
-                    <li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item"
-                        id="config-nav">
-                        <a class="nav-link" href="#">
-                            <img
-                                src="{% static '/images/entrar.png' %}"
-                                class="imgs" />
-                        </a>
-                    </li>
 					<li
                         class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item"
                         id="config-nav">
@@ -77,16 +72,48 @@
                 </ul>
             </div>
 
+            <!-- Jogo rodando !!! 
+            <canvas id="pongCanvas"></canvas>
+            <script>
+                var p1ImageUrl = "{% static 'images/apollo.png' %}";
+                var p2ImageUrl = "{% static 'images/alexandre.png' %}";
+                var ballImageUrl = "{% static 'images/moon.png' %}";
+            </script> 
+            -->
             <!-- Main Content -->
-            <div class="cover-container justify-content-between align-items-center">
-                <canvas id="pongCanvas"></canvas>
-                <script>
-                    var p1ImageUrl = "{% static 'images/apollo.png' %}";
-                    var p2ImageUrl = "{% static 'images/alexandre.png' %}";
-                    var ballImageUrl = "{% static 'images/moon.png' %}";
-                </script>
+            <div class="cover-container d-flex flex-column justify-content-center align-items-center">
+                <h1 class="welcome-text">Bem-vindo ao Pong dos Filósofos</h1> <!-- Texto de boas-vindas -->
+                
+                <div class="content-container d-flex justify-content-between align-items-center mt-4">
+                    <!-- Primeira Content Box com Botões -->
+                    <div class="content-box text-center">
+                        <h2>Jogar contra IA</h2>
+                        <label for="difficulty" class="mt-2">Selecione a Dificuldade:</label>
+                        <select id="difficulty" class="form-select text-center mt-2">
+                            <option value="easy">Fácil</option>
+                            <option value="medium">Médio</option>
+                            <option value="hard">Difícil</option>
+                        </select>
+                        <button type="button" class="btn btn-primary mt-3">Iniciar</button>
+        
+                    </div>
+                    
+                    <!-- Barra Divisória Externa -->
+                    <div class="divider"></div>
+                    
+                    <!-- Segunda Content Box -->
+                    <div class="content-box text-center">
+                        <h2>Multiplayer Local</h2>
+                        <button type="button" class="btn btn-primary mt-2">Iniciar</button>
+                        
+                        <div class="internal-divider my-4"></div> <!-- Barra Divisória Interna -->
+                        <h2>Multiplayer Online</h2>
+                        <button type="button" class="btn btn-primary mt-2">Iniciar</button>
+                        
+                    </div>
+                </div>
             </div>
-        </div>
+            
         <!-- Bootstrap javascript -->
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
