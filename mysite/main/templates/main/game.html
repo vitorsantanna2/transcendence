@@ -15,7 +15,7 @@
             crossorigin="anonymous" />
         <!-- Style CSS -->
         <link rel="stylesheet" href="{% static 'base.css' %}" />
-        <link rel="stylesheet" href="{% static 'game.css' %}" />
+        <link rel="stylesheet" href="{% static 'game&tournament.css' %}" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,7 @@
 
         <title>King Pong</title>
     </head>
-    <body style="background-image: url('../../static/images/fundo.png')">
+    <body style="background-image: url('{% static '/images/fundo.png' %}')">
         <!-- Main div -->
         <div class="main w-100 mx-5 d-flex justify-content-center align-items-center">
             <!-- Lateral Navigation bar -->
@@ -85,35 +85,42 @@
                 <h1 class="welcome-text">Bem-vindo ao Pong dos Filósofos</h1> <!-- Texto de boas-vindas -->
                 
                 <div class="content-container d-flex justify-content-between align-items-center mt-4">
-                    <!-- Primeira Content Box com Botões -->
+                    <!-- Primeira Content Box com Formulário para Jogar contra IA -->
                     <div class="content-box text-center">
                         <h2>Jogar contra IA</h2>
-                        <label for="difficulty" class="mt-2">Selecione a Dificuldade:</label>
-                        <select id="difficulty" class="form-select text-center mt-2">
-                            <option value="easy">Fácil</option>
-                            <option value="medium">Médio</option>
-                            <option value="hard">Difícil</option>
-                        </select>
-                        <button type="button" class="btn btn-primary mt-3">Iniciar</button>
-        
+                        <form action="/jogar_ia" method="POST">
+                            <label for="difficulty" class="mt-2">Selecione a Dificuldade:</label>
+                            <select id="difficulty" name="difficulty" class="form-select text-center mt-2">
+                                <option value="easy">Fácil</option>
+                                <option value="medium">Médio</option>
+                                <option value="hard">Difícil</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary mt-3">Iniciar</button>
+                        </form>
                     </div>
                     
                     <!-- Barra Divisória Externa -->
                     <div class="divider"></div>
                     
-                    <!-- Segunda Content Box -->
+                    <!-- Segunda Content Box com Formulários para Multiplayer Local e Online -->
                     <div class="content-box text-center">
-                        <h2>Multiplayer Local</h2>
-                        <button type="button" class="btn btn-primary mt-2">Iniciar</button>
+                        <!-- Formulário para Multiplayer Local -->
+                        <form action="/multiplayer_local" method="POST">
+                            <h2>Multiplayer Local</h2>
+                            <button type="submit" class="btn btn-primary mt-2">Iniciar</button>
+                        </form>
                         
                         <div class="internal-divider my-4"></div> <!-- Barra Divisória Interna -->
-                        <h2>Multiplayer Online</h2>
-                        <button type="button" class="btn btn-primary mt-2">Iniciar</button>
-                        
+
+                        <!-- Formulário para Multiplayer Online -->
+                        <form action="/multiplayer_online" method="POST">
+                            <h2>Multiplayer Online</h2>
+                            <button type="submit" class="btn btn-primary mt-2">Iniciar</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            
+        </div>
         <!-- Bootstrap javascript -->
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
