@@ -13,7 +13,8 @@ urlpatterns = [
     path('tournament/', views.tournament, name='tournament'),
     path('base/', views.base, name='base'),
     path('chat/', views.chat, name='chat'),
-
+    path('tournamentRoom/', views.tournamentRoom, name='tournamentRoom'),
+    path('inGame/', views.inGame, name='inGame'),
 ]
 
 if settings.DEBUG:

@@ -26,3 +26,9 @@ def base(request):
 
 def chat(request):
     return render(request, 'main/chat.html')
+
+def tournamentRoom(request):
+    return render(request, 'main/tournamentRoom.html')
+
+def inGame(request):
+    return render(request, 'main/inGame.html')
