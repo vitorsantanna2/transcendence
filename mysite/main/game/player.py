@@ -10,10 +10,12 @@ class Player:
 		self.player_id = player_id
 
 	def move_up(self):
-		self.y_pos -= self.speed
+		if self.y_pos > 0:
+			self.y_pos -= self.speed
 
 	def move_down(self):
-		self.y_pos += self.speed
+		if self.y_pos < 600 - self.height:
+			self.y_pos += self.speed
 
 	def reset_position(self, y_position):
 		self.y_pos = y_position
