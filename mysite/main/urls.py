@@ -5,7 +5,16 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
-    #path('game/<str:game_id>/', views.game, name='game'),
+    path('perfil/', views.perfil, name='perfil'),
+    path('login/', views.login, name='login'),
+    path('registration/', views.registration, name='registration'),
+    path('configuration/', views.configuration, name='configuration'),
+    path('game/', views.game, name='game'),
+    path('tournament/', views.tournament, name='tournament'),
+    path('base/', views.base, name='base'),
+    path('chat/', views.chat, name='chat'),
+    path('tournamentRoom/', views.tournamentRoom, name='tournamentRoom'),
+    path('inGame/', views.inGame, name='inGame'),
 ]
 
 if settings.DEBUG:

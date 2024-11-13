@@ -12,6 +12,8 @@ Este projeto consiste em um jogo de Ping Pong multiplayer, e foi criado com a fi
  - [Bootstrap Documentation](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
  - [Psycopg3 Documentation](https://www.psycopg.org/psycopg3/docs/index.html)
  - [Postgresql Documentation](https://www.postgresql.org/docs/)
+ - [Channels Documentation](https://channels.readthedocs.io/en/latest/)
+ - [Daphne](https://github.com/django/daphne)
 
 
 ## Autores
