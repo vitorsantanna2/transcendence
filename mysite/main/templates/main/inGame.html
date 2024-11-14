@@ -22,25 +22,26 @@
     <body style="background-image: url('{% static '/images/fundo.png' %}')">
         <!-- Main div -->
         <div class="main w-100 mx-5 d-flex justify-content-center align-items-center">
-			<!-- Main Content -->
-			<div class="cover-container d-flex justify-content-center align-items-center">
-
-                    <canvas class="canvasStyle d-flex justify-content-center align-items-center" id="pongCanvas"></canvas>
-                    <script>
-                        var p1ImageUrl = "{% static 'images/apollo.png' %}";
-                        var p2ImageUrl = "{% static 'images/alexandre.png' %}";
-                        var ballImageUrl = "{% static 'images/moon.png' %}";
-                    </script>
-
-			</div>
-		</div>
+            <!-- Main Content -->
+            <div class="cover-container d-flex justify-content-center align-items-center">
+                <canvas class="canvasStyle d-flex justify-content-center align-items-center" id="pongCanvas"></canvas>
+                <script>
+                    var p1ImageUrl = "{% static 'images/apollo.png' %}";
+                    var p2ImageUrl = "{% static 'images/alexandre.png' %}";
+                    var ballImageUrl = "{% static 'images/moon.png' %}";
+                </script>
+            </div>
+        </div>
         <!-- Bootstrap javascript -->
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-
-			<script src="{% static 'pong.js' %}"></script>
-
+            crossorigin="anonymous">
+        </script>
+        <script>
+            var gameId = "{{ game_id }}";
+            console.log("Game ID: " + gameId);
+        </script>
+        <script src="{% static 'pong.js' %}"></script>
     </body>
 </html>

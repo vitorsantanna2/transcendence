@@ -35,6 +35,7 @@ urlpatterns = [
     path('chat/', views.chat, name='chat'),
     path('tournamentRoom/', views.tournamentRoom, name='tournamentRoom'),
     path('inGame/', views.inGame, name='inGame'),
+    path('inGame/<str:game_id>/', views.game_id, name='game_id')
 ]
 
 if settings.DEBUG:

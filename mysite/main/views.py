@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Game
 
 def index(request):
     return render(request, 'main/index.html')
@@ -32,3 +33,7 @@ def tournamentRoom(request):
 
 def inGame(request):
     return render(request, 'main/inGame.html')
+
+def game_id(request, game_id):
+    game_instance = get_object_or_404(Game, id=game_id)
+    return render(request, 'main/inGame.html', {'game_instance': game_instance})
