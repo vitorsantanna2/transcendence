@@ -88,7 +88,7 @@
                     <!-- Primeira Content Box com Formulário para Jogar contra IA -->
                     <div class="content-box text-center">
                         <h2>Jogar contra IA</h2>
-                        <form action="/jogar_ia" method="POST">
+                        <form action="{% url 'inGame' %}">
                             <label for="difficulty" class="mt-2">Selecione a Dificuldade:</label>
                             <select id="difficulty" name="difficulty" class="form-select text-center mt-2">
                                 <option value="easy">Fácil</option>

@@ -39,8 +39,8 @@
             crossorigin="anonymous">
         </script>
         <script>
-            var gameId = "{{ game_id }}";
-            console.log("Game ID: " + gameId);
+            var gameId = "{{ game_id }}";  // game_id será injetado pelo backend
+            console.log("Game ID from backend: " + gameId);
         </script>
         <script src="{% static 'pong.js' %}"></script>
     </body>

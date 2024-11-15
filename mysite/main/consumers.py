@@ -4,11 +4,13 @@ from .game.ball import Ball
 from .game.player import Player
 import asyncio
 import uuid
+import logging
+log = logging.getLogger(__name__)
 
 games = {}
 
 def create_new_game():
-    game_id = str(uuid.uuid4())  # Gera um ID único
+    game_id = str(uuid.uuid4())
     games[game_id] = {
         'player1': Player(40, 250, 10, 50, 70, 1),
         'player2': Player(710, 250, 10, 50, 70, 2),
@@ -18,7 +20,13 @@ def create_new_game():
 
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        self.game_id = create_new_game()
+
+        self.game_id = self.scope['url_route']['kwargs'].get('game_id', None)
+
+        if self.game_id not in games:
+            self.game_id = create_new_game()
+
+        log.debug(self.game_id)
         
         self.player1 = games[self.game_id]['player1']
         self.player2 = games[self.game_id]['player2']

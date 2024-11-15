@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Game
+from django.shortcuts import render, redirect
+import uuid
 
 def index(request):
     return render(request, 'main/index.html')
@@ -32,8 +32,8 @@ def tournamentRoom(request):
     return render(request, 'main/tournamentRoom.html')
 
 def inGame(request):
-    return render(request, 'main/inGame.html')
+    game_id = uuid.uuid4()
+    return redirect('game_id', game_id=game_id)
 
 def game_id(request, game_id):
-    game_instance = get_object_or_404(Game, id=game_id)
-    return render(request, 'main/inGame.html', {'game_instance': game_instance})
+    return render(request, 'main/inGame.html', {'game_id': game_id})
