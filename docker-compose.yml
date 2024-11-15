@@ -8,7 +8,7 @@ services:
       - transcendence
 
   db:
-    image: postgres:latest
+    image: postgres:16
     container_name: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -32,7 +32,7 @@ services:
     command: /entrypoint.sh
     volumes:
       - ./mysite/:/var/www/django/
-      - static_volume:/var/www/django/staticfiles/
+      - static_volume:/var/www/django/static/
       - media_volume:/var/www/django/media/
     container_name: django
     depends_on:
@@ -54,7 +54,7 @@ services:
     ports:
       - "8443:443"
     volumes:
-      - static_volume:/var/www/django/staticfiles/
+      - static_volume:/var/www/django/static/
       - media_volume:/var/www/django/media/
       - ./requirements/nginx/:/etc/nginx/sites-enabled/
     networks:
