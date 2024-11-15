@@ -1,0 +1,9 @@
+.canvasStyle {
+	width: 100%;            /* Faz o canvas ocupar toda a largura do elemento pai */
+    max-width: 1000px;       /* Limita a largura máxima para 640px */
+    aspect-ratio: 4 / 3;    /* Mantém a proporção 4:3 */
+    background-color: #dffdf980; /* Fundo preto para estilo clássico */
+	border-radius: 3.5vh;
+    display: block;         /* Remove pequenos espaçamentos causados por elementos inline */
+    margin: 0 auto;         /* Centraliza horizontalmente dentro do contêiner */
+}
