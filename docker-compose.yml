@@ -13,7 +13,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - 5432:${DB_PORT}
     env_file:
       - .env
     environment:
@@ -66,5 +66,6 @@ networks:
         driver: bridge
 volumes:
   postgres_data:
+    driver: local
   static_volume:
   media_volume:
