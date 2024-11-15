@@ -7,6 +7,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY mysite /mysite/
+
 COPY requirements/django/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
