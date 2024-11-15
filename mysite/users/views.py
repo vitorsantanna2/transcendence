@@ -14,9 +14,6 @@ def login_page(request):
 		username = request.POST.get("username")
 		password = request.POST.get("password")
 
-		print(username)
-		print(password)
-
 		user = User.objects.filter(username=username).first()
 
 		if user is not None:
