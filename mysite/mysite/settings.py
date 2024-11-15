@@ -13,30 +13,50 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from mysite.utils import insertDirectoryPath
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+### BASE DIR AND ENVIRONMENT VARIABLES ## 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+APPS = ["main", "users"]
+
+STATIC_URL = '/static/'
+STATIC_ROOT = "/var/www/django/static"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = "/var/www/django/media"
+
+STATICFILES_DIRS = insertDirectoryPath(APPS, BASE_DIR, "static")
+TEMPLATES_DIRS = insertDirectoryPath(APPS, BASE_DIR, "templates")
 
 env_path = BASE_DIR.parent / '.env'
 load_dotenv(dotenv_path=env_path)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+POSTGRES_DB = os.getenv('POSTGRES_DB')
+POSTGRES_USER = os.getenv('POSTGRES_USER')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+DB_HOST = os.getenv('DB_HOST')
+DB_PORT = os.getenv('DB_PORT')
+
+##################################
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8443',
+    'https://localhost:8443',
+]
 
 # Application definition
+
 
 INSTALLED_APPS = [
     "channels",
 	"daphne",
-	"main",
+	"main.apps.MainConfig",
+	"users.apps.UsersConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,7 +79,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'main/templates'],
+        'DIRS': TEMPLATES_DIRS,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,20 +113,13 @@ CHANNEL_LAYERS = {
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': os.getenv('POSTGRES_DB'),
-       'USER': os.getenv('POSTGRES_USER'),
-       'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-       'HOST': os.getenv('DB_HOST'),
-       'PORT': os.getenv('DB_PORT'),
+       'NAME': POSTGRES_DB,
+       'USER': POSTGRES_USER,
+       'PASSWORD': POSTGRES_PASSWORD,
+       'HOST': DB_HOST,
+       'PORT': DB_PORT,
    }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -142,11 +155,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
