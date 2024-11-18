@@ -34,6 +34,8 @@ services:
       - ./mysite/:/var/www/django/
       - static_volume:/var/www/django/staticfiles/
       - media_volume:/var/www/django/media/
+    environment:
+      - DEBUG=1
     container_name: django
     depends_on:
       - db

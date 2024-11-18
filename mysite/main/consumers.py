@@ -2,10 +2,17 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .game.ball import Ball
 from .game.player import Player
+from channels.db import database_sync_to_async
+from django.apps import apps
 import asyncio
 import uuid
 import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 log = logging.getLogger(__name__)
+
+log.debug("Logging configurado corretamente.")
 
 games = {}
 
@@ -20,16 +27,46 @@ def create_new_game():
 
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        Match = apps.get_model('main', 'Match')
+        User = apps.get_model('auth', 'User')
 
         self.game_id = self.scope['url_route']['kwargs'].get('game_id', None)
 
-        if self.game_id not in games:
+        existing_match_qs = await database_sync_to_async(Match.objects.filter)(game_id=self.game_id, is_active=True)
+        existing_match = await database_sync_to_async(existing_match_qs.first)()
+
+        if existing_match:
+            log.debug(f"Game {self.game_id} already exists. Joining the game.")
+        else:
             self.game_id = create_new_game()
+            log.debug(f"Creating new game with ID: {self.game_id}")
+
+            self.player1 = games[self.game_id]['player1']
+            self.player2 = games[self.game_id]['player2']
+
+            await database_sync_to_async(Match.objects.create)(
+                    game_id=self.game_id,
+                    is_active=True
+                )
+
+            # try:
+            #     user1 = await database_sync_to_async(User.objects.get)(id=self.player1.player_id)
+            #     user2 = await database_sync_to_async(User.objects.get)(id=self.player2.player_id)
+
+            #     await database_sync_to_async(Match.objects.create)(
+            #         game_id=self.game_id,
+            #         user1=user1,
+            #         user2=user2,
+            #         user1_score=self.player1.score,
+            #         user2_score=self.player2.score,
+            #         is_active=True
+            #     )
+            # except User.DoesNotExist as e:
+            #     log.error(f"User does not exist: {e}")
+            #   await self.close()
 
         log.debug(self.game_id)
         
-        self.player1 = games[self.game_id]['player1']
-        self.player2 = games[self.game_id]['player2']
         self.ball = games[self.game_id]['ball']
         
         self.room_group_name = f'game_{self.game_id}'
@@ -52,7 +89,7 @@ class PongConsumer(AsyncWebsocketConsumer):
         self.send_ball_pos = asyncio.create_task(self.update_ball_pos())
         
 
-    async def disconnect(self):
+    async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
         self.send_ball_pos.cancel()
         self.send_player1_pos.cancel()
