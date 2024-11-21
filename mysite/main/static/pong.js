@@ -1,23 +1,4 @@
-let socket;
-
-function connectWebSocket(gameId) {
-    if (!socket || socket.readyState === WebSocket.CLOSED) {
-        socket = new WebSocket(`ws://` + window.location.host + `/ws/main/${gameId}/`);
-
-        socket.onopen = function() {
-            console.log("WebSocket conectado com game_id:", gameId);
-        };
-
-        socket.onerror = function(error) {
-            console.log("WebSocket error: " + error);
-        };
-
-        // Adicione outros manipuladores de eventos WebSocket aqui, se necessário
-    } else {
-        console.log("WebSocket já está conectado.");
-    }
-}
-connectWebSocket(gameId);
+const socket = new WebSocket(`ws://` + window.location.host + `/ws/main/${gameId}/`);
 const canvas = document.getElementById('pongCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = 800;

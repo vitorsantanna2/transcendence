@@ -1,5 +1,10 @@
 from django.shortcuts import render, redirect
+from django.db import transaction
+from .models import Match
 import uuid
+
+def get_id():
+    return str(uuid.uuid4())
 
 def index(request):
     return render(request, 'main/index.html')
@@ -32,7 +37,12 @@ def tournamentRoom(request):
     return render(request, 'main/tournamentRoom.html')
 
 def inGame(request):
-    game_id = uuid.uuid4()
+    match = Match.objects.filter(is_active=True).first()
+    if not match:
+        game_id = get_id()
+        match = Match.objects.create(game_id=game_id, is_active=True)
+    else:
+        game_id = match.game_id
     return redirect('game_id', game_id=game_id)
 
 def game_id(request, game_id):

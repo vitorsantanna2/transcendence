@@ -8,6 +8,7 @@ class Player:
 		self.score = 0
 		self.rounds = 0
 		self.player_id = player_id
+		self.connected = False
 
 	def move_up(self):
 		if self.y_pos > 0:
