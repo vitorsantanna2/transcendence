@@ -37,12 +37,10 @@ def tournamentRoom(request):
     return render(request, 'main/tournamentRoom.html')
 
 def inGame(request):
-    match = Match.objects.filter(is_active=True).first()
-    if not match:
+    game_id = get_id()
+    while Match.objects.filter(game_id=game_id).exists():
         game_id = get_id()
-        match = Match.objects.create(game_id=game_id, is_active=True)
-    else:
-        game_id = match.game_id
+    match = Match.objects.create(game_id=game_id, is_active=True)
     return redirect('game_id', game_id=game_id)
 
 def game_id(request, game_id):

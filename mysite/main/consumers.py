@@ -47,11 +47,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                     'player2': None,
                     'ball': None
                 }
-
-            await database_sync_to_async(Match.objects.create)(
-                    game_id=self.game_id,
-                    is_active=True
-                )
+                
         if self.game_id in games:
             self.player1 = games[self.game_id]['player1']
             self.player2 = games[self.game_id]['player2']
