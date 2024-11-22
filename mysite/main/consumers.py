@@ -3,8 +3,6 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from .game.ball import Ball
 from .game.player import Player
 from channels.db import database_sync_to_async
-from django.apps import apps
-from django.core.cache import cache
 import uuid
 import asyncio
 import logging
@@ -17,9 +15,6 @@ log.debug("Logging configurado corretamente.")
 
 games = {}
 
-def get_id():
-    return str(uuid.uuid4())
-
 def create_new_game(id):
     games[id] = {
         'player1': Player(40, 250, 10, 50, 70, 1),
@@ -29,24 +24,12 @@ def create_new_game(id):
 
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        Match = apps.get_model('main', 'Match')
-
-        self.game_id = self.scope['url_route']['kwargs'].get('game_id', None)
-
-        existing_match = await database_sync_to_async(lambda: Match.objects.filter(game_id=self.game_id, is_active=True).first())()
-
-        if existing_match:
-            log.debug(f"Game {self.game_id} already exists. Joining the game.")
-        else:
-            create_new_game(self.game_id)
-            log.debug(f"Creating new game with ID: {self.game_id}")
-
-            if self.game_id not in games:
-                games[self.game_id] = {
-                    'player1': None,
-                    'player2': None,
-                    'ball': None
-                }
+        from .models import Match
+        self.game_id = str(uuid.uuid4())
+        create_new_game(self.game_id)
+        match = await database_sync_to_async(Match.objects.create)(game_id=self.game_id, is_active=True)
+        database_sync_to_async(Match.save)(match)
+        log.debug(f"Creating new game with ID: {self.game_id}")
                 
         if self.game_id in games:
             self.player1 = games[self.game_id]['player1']
