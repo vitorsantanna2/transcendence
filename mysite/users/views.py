@@ -1,24 +1,25 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import bcrypt
+import os
 from users.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from twilio.rest import Client
 
-
 # Create your views here.
 
 
 def login_page(request):
-    # TODO MOVE THIS TO ENVIROMENT
-    account_sid = "AC43065e552467653c7090ba1b33e581fb"
-    auth_token = "1c3c0cf76b6d8725a77d50a3ccd424b9"
-    verification_service = "VA97f28e44c48ab30c1df8e245ced27eab"
-
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
+
+        verf_service = os.getenv("VERIFICATION_SERVICE")
+        if not verf_service:
+            return HttpResponse(
+                b"Internal server error verification service not found", status=500
+            )
 
         user = User.objects.filter(username=username).first()
 
@@ -30,8 +31,8 @@ def login_page(request):
                     b"Authentication failed! Invalid username or password", status=401
                 )
 
-            client = Client(account_sid, auth_token)
-            _ = client.verify.v2.services(verification_service).verifications.create(
+            twilio_client = Client(os.getenv("ACCOUNT_SID"), os.getenv("auth_token"))
+            _ = twilio_client.verify.v2.services(verf_service).verifications.create(
                 to=user.phoneNumber, channel="sms"
             )
 
@@ -47,23 +48,23 @@ def login_page(request):
 
 
 def twoFactorAuth(request):
-    # TODO MOVE THIS TO ENVIROMENT
-    account_sid = "AC43065e552467653c7090ba1b33e581fb"
-    auth_token = "1c3c0cf76b6d8725a77d50a3ccd424b9"
-    verification_service = "VA97f28e44c48ab30c1df8e245ced27eab"
-
     if request.method == "POST":
         form_code = request.POST.get("twoFA")
         user_id = request.session["2fa_user_id"]
+        verf_service = os.getenv("VERIFICATION_SERVICE")
+        if not verf_service:
+            return HttpResponse(
+                b"Internal server error verification service not found", status=500
+            )
 
         if not user_id:
             return HttpResponse(b"Internal server error lost user_id", status=500)
 
         user = User.objects.filter(id=user_id).first()
-        twillio_client = Client(account_sid, auth_token)
+        twilio_client = Client(os.getenv("ACCOUNT_SID"), os.getenv("auth_token"))
 
-        verification_check = twillio_client.verify.v2.services(
-            verification_service
+        verification_check = twilio_client.verify.v2.services(
+            verf_service
         ).verification_checks.create(to=user.phoneNumber, code=form_code)
 
         if verification_check.status != "approved":
