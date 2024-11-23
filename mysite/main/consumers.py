@@ -2,33 +2,23 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .game.ball import Ball
 from .game.player import Player
-from channels.db import database_sync_to_async
-import uuid
 import asyncio
 import logging
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
 log = logging.getLogger(__name__)
-
 log.debug("Logging configurado corretamente.")
 
 games = {}
+class PongConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        self.game_id = self.scope['url_route']['kwargs']['game_id']
 
-def create_new_game(id):
-    games[id] = {
+        games[self.game_id] = {
         'player1': Player(40, 250, 10, 50, 70, 1),
         'player2': Player(710, 250, 10, 50, 70, 2),
         'ball': Ball(15, 400, 300, 5.0, 5.0, 800, 600),
     }
-
-class PongConsumer(AsyncWebsocketConsumer):
-    async def connect(self):
-        from .models import Match
-        self.game_id = str(uuid.uuid4())
-        create_new_game(self.game_id)
-        match = await database_sync_to_async(Match.objects.create)(game_id=self.game_id, is_active=True)
-        database_sync_to_async(Match.save)(match)
         log.debug(f"Creating new game with ID: {self.game_id}")
                 
         if self.game_id in games:
