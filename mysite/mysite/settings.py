@@ -18,6 +18,7 @@ from mysite.utils import insertDirectoryPath
 ### BASE DIR AND ENVIRONMENT VARIABLES ## 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+LOCAL_DEBUG = True
 
 APPS = ["main", "users"]
 
@@ -36,11 +37,20 @@ load_dotenv(dotenv_path=env_path)
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-POSTGRES_DB = os.getenv('POSTGRES_DB')
-POSTGRES_USER = os.getenv('POSTGRES_USER')
-POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
-DB_HOST = os.getenv('DB_HOST')
-DB_PORT = os.getenv('DB_PORT')
+##############################################
+
+if LOCAL_DEBUG:
+    POSTGRES_DB = os.getenv('LOCAL_DB')
+    POSTGRES_USER = os.getenv('LOCAL_USER')
+    POSTGRES_PASSWORD = os.getenv('LOCAL_PASSWORD')
+    DB_HOST = os.getenv('LOCAL_HOST')
+    DB_PORT = os.getenv('LOCAL_PORT')
+else:
+    POSTGRES_DB = os.getenv('POSTGRES_DB')
+    POSTGRES_USER = os.getenv('POSTGRES_USER')
+    POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+    DB_HOST = os.getenv('DB_HOST')
+    DB_PORT = os.getenv('DB_PORT')
 
 ##################################
 
