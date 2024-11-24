@@ -11,41 +11,24 @@ from twilio.rest import Client
 
 
 def login_page(request):
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+	if request.method == "GET":
+		return render(request, "login.html")
 
-        verf_service = os.getenv("VERIFICATION_SERVICE")
-        if not verf_service:
-            return HttpResponse(
-                b"Internal server error verification service not found", status=500
-            )
+	username = request.POST.get("username")
+	password = request.POST.get("password")
 
-        user = User.objects.filter(username=username).first()
-
-        if user is not None:
-            if not (
-                bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8"))
-            ):
-                return HttpResponse(
-                    b"Authentication failed! Invalid username or password", status=401
-                )
-
-            twilio_client = Client(os.getenv("ACCOUNT_SID"), os.getenv("auth_token"))
-            _ = twilio_client.verify.v2.services(verf_service).verifications.create(
-                to=user.phoneNumber, channel="sms"
-            )
-
-            request.session["2fa_user_id"] = user.id
-
-            return redirect("/auth/twofa")
-        else:
-            return HttpResponse(
-                b"Authentication failed! Invalid username or password", status=401
-            )
-    else:
-        return render(request, "login.html")
-
+	verf_service = os.getenv("VERIFICATION_SERVICE")
+	if not verf_service:
+		return HttpResponse(b"Internal server error verification service not found", status=500)
+	user = User.objects.filter(username=username).first()
+	if user is None:
+		return HttpResponse(b"Authentication failed! Invalid username or password", status=401)
+	elif not bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
+		return HttpResponse(b"Authentication failed! Invalid username or password", status=401)
+	twilio_client = Client(os.getenv("ACCOUNT_SID"), os.getenv("auth_token"))
+	_ = twilio_client.verify.v2.services(verf_service).verifications.create(to=user.phoneNumber, channel="sms")
+	request.session["2fa_user_id"] = user.id
+	return redirect("/auth/twofa")
 
 def twoFactorAuth(request):
     if request.method == "POST":
