@@ -18,7 +18,7 @@ from mysite.utils import insertDirectoryPath
 ### BASE DIR AND ENVIRONMENT VARIABLES ## 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-LOCAL_DEBUG = True
+LOCAL_DEBUG = False
 
 APPS = ["main", "users"]
 
