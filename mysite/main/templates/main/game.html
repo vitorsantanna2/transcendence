@@ -106,6 +106,7 @@
                     <div class="content-box text-center">
                         <!-- Formulário para Multiplayer Local -->
                         <form action="{% url 'onlinegame' %}" method="POST">
+                            {% csrf_token %}
                             <h2>Multiplayer Local</h2>
                             <button type="submit" class="btn btn-primary mt-2">Iniciar</button>
                         </form>
@@ -114,6 +115,7 @@
 
                         <!-- Formulário para Multiplayer Online -->
                         <form action="{% url 'onlinegame' %}" method="POST">
+                            {% csrf_token %}
                             <h2>Multiplayer Online</h2>
                             <button type="submit" class="btn btn-primary mt-2">Iniciar</button>
                         </form>

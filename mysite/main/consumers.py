@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 log.debug("Logging configurado corretamente.")
 
 def create_player(x_pos, y_pos, speed, width, height, player_id, mode):
-    if mode == 'auto':
+    if mode == 'local':
         return AutoPlayer(x_pos, y_pos, speed, width, height, player_id)
     else:
         return Player(x_pos, y_pos, speed, width, height, player_id)
@@ -95,6 +95,9 @@ class PongConsumer(AsyncWebsocketConsumer):
             self.send_ball_pos.cancel()
 
     async def receive(self, text_data):
+        from .models import Match
+        match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
+        game_type = match.game_type
         data = json.loads(text_data)
         player_id = data['player']
         direction = data['direction']
@@ -104,7 +107,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 self.player1.y_pos -= self.player1.speed
             elif direction == 'down':
                 self.player1.y_pos += self.player1.speed
-        if player_id == 2:
+        if player_id == 2 and game_type == 'online':
             if direction == 'up':
                 self.player2.y_pos -= self.player2.speed
             elif direction == 'down':

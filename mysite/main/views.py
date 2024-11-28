@@ -34,12 +34,12 @@ def tournamentRoom(request):
 
 def localgame(request):
     game_id = str(uuid.uuid4())
-    Match.objects.create(game_id=game_id, is_active=True, game_type='localgame')
+    Match.objects.create(game_id=game_id, is_active=True, game_type='local')
     return redirect('local_id', game_id=game_id)
 
 def onlinegame(request):
     game_id = str(uuid.uuid4())
-    Match.objects.create(game_id=game_id, is_active=True, game_type='onlinegame')
+    Match.objects.create(game_id=game_id, is_active=True, game_type='online')
     return redirect('online_id', game_id=game_id)
 
 def local_id(request, game_id):
