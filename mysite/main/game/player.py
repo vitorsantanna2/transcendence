@@ -22,8 +22,8 @@ class Player:
 		self.y_pos = y_position
 
 class AutoPlayer(Player):
-	def __init__(self, x_pos, y_pos, speed, width, height):
-		super().__init__(x_pos, y_pos, speed, width, height)
+	def __init__(self, x_pos, y_pos, speed, width, height, player_id):
+		super().__init__(x_pos, y_pos, speed, width, height, player_id)
 		self.target = y_pos
 		self.delay = 0
 

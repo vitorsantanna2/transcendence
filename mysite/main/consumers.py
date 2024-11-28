@@ -2,6 +2,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .game.ball import Ball
 from .game.player import Player, AutoPlayer
+from asgiref.sync import sync_to_async
 import asyncio
 import logging
 
@@ -9,15 +10,24 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(leve
 log = logging.getLogger(__name__)
 log.debug("Logging configurado corretamente.")
 
+def create_player(x_pos, y_pos, speed, width, height, player_id, mode):
+    if mode == 'auto':
+        return AutoPlayer(x_pos, y_pos, speed, width, height, player_id)
+    else:
+        return Player(x_pos, y_pos, speed, width, height, player_id)
+
 games = {}
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        from .models import Match
         self.game_id = self.scope['url_route']['kwargs']['game_id']
 
+        match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
+        game_type = match.game_type
 
         games[self.game_id] = {
         'player1': Player(40, 250, 10, 50, 70, 1),
-        'player2': Player(710, 250, 10, 50, 70, 2),
+        'player2': await sync_to_async(create_player)(710, 250, 10, 50, 70, 2, game_type),
         'ball': Ball(15, 400, 300, 5.0, 5.0, 800, 600),
     }
         log.debug(f"Creating new game with ID: {self.game_id}")
@@ -72,7 +82,11 @@ class PongConsumer(AsyncWebsocketConsumer):
         
 
     async def disconnect(self, close_code):
+        from .models import Match
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
+        match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
+        match.is_active = False
+        await sync_to_async(match.save)()
         if hasattr(self, 'send_player1_pos'):
             self.send_player1_pos.cancel()
         if hasattr(self, 'send_player2_pos'):
