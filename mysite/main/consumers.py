@@ -73,7 +73,8 @@ class PongConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'type': 'game_id',
             'game_id': self.game_id,
-            'player_id': self.player_id
+            'player_id': self.player_id,
+            'game_type': game_type
         }))
 
         self.send_player1_pos = asyncio.create_task(self.update_player_pos(1))
@@ -112,6 +113,20 @@ class PongConsumer(AsyncWebsocketConsumer):
                 self.player2.y_pos -= self.player2.speed
             elif direction == 'down':
                 self.player2.y_pos += self.player2.speed
+        if player_id == 2 and game_type == 'local':
+            player_center = self.player2.height // 2
+
+            if self.player2.delay > 0:
+                self.player2.delay -= 1
+            else:
+                self.player2.target = self.player2.predict_ball(self.ball, 800, 600)
+                self.player2.delay = 100
+
+            if self.player2.centery < self.player2.target - player_center and self.player2.bottom < 600:
+                self.player2.y_pos += self.player2.speed
+            elif self.player2.centery > self.player2.target + player_center and self.player2.top > 0:
+                self.player2.y_pos -= self.player2.speed
+        
         await self.channel_layer.group_send(
             self.room_group_name,
             {
@@ -180,7 +195,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             'x': event['x'],
             'y': event['y'],
             'speed': event['speed'],
-            'score': event['score'],
+            'score': event['score']
         }))
 
     async def ball_position(self, event):
