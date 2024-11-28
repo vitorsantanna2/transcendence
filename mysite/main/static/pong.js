@@ -3,12 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const socket = new WebSocket(`ws://` + window.location.host + `/ws/main/${game_id}/`);
 
-    socket.onopen = function(e) {
-        console.log("[open] Connection established");
-        console.log("Sending to server");
-        socket.send("My name is John");
-    };
-
     socket.onmessage = function(event) {
         console.log(`[message] Data received from server: ${event.data}`);
     };

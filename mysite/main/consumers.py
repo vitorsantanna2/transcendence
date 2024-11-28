@@ -1,7 +1,7 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .game.ball import Ball
-from .game.player import Player
+from .game.player import Player, AutoPlayer
 import asyncio
 import logging
 
@@ -13,6 +13,7 @@ games = {}
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.game_id = self.scope['url_route']['kwargs']['game_id']
+
 
         games[self.game_id] = {
         'player1': Player(40, 250, 10, 50, 70, 1),

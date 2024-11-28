@@ -22,9 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-	path('main/', include('main.urls')),
     path('perfil/', views.perfil, name='perfil'),
     path('login/', views.login, name='login'),
     path('registration/', views.registration, name='registration'),
@@ -34,8 +32,10 @@ urlpatterns = [
     path('base/', views.base, name='base'),
     path('chat/', views.chat, name='chat'),
     path('tournamentRoom/', views.tournamentRoom, name='tournamentRoom'),
-    path('inGame/', views.inGame, name='inGame'),
-    path('inGame/<str:game_id>/', views.game_id, name='game_id')
+    path('localgame/', views.localgame, name='localgame'),
+    path('localgame/<str:game_id>/', views.local_id, name='local_id'),
+    path('onlinegame/', views.onlinegame, name='onlinegame'),
+    path('onlinegame/<str:game_id>/', views.online_id, name='online_id')
 ]
 
 if settings.DEBUG:

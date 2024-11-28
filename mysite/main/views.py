@@ -32,10 +32,18 @@ def chat(request):
 def tournamentRoom(request):
     return render(request, 'main/tournamentRoom.html')
 
-def inGame(request):
+def localgame(request):
     game_id = str(uuid.uuid4())
-    Match.objects.create(game_id=game_id, is_active=True)
-    return redirect('game_id', game_id)
+    Match.objects.create(game_id=game_id, is_active=True, game_type='localgame')
+    return redirect('local_id', game_id=game_id)
 
-def game_id(request, game_id):
-    return render(request, 'main/inGame.html', {'game_id': game_id})
+def onlinegame(request):
+    game_id = str(uuid.uuid4())
+    Match.objects.create(game_id=game_id, is_active=True, game_type='onlinegame')
+    return redirect('online_id', game_id=game_id)
+
+def local_id(request, game_id):
+    return render(request, 'main/localgame.html', {'game_id': game_id})
+
+def online_id(request, game_id):
+    return render(request, 'main/onlinegame.html', {'game_id': game_id})
