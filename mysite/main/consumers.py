@@ -105,6 +105,10 @@ class PongConsumer(AsyncWebsocketConsumer):
             match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
             match.is_active = False
             await sync_to_async(match.save)()
+            match_score = await sync_to_async(Match.objects.get)(game_id=self.game_id)
+            match_score.p1_score = self.player1.score
+            match_score.p2_score = self.player2.score
+            await sync_to_async(match_score.save)()
 
     async def receive(self, text_data):
         from .models import Match
