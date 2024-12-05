@@ -87,12 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (key === 's') {
             player1_Y += player1_speed;
             movement = { player: 1, direction: 'down' };
-        } else if (game_type === 'online' && key === 'ArrowUp') { 
-            player2_Y -= player2_speed;
-            movement = { player: 2, direction: 'up' };
-        } else if (game_type === 'online' && key === 'ArrowDown') {
-            player2_Y += player2_speed;
-            movement = { player: 2, direction: 'down' };
+        } else if (game_type === 'online') { 
+            if (key === 'ArrowUp') {
+                player2_Y -= player2_speed;
+                movement = { player: 2, direction: 'up' };
+            } else if (key === 'ArrowDown') {
+                player2_Y += player2_speed;
+                movement = { player: 2, direction: 'down' };
+            }
         }
         if (movement) {
             socket.send(JSON.stringify(movement));

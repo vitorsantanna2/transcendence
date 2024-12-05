@@ -16,6 +16,14 @@ def create_player(x_pos, y_pos, speed, width, height, player_id, mode):
         return AutoPlayer(x_pos, y_pos, speed, width, height, player_id)
     else:
         return Player(x_pos, y_pos, speed, width, height, player_id)
+    
+def predict_ball_position(ballX, ballY, speedX, speedY, screenWidth, screenHeight):
+        while 0 < ballX < screenWidth:
+            ballX += speedX
+            ballY += speedY
+            if ballY <= 0 or ballY >= screenHeight:
+                speedY *= -1
+        return ballY
 
 games = {}
 class PongConsumer(AsyncWebsocketConsumer):
@@ -45,6 +53,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             'players_connected': 0,
             'lock': Lock()
         }
+            
         if not games[self.game_id]['loop_active']:
             async with games[self.game_id]['lock']:
                 if not games[self.game_id]['loop_active']:
@@ -74,7 +83,6 @@ class PongConsumer(AsyncWebsocketConsumer):
             'player_id': self.player_id,
             'game_type': game_type
         }))
-
 
         self.send_player1_pos = asyncio.create_task(self.update_player_pos(1))
         self.send_player2_pos = asyncio.create_task(self.update_player_pos(2))
@@ -110,6 +118,8 @@ class PongConsumer(AsyncWebsocketConsumer):
             match_score.p2_score = self.player2.score
             await sync_to_async(match_score.save)()
 
+    
+
     async def receive(self, text_data):
         from .models import Match
         match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
@@ -129,18 +139,11 @@ class PongConsumer(AsyncWebsocketConsumer):
             elif direction == 'down':
                 self.player2.y_pos += self.player2.speed
         if player_id == 2 and game_type == 'local':
-            player_center = self.player2.height // 2
-
-            if self.player2.delay > 0:
-                self.player2.delay -= 1
-            else:
-                self.player2.target = self.player2.predict_ball(self.ball, 800, 600)
-                self.player2.delay = 100
-
-            if self.player2.centery < self.player2.target - player_center and self.player2.bottom < 600:
-                self.player2.y_pos += self.player2.speed
-            elif self.player2.centery > self.player2.target + player_center and self.player2.top > 0:
-                self.player2.y_pos -= self.player2.speed
+            player2_target = predict_ball_position(self.ballX, self.ballY, self.speed_x, self.speed_y, self.canvas_width, self.canvas_height)
+            if player2_Y + 35 < player2_target and player2_Y + 70 < self.canvas_height:
+                player2_Y += self.player2_speed
+            elif player2_Y + 35 > player2_target and player2_Y > 0:
+                player2_Y -= self.player2_speed
         
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -153,8 +156,9 @@ class PongConsumer(AsyncWebsocketConsumer):
                 'score': self.player1.score if player_id == 1 else self.player2.score
             }
         )
-
+    
     async def game_loop(self, game_id):
+        from .models import Match
         while game_id in games and games[game_id]['players_connected'] > 0:
             ball = games[game_id]['ball']
             player1 = games[game_id]['player1']
@@ -162,6 +166,16 @@ class PongConsumer(AsyncWebsocketConsumer):
 
             ball.movement()
             ball.collision(player1, player2)
+
+            # AutoPlayer logic for player 2 in local mode
+            match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
+            game_type = match.game_type
+            if game_type == 'local':
+                player2_target = predict_ball_position(ball.x, ball.y, ball.speed_x, ball.speed_y, ball.width, ball.height)
+                if player2.y_pos + 35 < player2_target and player2.y_pos + 70 < ball.height:
+                    player2.y_pos += player2.speed
+                elif player2.y_pos + 35 > player2_target and player2.y_pos > 0:
+                    player2.y_pos -= player2.speed
 
             await self.channel_layer.group_send(
                 f'game_{game_id}',
