@@ -30,7 +30,6 @@ class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         from .models import Match
         self.game_id = self.scope['url_route']['kwargs']['game_id']
-        
 
         self.room_group_name = f'game_{self.game_id}'
         if not self.room_group_name:
@@ -118,7 +117,6 @@ class PongConsumer(AsyncWebsocketConsumer):
             match_score.p2_score = self.player2.score
             await sync_to_async(match_score.save)()
 
-    
 
     async def receive(self, text_data):
         from .models import Match
@@ -138,12 +136,6 @@ class PongConsumer(AsyncWebsocketConsumer):
                 self.player2.y_pos -= self.player2.speed
             elif direction == 'down':
                 self.player2.y_pos += self.player2.speed
-        if player_id == 2 and game_type == 'local':
-            player2_target = predict_ball_position(self.ballX, self.ballY, self.speed_x, self.speed_y, self.canvas_width, self.canvas_height)
-            if player2_Y + 35 < player2_target and player2_Y + 70 < self.canvas_height:
-                player2_Y += self.player2_speed
-            elif player2_Y + 35 > player2_target and player2_Y > 0:
-                player2_Y -= self.player2_speed
         
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -167,7 +159,6 @@ class PongConsumer(AsyncWebsocketConsumer):
             ball.movement()
             ball.collision(player1, player2)
 
-            # AutoPlayer logic for player 2 in local mode
             match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
             game_type = match.game_type
             if game_type == 'local':
