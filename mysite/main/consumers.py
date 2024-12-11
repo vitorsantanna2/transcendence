@@ -88,7 +88,7 @@ class PongConsumer(AsyncWebsocketConsumer):
         self.send_ball_pos = asyncio.create_task(self.update_ball_pos())
         
 
-    async def disconnect(self):
+    async def disconnect(self, close_code):
         from asgiref.sync import sync_to_async
         from .models import Match
               
