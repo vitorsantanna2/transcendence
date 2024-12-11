@@ -36,11 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let player1_X = 0, player1_Y = 0;
     let player2_X = 0, player2_Y = 0;
     let ballX = 0, ballY = 0;
-    let speed_x = 0, speed_y = 0;
-    let radius = 0;
-    let width = 0, height = 0;
     let player1_score = 0, player2_score = 0;
-    let playerId;
 
     socket.onopen = function() {
         console.log("WebSocket conectado com game_id:", game_id);
@@ -75,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             width = data.width;
             height = data.height;
         }
+        console.log("Player2 Y:", player2_Y);
     };
 
     document.addEventListener('keydown', (event) => {

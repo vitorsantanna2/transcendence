@@ -11,11 +11,11 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(leve
 log = logging.getLogger(__name__)
 log.debug("Logging configurado corretamente.")
 
-def create_player(x_pos, y_pos, speed, width, height, player_id, mode):
+def create_player(x_pos, y_pos, speed, width, height, player_id, mode, canvas_width, canvas_height):
     if mode == 'local':
-        return AutoPlayer(x_pos, y_pos, speed, width, height, player_id)
+        return AutoPlayer(x_pos, y_pos, speed, width, height, player_id, canvas_width, canvas_height)
     else:
-        return Player(x_pos, y_pos, speed, width, height, player_id)
+        return Player(x_pos, y_pos, speed, width, height, player_id, canvas_width, canvas_height)
     
 def predict_ball_position(ballX, ballY, speedX, speedY, screenWidth, screenHeight):
         while 0 < ballX < screenWidth:
@@ -45,8 +45,8 @@ class PongConsumer(AsyncWebsocketConsumer):
 
         if self.game_id not in games:
             games[self.game_id] = {
-            'player1': Player(40, 250, 10, 50, 70, 1),
-            'player2': await sync_to_async(create_player)(710, 250, 10, 50, 70, 2, game_type),
+            'player1': Player(40, 250, 10, 50, 70, 1, 800, 600),
+            'player2': await sync_to_async(create_player)(710, 250, 10, 50, 70, 2, game_type, 800, 600),
             'ball': Ball(15, 400, 300, 5.0, 5.0, 800, 600),
             'loop_active': False,
             'players_connected': 0,
@@ -156,17 +156,27 @@ class PongConsumer(AsyncWebsocketConsumer):
             player1 = games[game_id]['player1']
             player2 = games[game_id]['player2']
 
-            ball.movement()
-            ball.collision(player1, player2)
+            self.ball.movement()
+            self.ball.collision(player1, player2)
 
             match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
             game_type = match.game_type
             if game_type == 'local':
-                player2_target = predict_ball_position(ball.x, ball.y, ball.speed_x, ball.speed_y, ball.width, ball.height)
-                if player2.y_pos + 35 < player2_target and player2.y_pos + 70 < ball.height:
-                    player2.y_pos += player2.speed
-                elif player2.y_pos + 35 > player2_target and player2.y_pos > 0:
-                    player2.y_pos -= player2.speed
+                centery = self.player2.y_pos + self.player2.height // 2
+                bottom = self.player2.y_pos + self.player2.height
+                top = self.player2.y_pos
+                
+
+                if self.player2.delay > 0:
+                    self.delay -= 1
+                else:
+                    self.target = predict_ball_position(self.ball.x, self.ball.y, self.ball.speed_x, self.ball.speed_y, 800, 600)
+                    self.delay = 50
+
+                if centery < self.target and bottom < self.player2.canvas_height:
+                    self.player2.y_pos += self.player2.speed
+                elif centery > self.target and top > 0:
+                    self.player2.y_pos -= self.player2.speed
 
             await self.channel_layer.group_send(
                 f'game_{game_id}',
@@ -174,15 +184,15 @@ class PongConsumer(AsyncWebsocketConsumer):
                     'type': 'update_state',
                     'state': {
                         'ball': {
-                            'x': ball.x,
-                            'y': ball.y,
-                            'speed_x': ball.speed_x,
-                            'speed_y': ball.speed_y,
-                            'radius': ball.radius
+                            'x': self.ball.x,
+                            'y': self.ball.y,
+                            'speed_x': self.ball.speed_x,
+                            'speed_y': self.ball.speed_y,
+                            'radius': self.ball.radius
                         },
                         'players': [
-                            {'id': 1, 'x': player1.x_pos, 'y': player1.y_pos, 'score': player1.score},
-                            {'id': 2, 'x': player2.x_pos, 'y': player2.y_pos, 'score': player2.score}
+                            {'id': 1, 'x': self.player1.x_pos, 'y': self.player1.y_pos, 'score': self.player1.score},
+                            {'id': 2, 'x': self.player2.x_pos, 'y': self.player2.y_pos, 'score': self.player2.score}
                         ]
                     }
                 }
