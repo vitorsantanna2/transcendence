@@ -63,7 +63,6 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 INSTALLED_APPS = [
-    "channels",
 	"daphne",
     "chat.apps.ChatConfig",
 	"main.apps.MainConfig",
