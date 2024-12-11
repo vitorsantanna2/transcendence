@@ -88,7 +88,7 @@ class PongConsumer(AsyncWebsocketConsumer):
         self.send_ball_pos = asyncio.create_task(self.update_ball_pos())
         
 
-    async def disconnect(self, close_code):
+    async def disconnect(self):
         from asgiref.sync import sync_to_async
         from .models import Match
               
@@ -151,13 +151,15 @@ class PongConsumer(AsyncWebsocketConsumer):
     
     async def game_loop(self, game_id):
         from .models import Match
+        self.delay = 0
+        self.target = 0
+
         while game_id in games and games[game_id]['players_connected'] > 0:
-            ball = games[game_id]['ball']
-            player1 = games[game_id]['player1']
-            player2 = games[game_id]['player2']
+            self.player1 = games[game_id]['player1']
+            self.player2 = games[game_id]['player2']
 
             self.ball.movement()
-            self.ball.collision(player1, player2)
+            self.ball.collision(self.player1, self.player2)
 
             match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
             game_type = match.game_type
@@ -168,10 +170,10 @@ class PongConsumer(AsyncWebsocketConsumer):
                 
 
                 if self.player2.delay > 0:
-                    self.delay -= 1
+                    self.player2.delay -= 1
                 else:
                     self.target = predict_ball_position(self.ball.x, self.ball.y, self.ball.speed_x, self.ball.speed_y, 800, 600)
-                    self.delay = 50
+                    self.player2.delay = 50
 
                 if centery < self.target and bottom < self.player2.canvas_height:
                     self.player2.y_pos += self.player2.speed

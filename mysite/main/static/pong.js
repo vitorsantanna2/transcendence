@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 player2_score = data.score;
             }
         }
+
         if (data.type === 'ball_position') {
             radius = data.radius;
             ballX = data.x;
@@ -71,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
             width = data.width;
             height = data.height;
         }
-        console.log("Player2 Y:", player2_Y);
     };
 
     document.addEventListener('keydown', (event) => {
