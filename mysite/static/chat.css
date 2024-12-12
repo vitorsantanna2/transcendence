@@ -1,0 +1,49 @@
+/* chat.css */
+
+.friends-container {
+    background-color: rgba(223, 249, 253, 0.5);
+    height: 70%;
+    width: 80%;
+    border-radius: 5vh;
+  }
+
+  .chat-container {
+    background-color: rgba(223, 249, 253, 0.5);
+    height: 70%;
+    width: 80%;
+    border-radius: 5vh;
+  }
+  .joker {
+    color: black;
+    opacity: 0;
+  }
+
+  .no-heigth {
+    height: 0 !important;
+  }
+
+.custom-row {
+  background-color: #DFF9FD;
+  height: 86vh;
+  width: 10vh;
+  opacity: 0.5;
+  border-radius: 2vh;
+  margin-right: 4vh;
+}
+
+.custom-col {
+  height: 100%;
+
+}
+
+.container1
+{
+  margin-top: 1vh;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+.profile-img {
+  margin-left: 2vw;
+}
