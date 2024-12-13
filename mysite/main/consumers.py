@@ -18,12 +18,17 @@ def create_player(x_pos, y_pos, speed, width, height, player_id, mode, canvas_wi
         return Player(x_pos, y_pos, speed, width, height, player_id, canvas_width, canvas_height)
     
 def predict_ball_position(ballX, ballY, speedX, speedY, screenWidth, screenHeight):
-        while 0 < ballX < screenWidth:
-            ballX += speedX
-            ballY += speedY
-            if ballY <= 0 or ballY >= screenHeight:
-                speedY *= -1
-        return ballY
+    pos_x = ballX
+    pos_y = ballY
+    velocity_x = speedX
+    velocity_y = speedY
+
+    while 0 < pos_x < screenWidth:
+        pos_x += velocity_x
+        pos_y += velocity_y
+        if pos_y <= 0 or pos_y >= screenHeight:
+            velocity_y *= -1
+    return pos_y
 
 games = {}
 class PongConsumer(AsyncWebsocketConsumer):
@@ -164,21 +169,23 @@ class PongConsumer(AsyncWebsocketConsumer):
             match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
             game_type = match.game_type
             if game_type == 'local':
-                centery = self.player2.y_pos + self.player2.height // 2
+                centery = self.player2.height // 2
                 bottom = self.player2.y_pos + self.player2.height
                 top = self.player2.y_pos
                 
-
                 if self.player2.delay > 0:
-                    self.player2.delay -= 1
+                    self.delay -= 1
                 else:
                     self.target = predict_ball_position(self.ball.x, self.ball.y, self.ball.speed_x, self.ball.speed_y, 800, 600)
-                    self.player2.delay = 50
+                    self.delay = 100
 
                 if centery < self.target and bottom < self.player2.canvas_height:
                     self.player2.y_pos += self.player2.speed
                 elif centery > self.target and top > 0:
                     self.player2.y_pos -= self.player2.speed
+                
+                if self.player2.y_pos + self.player2.height > self.player2.canvas_height:
+                    self.player2.y_pos = self.player2.canvas_height - self.player2.height
 
             await self.channel_layer.group_send(
                 f'game_{game_id}',
