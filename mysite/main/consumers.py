@@ -153,7 +153,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             if game_type == 'local':
                 player_center = self.player2.height // 2
                 
-                if self.player2.delay > 0:
+                if self.delay > 0:
                     self.delay -= 1
                 else:
                     self.target = predict_ball_position(self.ball.x, self.ball.y, self.ball.speed_x, self.ball.speed_y, 800, 600)
@@ -164,8 +164,8 @@ class PongConsumer(AsyncWebsocketConsumer):
                 elif self.centery > self.target + player_center and self.top > 0:
                     self.player2.y_pos -= self.player2.speed
                 
-                if self.player2.y_pos + self.player2.height > self.player2.canvas_height:
-                    self.player2.y_pos = self.player2.canvas_height - self.player2.height
+                if self.player2.y_pos + self.player2.height > 600:
+                    self.player2.y_pos = 600 - self.player2.height
 
             await self.channel_layer.group_send(
                 f'game_{game_id}',
