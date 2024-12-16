@@ -2,7 +2,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .game.ball import Ball
 from .game.player import Player
-from .utils import create_player, predict_ball_position
+from .utils import create_player
 from asgiref.sync import sync_to_async
 import asyncio
 import logging
@@ -151,21 +151,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
             game_type = match.game_type
             if game_type == 'local':
-                player_center = self.player2.height // 2
-                
-                if self.delay > 0:
-                    self.delay -= 1
-                else:
-                    self.target = predict_ball_position(self.ball.x, self.ball.y, self.ball.speed_x, self.ball.speed_y, 800, 600)
-                    self.delay = 100
-
-                if self.centery < self.target - player_center and self.bottom < 600:
-                    self.player2.y_pos += self.player2.speed
-                elif self.centery > self.target + player_center and self.top > 0:
-                    self.player2.y_pos -= self.player2.speed
-                
-                if self.player2.y_pos + self.player2.height > 600:
-                    self.player2.y_pos = 600 - self.player2.height
+                self.player2.movement(self.ball, 800, 600)
 
             await self.channel_layer.group_send(
                 f'game_{game_id}',
@@ -188,17 +174,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             )
             await asyncio.sleep(0.05)
 
-    @property
-    def centery(self):
-        return self.player2.y_pos + self.player2.height // 2
 
-    @property
-    def top(self):
-        return self.player2.y_pos
-
-    @property
-    def bottom(self):
-        return self.player2.y_pos + self.player2.height
 
     async def update_player_pos(self, player_id):
         while True:
