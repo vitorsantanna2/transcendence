@@ -33,6 +33,11 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 # Application definition
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8443',
+    'https://localhost:8443',
+]
+
 INSTALLED_APPS = [
     "channels",
 	"daphne",
@@ -97,7 +102,7 @@ DATABASES = {
        'USER': os.getenv('POSTGRES_USER'),
        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
        'HOST': os.getenv('DB_HOST'),
-       'PORT': os.getenv('DB_PORT'),
+       'PORT': 5432
    }
 }
 

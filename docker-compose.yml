@@ -13,17 +13,30 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - 5432:${DB_PORT}
     env_file:
       - .env
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=db
     networks:
       - transcendence
     restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    networks:
+      - transcendence
 
   django:
     build:
@@ -34,6 +47,8 @@ services:
       - ./mysite/:/var/www/django/
       - static_volume:/var/www/django/staticfiles/
       - media_volume:/var/www/django/media/
+    environment:
+      - DEBUG=1
     container_name: django
     depends_on:
       - db

@@ -15,6 +15,6 @@ RUN apt-get install -y dos2unix && dos2unix /entrypoint.sh
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONPATH=/mysite
-ENV PYTHONBUFFERED=1
+ENV PYTHONUNBUFFERED=1
 
 ENTRYPOINT ["/entrypoint.sh"]
