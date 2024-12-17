@@ -1,4 +1,3 @@
-
 def insertDirectoryPath(base, path , type):
 	destiny = []
 	for app in base:
@@ -6,4 +5,3 @@ def insertDirectoryPath(base, path , type):
 		if temp.exists():
 			destiny.append(temp)
 	return destiny
-	

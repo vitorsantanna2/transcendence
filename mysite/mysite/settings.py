@@ -86,6 +86,10 @@ SIMPLE_JWT = {
 
 # Application definition
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8443',
+    'https://localhost:8443',
+]
 
 INSTALLED_APPS = [
     "channels",
@@ -148,11 +152,11 @@ CHANNEL_LAYERS = {
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': POSTGRES_DB,
-       'USER': POSTGRES_USER,
-       'PASSWORD': POSTGRES_PASSWORD,
-       'HOST': DB_HOST,
-       'PORT': DB_PORT,
+       'NAME': os.getenv('POSTGRES_DB'),
+       'USER': os.getenv('POSTGRES_USER'),
+       'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+       'HOST': os.getenv('DB_HOST'),
+       'PORT': 5432
    }
 }
 

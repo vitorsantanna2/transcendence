@@ -20,23 +20,21 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=db
     networks:
       - transcendence
     restart: always
 
   pgadmin:
     image: dpage/pgadmin4:latest
-    restart: unless-stopped
-    depends_on:
-      - db
+    container_name: pgadmin
     ports:
-      - 8081:80
+      - "8080:80"
+    env_file:
+      - .env
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: password
-    volumes:
-      - pgadmin:/var/lib/pgadmin
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
     networks:
       - transcendence
 
@@ -49,6 +47,8 @@ services:
       - ./mysite/:/var/www/django/
       - static_volume:/var/www/django/static/
       - media_volume:/var/www/django/media/
+    environment:
+      - DEBUG=1
     container_name: django
     depends_on:
       - db
