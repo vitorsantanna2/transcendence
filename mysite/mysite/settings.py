@@ -18,12 +18,14 @@ from mysite.utils import insertDirectoryPath
 ### BASE DIR AND ENVIRONMENT VARIABLES ## 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-LOCAL_DEBUG = True
+LOCAL_DEBUG = False
 
 APPS = ["main", "users"]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = "/var/www/django/static"
+
+AUTH_USER_MODEL = 'users.UserPong'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = "/var/www/django/media"
@@ -58,6 +60,29 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8443',
     'https://localhost:8443',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+}
 
 # Application definition
 
