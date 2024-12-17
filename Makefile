@@ -4,6 +4,7 @@ all:
 
 re:
 	@printf "Rebuild configuration ${name}...\n"
+	@docker compose down
 	@docker compose up -d --build
 
 down:

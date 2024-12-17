@@ -5,4 +5,3 @@ def insertDirectoryPath(base, path , type):
 		if temp.exists():
 			destiny.append(temp)
 	return destiny
-	

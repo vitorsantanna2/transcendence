@@ -13,23 +13,76 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from mysite.utils import insertDirectoryPath
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+### BASE DIR AND ENVIRONMENT VARIABLES ## 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+LOCAL_DEBUG = False
+
+APPS = ["main", "users"]
+
+STATIC_URL = '/static/'
+STATIC_ROOT = "/var/www/django/static"
+
+AUTH_USER_MODEL = 'users.UserPong'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = "/var/www/django/media"
+
+STATICFILES_DIRS = insertDirectoryPath(APPS, BASE_DIR, "static")
+TEMPLATES_DIRS = insertDirectoryPath(APPS, BASE_DIR, "templates")
 
 env_path = BASE_DIR.parent / '.env'
 load_dotenv(dotenv_path=env_path)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+##############################################
+
+if LOCAL_DEBUG:
+    POSTGRES_DB = os.getenv('LOCAL_DB')
+    POSTGRES_USER = os.getenv('LOCAL_USER')
+    POSTGRES_PASSWORD = os.getenv('LOCAL_PASSWORD')
+    DB_HOST = os.getenv('LOCAL_HOST')
+    DB_PORT = os.getenv('LOCAL_PORT')
+else:
+    POSTGRES_DB = os.getenv('POSTGRES_DB')
+    POSTGRES_USER = os.getenv('POSTGRES_USER')
+    POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+    DB_HOST = os.getenv('DB_HOST')
+    DB_PORT = os.getenv('DB_PORT')
+
+##################################
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8443',
+    'https://localhost:8443',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+}
 
 # Application definition
 
@@ -41,7 +94,8 @@ CSRF_TRUSTED_ORIGINS = [
 INSTALLED_APPS = [
     "channels",
 	"daphne",
-	"main",
+	"main.apps.MainConfig",
+	"users.apps.UsersConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,7 +118,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'main/templates'],
+        'DIRS': TEMPLATES_DIRS,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,13 +160,6 @@ DATABASES = {
    }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -147,11 +194,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
