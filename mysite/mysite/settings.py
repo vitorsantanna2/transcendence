@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from mysite.utils import insertDirectoryPath
+from datetime import timedelta
 
 ### BASE DIR AND ENVIRONMENT VARIABLES ## 
 
@@ -69,7 +70,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
-
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
