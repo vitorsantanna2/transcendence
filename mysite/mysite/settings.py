@@ -94,6 +94,7 @@ CSRF_TRUSTED_ORIGINS = [
 INSTALLED_APPS = [
     "channels",
 	"daphne",
+    "users",
 	"main.apps.MainConfig",
 	"users.apps.UsersConfig",
     'django.contrib.admin',
