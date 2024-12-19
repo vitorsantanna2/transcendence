@@ -44,7 +44,7 @@ services:
     command: /entrypoint.sh
     volumes:
       - ./mysite/:/var/www/django/
-      - static_volume:/var/www/django/static/
+      - static_volume:/var/www/django/staticfiles/
       - media_volume:/var/www/django/media/
     environment:
       - DEBUG=1
@@ -73,7 +73,7 @@ services:
     ports:
       - "8443:443"
     volumes:
-      - static_volume:/var/www/django/static/
+      - static_volume:/var/www/django/staticfiles/
       - media_volume:/var/www/django/media/
       - ./requirements/nginx/:/etc/nginx/sites-enabled/
     networks:
