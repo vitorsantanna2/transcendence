@@ -21,13 +21,15 @@ clean: down
 
 fclean:
 	@printf "Total clean of all configurations docker\n"
-	@docker stop $$(docker ps -qa)
+	@docker ps -qa | xargs -r docker stop
 	@docker system prune --all --force --volumes
+	@docker volume ls -q | xargs -r docker volume rm
 	@docker network prune --force
 	@docker volume prune --force
 	@rm -rf mysite/staticfiles
 	@rm -rf mysite/media
 	@rm -rf /var/www/django/staticfiles
 	@rm -rf /var/www/django/media
+
 
 .PHONY: all re down clean collect fclean
