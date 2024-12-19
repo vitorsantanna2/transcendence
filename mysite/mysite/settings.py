@@ -92,6 +92,8 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 INSTALLED_APPS = [
+    "channels",
+	"daphne",
 	"main.apps.MainConfig",
 	"users.apps.UsersConfig",
     'django.contrib.admin',
@@ -100,8 +102,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "channels",
-	"daphne",
 ]
 
 MIDDLEWARE = [
