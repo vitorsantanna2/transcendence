@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-from mysite.utils import insertDirectoryPath
 from datetime import timedelta
 
 ### BASE DIR AND ENVIRONMENT VARIABLES ## 
@@ -24,15 +23,12 @@ LOCAL_DEBUG = False
 APPS = ["main", "users"]
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "/var/www/django/static"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 AUTH_USER_MODEL = 'users.UserPong'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = "/var/www/django/media"
-
-STATICFILES_DIRS = insertDirectoryPath(APPS, BASE_DIR, "static")
-TEMPLATES_DIRS = insertDirectoryPath(APPS, BASE_DIR, "templates")
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 env_path = BASE_DIR.parent / '.env'
 load_dotenv(dotenv_path=env_path)
@@ -118,7 +114,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': TEMPLATES_DIRS,
+        'DIRS': [BASE_DIR / 'main/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
