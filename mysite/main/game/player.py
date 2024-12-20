@@ -42,14 +42,19 @@ class AutoPlayer(Player):
 				velocity_y *= -1
 		return pos_y
 	
-	def movement(self, ball, screen_width, screen_height):
+	def movement(self, ball, screen_width, screen_height, difficulty):
 		player_center = self.height // 2
 				
 		if self.delay > 0:
 			self.delay -= 1
 		else:
 			self.target = self.predict_ball_position(ball, screen_width, screen_height)
-			self.delay = 100
+			if difficulty == "easy":
+				self.delay = 50
+			elif difficulty == "medium":
+				self.delay = 70
+			elif difficulty == "hard":
+				self.delay = 100
 
 		if self.centery < self.target - player_center and self.bottom < 600:
 			self.y_pos += self.speed

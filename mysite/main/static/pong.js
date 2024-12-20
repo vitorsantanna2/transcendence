@@ -3,10 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const socket = new WebSocket(`ws://` + window.location.host + `/ws/main/${game_id}/`);
 
-    socket.onmessage = function(event) {
-        console.log(`[message] Data received from server: ${event.data}`);
-    };
-
     socket.onclose = function(event) {
         if (event.wasClean) {
             console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
@@ -46,6 +42,18 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.onerror = function(error) {
         console.log("WebSocket error: " + error);
     };
+
+    document.getElementById('difficultyForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const difficulty = document.getElementById('difficulty').value;
+
+        socket.send(JSON.stringify({
+            'difficulty': difficulty
+        }));
+
+        console.log("Game difficulty:", difficulty);
+    });
 
     socket.onmessage = function(e) {
         let data = JSON.parse(e.data);

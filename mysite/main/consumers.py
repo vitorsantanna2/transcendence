@@ -17,6 +17,7 @@ class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         from .models import Match
         self.game_id = self.scope['url_route']['kwargs']['game_id']
+        self.difficulty = 'easy'
 
         self.room_group_name = f'game_{self.game_id}'
         if not self.room_group_name:
@@ -112,6 +113,8 @@ class PongConsumer(AsyncWebsocketConsumer):
         data = json.loads(text_data)
         player_id = data['player']
         direction = data['direction']
+        if 'difficulty' in data:
+            self.difficulty = data['difficulty']
 
         if player_id == 1:
             if direction == 'up':
@@ -135,11 +138,13 @@ class PongConsumer(AsyncWebsocketConsumer):
                 'score': self.player1.score if player_id == 1 else self.player2.score
             }
         )
+
+        self.send(text_data=json.dumps({
+            'message': f'Difficulty set to {self.difficulty}'
+        }))
     
     async def game_loop(self, game_id):
         from .models import Match
-        self.delay = 0
-        self.target = 0
 
         while game_id in games and games[game_id]['players_connected'] > 0:
             self.player1 = games[game_id]['player1']
@@ -151,7 +156,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             match = await sync_to_async(Match.objects.get)(game_id=self.game_id)
             game_type = match.game_type
             if game_type == 'local':
-                self.player2.movement(self.ball, 800, 600)
+                self.player2.movement(self.ball, 800, 600, self.difficulty)
 
             await self.channel_layer.group_send(
                 f'game_{game_id}',
@@ -173,8 +178,6 @@ class PongConsumer(AsyncWebsocketConsumer):
                 }
             )
             await asyncio.sleep(0.05)
-
-
 
     async def update_player_pos(self, player_id):
         while True:
