@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let player2_X = 0, player2_Y = 0;
     let ballX = 0, ballY = 0;
     let player1_score = 0, player2_score = 0;
+    let game_type = 'online';
 
     socket.onopen = function() {
         console.log("WebSocket conectado com game_id:", game_id);
