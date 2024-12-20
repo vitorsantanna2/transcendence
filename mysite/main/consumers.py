@@ -115,14 +115,14 @@ class PongConsumer(AsyncWebsocketConsumer):
 
         if player_id == 1:
             if direction == 'up':
-                self.player1.y_pos -= self.player1.speed
+                self.player1.move_up()
             elif direction == 'down':
-                self.player1.y_pos += self.player1.speed
+                self.player1.move_down()
         if player_id == 2 and game_type == 'online':
             if direction == 'up':
-                self.player2.y_pos -= self.player2.speed
+                self.player2.move_up()
             elif direction == 'down':
-                self.player2.y_pos += self.player2.speed
+                self.player2.move_down()
         
         await self.channel_layer.group_send(
             self.room_group_name,
