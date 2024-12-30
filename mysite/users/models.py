@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
+import bcrypt
 # Create your models here.
 
 class UserPong(AbstractBaseUser):
@@ -18,3 +19,7 @@ class UserPong(AbstractBaseUser):
 
 	def __str__(self):
 		return f"{self.name} - {self.username} - {self.email}"
+
+	def save(self, *args, **kwargs):
+		self.password = bcrypt.hashpw(self.password.encode(), bcrypt.gensalt())
+		super(UserPong, self).save(*args, **kwargs)
