@@ -1,8 +1,9 @@
 # chat/consumers.py
 import json
-
 from channels.generic.websocket import AsyncWebsocketConsumer
-
+from .models import Message
+from django.utils import timezone
+from channels.db import database_sync_to_async
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -34,3 +35,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"message": message}))
+
+    @database_sync_to_async
+    def save_message(self, user, room_name, content):
+        Message.objects.create(
+            author=user,
+            room_name=room_name,
+            content=content,
+            timestamp=timezone.now()
+        )
