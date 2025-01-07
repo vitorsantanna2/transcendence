@@ -48,10 +48,16 @@
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
                         <!-- Link para registro -->
-                        <div class="mt-3">
-                            <small>Não tem uma conta? <a href="#">Registre-se aqui</a></small>
-                        </div>
-                    </div>
+                    	<div class="mt-3">
+    				<small>Não tem uma conta? 
+					<form action="{% url 'registration' %}" method="POST" style="display: inline;" id="registerForm">
+					{% csrf_token %}
+            				<a href="#" onclick="document.getElementById('registerForm').submit(); return false;">Registre-se aqui</a>
+        			</form>
+    				</small>
+			</div>
+
+		    </div>
                     
                     <!-- Barra Divisória Externa -->
                     <div class="divider"></div>
