@@ -15,7 +15,7 @@ body {
 .cover-container {
 	background-color: #DFF9FD80;
 	height: 90vh;
-	width: 175vh;
+	width: 100vh;
 	border-radius: 5vh;
 	display: flex;
 }

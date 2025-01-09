@@ -10,12 +10,13 @@ body {
 .main {
 	display: flex;
 	height: 100vh;
+  width: 100vw;
 }
 
 .cover-container {
 	background-color: #DFF9FD80;
 	height: 90vh;
-	width: 175vh;
+	width: 90vw;
 	border-radius: 5vh;
 	display: flex;
 }
@@ -23,10 +24,9 @@ body {
 .tab-lateral {
 	background-color: #DFF9FD;
 	height: 90vh;
-	width: 10vh;
+	width: 10vw;
 	opacity: 0.5;
 	border-radius: 3vh;
-	margin-right: 4vh;
 	display: flex;
 	justify-content: center;
 }
