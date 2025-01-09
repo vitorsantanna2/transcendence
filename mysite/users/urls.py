@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
+from .twofactor import twoFactorAuth
 
 urlpatterns = [
-    path("login/", views.login_page, name="login"),
-    path("twofa/", views.twoFactorAuth, name="twofa"),
+    path("login/", views.loginUser, name="login"),
+    path("twofa/", twoFactorAuth, name="twofa"),
     path("register/", views.register, name="register"),
 ]

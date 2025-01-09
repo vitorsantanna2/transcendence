@@ -1,0 +1,52 @@
+body {
+	background-image: url('../images/fundo.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	align-items: center; /* Center vertically */
+}
+
+.main {
+	display: flex;
+	height: 100vh;
+}
+
+.cover-container {
+	background-color: #DFF9FD80;
+	height: 90vh;
+	width: 100vh;
+	border-radius: 5vh;
+	display: flex;
+}
+
+.tab-lateral {
+	background-color: #DFF9FD;
+	height: 90vh;
+	width: 10vh;
+	opacity: 0.5;
+	border-radius: 3vh;
+	margin-right: 4vh;
+	display: flex;
+	justify-content: center;
+}
+
+.nav-item {
+	height: 10vh;
+}
+
+.nav-item.active {
+	background-color: #4c5d6480;
+}
+
+.nav-item:hover {
+	background-color: #4c5d6480;
+	cursor: pointer;
+}
+
+.imgs {
+	display: flex;
+	justify-content: center;
+	height: 5vh;
+	width: auto;
+}

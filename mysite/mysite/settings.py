@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-from mysite.utils import insertDirectoryPath
+from datetime import timedelta
 
 ### BASE DIR AND ENVIRONMENT VARIABLES ## 
 
@@ -23,13 +23,12 @@ LOCAL_DEBUG = False
 APPS = ["main", "users"]
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "/var/www/django/static"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+AUTH_USER_MODEL = 'users.UserPong'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = "/var/www/django/media"
-
-STATICFILES_DIRS = insertDirectoryPath(APPS, BASE_DIR, "static")
-TEMPLATES_DIRS = insertDirectoryPath(APPS, BASE_DIR, "templates")
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 env_path = BASE_DIR.parent / '.env'
 load_dotenv(dotenv_path=env_path)
@@ -59,8 +58,34 @@ CSRF_TRUSTED_ORIGINS = [
     'https://localhost:8443',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+}
+
 # Application definition
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8443',
+    'https://localhost:8443',
+]
 
 INSTALLED_APPS = [
 	"daphne",
@@ -89,7 +114,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': TEMPLATES_DIRS,
+        'DIRS': [BASE_DIR / 'main/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,11 +148,11 @@ CHANNEL_LAYERS = {
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': POSTGRES_DB,
-       'USER': POSTGRES_USER,
-       'PASSWORD': POSTGRES_PASSWORD,
-       'HOST': DB_HOST,
-       'PORT': DB_PORT,
+       'NAME': os.getenv('POSTGRES_DB'),
+       'USER': os.getenv('POSTGRES_USER'),
+       'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+       'HOST': os.getenv('DB_HOST'),
+       'PORT': 5432
    }
 }
 

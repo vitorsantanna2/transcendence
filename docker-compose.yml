@@ -13,30 +13,27 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - ${DB_PORT}:5432
+      - 5433:5432
     env_file:
       - .env
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - DB_HOST=${DB_HOST}
     networks:
       - transcendence
     restart: always
 
   pgadmin:
     image: dpage/pgadmin4:latest
-    restart: unless-stopped
-    depends_on:
-      - db
+    container_name: pgadmin
     ports:
-      - 8081:80
+      - "8080:80"
+    env_file:
+      - .env
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: password
-    volumes:
-      - pgadmin:/var/lib/pgadmin
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
     networks:
       - transcendence
 
@@ -47,8 +44,15 @@ services:
     command: /entrypoint.sh
     volumes:
       - ./mysite/:/var/www/django/
-      - static_volume:/var/www/django/static/
+      - static_volume:/var/www/django/staticfiles/
       - media_volume:/var/www/django/media/
+    environment:
+      - DEBUG=1
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}  
+      - POSTGRES_DB=${POSTGRES_DB}  
+      - DATABASE_USER=${POSTGRES_USER}  
+      - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
     container_name: django
     depends_on:
       - db
@@ -69,7 +73,7 @@ services:
     ports:
       - "8443:443"
     volumes:
-      - static_volume:/var/www/django/static/
+      - static_volume:/var/www/django/staticfiles/
       - media_volume:/var/www/django/media/
       - ./requirements/nginx/:/etc/nginx/sites-enabled/
     networks:
