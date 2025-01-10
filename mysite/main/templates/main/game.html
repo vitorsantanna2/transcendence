@@ -88,11 +88,8 @@
                     <!-- Primeira Content Box com Formulário para Jogar contra IA -->
                     <div class="content-box text-center">
                         <h2>Jogar contra IA</h2>
-<<<<<<< HEAD
                         <form action="/jogar_ia" method="POST">
-=======
                         <form action="{% url 'localgame' %}">
->>>>>>> main
                             <label for="difficulty" class="mt-2">Selecione a Dificuldade:</label>
                             <select id="difficulty" name="difficulty" class="form-select text-center mt-2">
                                 <option value="easy">Fácil</option>
@@ -109,12 +106,9 @@
                     <!-- Segunda Content Box com Formulários para Multiplayer Local e Online -->
                     <div class="content-box text-center">
                         <!-- Formulário para Multiplayer Local -->
-<<<<<<< HEAD
                         <form action="/multiplayer_local" method="POST">
-=======
                         <form action="{% url 'onlinegame' %}" method="POST">
                             {% csrf_token %}
->>>>>>> main
                             <h2>Multiplayer Local</h2>
                             <button type="submit" class="btn btn-primary mt-2">Iniciar</button>
                         </form>
@@ -122,12 +116,9 @@
                         <div class="internal-divider my-4"></div> <!-- Barra Divisória Interna -->
 
                         <!-- Formulário para Multiplayer Online -->
-<<<<<<< HEAD
                         <form action="/multiplayer_online" method="POST">
-=======
                         <form action="{% url 'onlinegame' %}" method="POST">
                             {% csrf_token %}
->>>>>>> main
                             <h2>Multiplayer Online</h2>
                             <button type="submit" class="btn btn-primary mt-2">Iniciar</button>
                         </form>
