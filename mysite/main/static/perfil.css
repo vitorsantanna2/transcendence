@@ -5,7 +5,8 @@
 	border-bottom-left-radius: 5vh;
 	border: 0;
 	border-right: 1px #4c5d64 solid;
-	max-width: 29vh;
+	min-width: 15vw;
+  max-width: 20vw;
 }
 
 .carousel-title, .perfil-1-title {
@@ -21,8 +22,8 @@
 }
 
 .carousel-img {
-	height: 19vh;
-	width: 19vh;
+	height: 15vw;
+	width: 15vw;
 }
 
 .carousel-control-prev, .carousel-control-next {
@@ -98,13 +99,13 @@
 }
 
 .search-bar {
-    padding: 10px;
-	margin: 10px;
-    margin-bottom: 15px;
-    border: 1px #4c5d64 solid;
-    border-radius: 4vh;
-    font-size: 16px;
-	width: 68vh;
+  padding: 10px;
+  margin: 10px;
+  margin-bottom: 15px;
+  border: 1px #4c5d64 solid;
+  border-radius: 4vh;
+  font-size: 16px;
+  width: 68vh;
 }
 
 
