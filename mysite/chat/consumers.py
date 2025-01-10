@@ -4,6 +4,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from .models import Message
 from django.utils import timezone
 from channels.db import database_sync_to_async
+from users.models import UserPong  # Your custom user model
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -24,6 +25,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
 
+        # Saves the message
+        user = await self.get_real_user() # AUTH_USER_MODEL = UserPong.
+
+        # Saves the message in DB though save_message method
+        saved_message = await self.save_message(user, self.room_name, message)
+
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name, {"type": "chat.message", "message": message}
@@ -35,6 +42,19 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"message": message}))
+
+
+    @database_sync_to_async
+    def get_real_user(self):
+        """
+        Converts the lazy user into a real UserPong instance,
+        or returns None if anonymous.
+        """
+        lazy_user = self.scope["user"]
+        if lazy_user.is_authenticated:
+            # Fetch the actual DB object using the lazy user's PK
+            return UserPong.objects.get(pk=lazy_user.pk)
+        return None
 
     @database_sync_to_async
     def save_message(self, user, room_name, content):
