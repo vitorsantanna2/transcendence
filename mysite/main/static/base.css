@@ -15,7 +15,7 @@ body {
 .cover-container {
 	background-color: #DFF9FD80;
 	height: 90vh;
-	width: 175vh;
+	width: 84vw;
 	border-radius: 5vh;
 	display: flex;
 }
@@ -23,7 +23,7 @@ body {
 .tab-lateral {
 	background-color: #DFF9FD;
 	height: 90vh;
-	width: 10vh;
+	width: 7vw;
 	opacity: 0.5;
 	border-radius: 3vh;
 	margin-right: 4vh;
