@@ -20,7 +20,7 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOCAL_DEBUG = False
 
-APPS = ["main", "users"]
+APPS = ["main", "users", "oauth"]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

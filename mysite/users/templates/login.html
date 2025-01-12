@@ -1,99 +1,79 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<!-- Required meta tags -->
+    <head>
+        <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
-		name="viewport"
-		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <!-- Bootstrap CSS -->
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous" />
-			<!-- Style CSS -->
-			<link rel="stylesheet" href="{% static 'body.css' %}" />
-            <script src="{% static 'login.js' %}"></script>
-			<title>Login</title>
+        <!-- Style CSS -->
+        <link rel="stylesheet" href="{% static 'base.css' %}" />
+        <link rel="stylesheet" href="{% static 'login.css' %}" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Gideon+Roman&display=swap" rel="stylesheet">
+
+        <title>King Pong</title>
     </head>
     <body style="background-image: url('{% static '/images/fundo.png' %}')">
         <!-- Main div -->
         <div class="main w-100 mx-5 d-flex justify-content-center align-items-center">
-            <!-- Lateral Navigation bar -->
-            <div class="tab-lateral">
-                <ul
-                    class="nav nav-pills p-0 d-flex justify-content-center align-items-center">
-                    <li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
-                        <a class="nav-link" href="#">
-                            <img src="{% static 'images/pong.png'%}" class="imgs" />
-                        </a>
-                    </li>
-                    <li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
-                        <a class="nav-link" href="#">
-                            <img
-                                src="{% static 'images/league_7894746.png' %}"
-                                class="imgs" />
-                        </a>
-                    </li>
-                    <li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
-                        <a class="nav-link" href="#">
-                            <img
-                                src="{% static 'images/speech-bubble_154461.png' %}"
-                                class="imgs" />
-                        </a>
-                    </li>
-                    <li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
-                        <a class="nav-link" href="#">
-                            <img
-                                src="{% static 'images/perfilpage.png' %}"
-                                class="imgs" />
-                        </a>
-                    </li>
-					<li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item"
-                        id="config-nav">
-                        <a class="nav-link" href="#">
-                            <img
-                                src="{% static '/images/configuration_93800.png' %}"
-                                class="imgs" />
-                        </a>
-                    </li>
-                </ul>
-            </div>
 
             <!-- Main Content -->
-            <div class="cover-container d-flex flex-column align-items-center justify-content-center ">
-				<div id="cover-box-elements">
-					<h1 id="title-main">The Babylon Pong</h1>
-				</div>
-				<div id='forms'>
-					<div class="login-page">
-						<form action="{% url 'login' %}" method="POST"> 
-							{% csrf_token %}
-							<h1 class="centered-title">Philosophers Pong</h1>
-							<br><br>
-							<input type="text" id="user" name="username" placeholder="Username" required>
-							<br><br>
-							<input type="password" id="pass" name="password" placeholder="Password" required>
-							<br><br>
-							<button type="submit">Login</button>
-							<br><br>
-							<p class="redirect-container">Don't have an account? <a class="link-register" href="#">Register</a></p>
-						</form>
-					</div>
-				</div>
-				
+            <div class="cover-container d-flex flex-column justify-content-center align-items-center">
+                <h1 class="welcome-text">Bem-vindo ao Pong dos Filósofos</h1> <!-- Texto de boas-vindas -->
+                
+                <div class="content-container d-flex justify-content-between align-items-center mt-4">
+                    <!-- Logar Normalmente -->
+                    <div class="content-box text-center">
+                        <h2>Login</h2>
+                        <form action="{% url 'login' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Digite seu email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="password" placeholder="Digite sua senha">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                        </form>
+                        <!-- Link para registro -->
+                    	<div class="mt-3">
+    				<small>Não tem uma conta? 
+					<form action="{% url 'registration' %}" method="POST" style="display: inline;" id="registerForm">
+					{% csrf_token %}
+            				<a href="#" onclick="document.getElementById('registerForm').submit(); return false;">Registre-se aqui</a>
+        			</form>
+    				</small>
+			</div>
 
+		    </div>
+                    
+                    <!-- Barra Divisória Externa -->
+                    <div class="divider"></div>
+                    
+                    <!-- login com a 42 -->
+                    <div class="content-box text-center">
+                        <h2>Login com 42</h2>
+                        <a href="https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-1608c925fd96235cfd1e248ef9e1d02080614088dff0919ffcfd9fdda1b42328&redirect_uri=http%3A%2F%2Flocalhost%3A8443%2Fauth%2F42%2Flogin%2F&response_type=code
+" class="btn btn-primary w-100" >Login com 42</a>
+                    </div>
+                </div>
             </div>
-			<!-- Registration form -->
-
         </div>
         <!-- Bootstrap javascript -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
     </body>
 </html>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Match
 import uuid
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, 'main/index.html')
@@ -17,6 +18,7 @@ def registration(request):
 def configuration(request):
     return render(request, 'main/configuration.html')
 
+@login_required(login_url='/auth/login/')
 def game(request):
     return render(request, 'main/game.html')
 

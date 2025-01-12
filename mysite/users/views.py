@@ -27,6 +27,7 @@ def loginUser(request):
 	if user:
 		refresh = RefreshToken.for_user(user)
 		access_token = str(refresh.access_token)
+		return JsonResponse({"access_token": access_token})
 
 	return HttpResponse(b"Invalid username or password", status=400)
 
