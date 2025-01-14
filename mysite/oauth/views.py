@@ -40,6 +40,9 @@ def FortyTwoLogin(request):
     
     user_response = requests.get(user_info_url, headers=headers)
     
+    if user_response != 200:
+        return jsonResponse
+    
     user_data = user_response.json()
     
     email = user_data.get("email")
@@ -59,6 +62,6 @@ def FortyTwoLogin(request):
         }
     )
     
-    print(user)
-    login(request, user)
+    
+    
     return render(request, "game.html")
