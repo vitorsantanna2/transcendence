@@ -94,6 +94,5 @@ def register(request):
 	return redirect("/auth/login")
 
 
-@login_required(login_url="/auth/login")
 def home_page(request):
 	return render(request, "home.html")
