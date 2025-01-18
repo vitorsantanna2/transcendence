@@ -1,0 +1,45 @@
+.png-container {
+	overflow: hidden;
+	filter: opacity(0.95) drop-shadow(0 0 0 white) invert(100%) brightness(1.3);
+  }
+  
+.png-container2 {
+	overflow: hidden;
+	filter: opacity(0.5) drop-shadow(0 0 0 blue);
+  }
+  
+.png-container3 {
+	filter: opacity(0.5) drop-shadow(0 0 0 blue);
+  }
+  
+.png-container4 {
+	filter: opacity(1) drop-shadow(0 0 0 green);
+  }
+
+  
+.intro-page {
+	  background-color: #DFF9FD80;
+	  height: 86vh;
+	  width: 90vw;
+	  border-radius: 5vh;
+	  display: flex;
+}
+
+.main {
+	display: flex;
+	height: 100vh;
+	width: 100vh;
+}
+
+.link-login {
+	color: #192abe;
+	text-decoration: underline;
+}
+
+.background2 {
+  	background-color: #DFF9FD80;
+  	display: flex;
+  	border-radius: 5vh;
+	width: 90vh;
+}
+  

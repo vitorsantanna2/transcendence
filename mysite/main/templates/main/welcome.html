@@ -14,11 +14,9 @@
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous" />
         <!-- Style CSS -->
-
         <link rel="stylesheet" href="{% static 'base.css' %}" />
-        <link rel="stylesheet" href="{% static 'configuration.css' %}" />
-
-        <title>King Pong</title>
+        <link rel="stylesheet" href="{% static 'register.css' %}" />
+        <title>Babylon Pong</title>
     </head>
     <body style="background-image: url('{% static '/images/fundo.png' %}')">
         <!-- Main div -->
@@ -58,7 +56,7 @@
                         </a>
                     </li>
 					<li
-                        class="nav-item active w-100 d-flex justify-content-center align-items-center clickable-item"
+                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item"
                         id="config-nav">
                         <a class="nav-link" href="#">
                             <img
@@ -70,16 +68,43 @@
             </div>
 
             <!-- Main Content -->
-            <div
-                class="cover-container justify-content-between align-items-center">
-                
+            <div class="cover-container d-flex flex-column align-items-center justify-content-center ">
+				<div id="cover-box-elements">
+					<h1 id="title-main">The Babylon Pong</h1>
+				</div>
+				<div id='forms'>
+					<form action="{% url 'register' %}" method="post"> {% csrf_token %}
+						<div class="input-box">
+							<label for="name" class="form-label">First Name</label>
+							<input type="text" class="form-control" id="name" name="name" placeholder="Insert you first name" required>
+						</div>
+						<div class="input-box">
+							<label for="username" class="form-label">Username</label>
+							<input type="text" class="form-control" id="username" name="username" placeholder="Insert you first name" required>
+						</div>
+						<div class="input-box">
+							<label for="email" class="form-label">Email</label>
+							<input type="email" class="form-control" id="email" name="email" placeholder='Insert you best email'  required>
+						</div>
+						<div class="input-box">
+							<label for="password" class="form-label">Password</label>
+							<input type="password" class="form-control" id="password" name="password" placeholder="strong password please" required>
+						</div>
+						<div class="input-box">
+							<label for="password2" class="form-label">Confirm Password</label>
+							<input type="password" class="form-control" id="password2" name="password2" placeholder="repeat" required>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary">Register</button>
+						</div>
+					</form>
+				</div>
+				
+
             </div>
+			<!-- Registration form -->
+
         </div>
         <!-- Bootstrap javascript -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-
     </body>
 </html>

@@ -28,46 +28,46 @@
         <div class="main w-100 mx-5 d-flex justify-content-center align-items-center">
             <!-- Lateral Navigation bar -->
             <div class="tab-lateral">
-                <ul
-                    class="nav nav-pills p-0 d-flex justify-content-center align-items-center">
-                    <li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
-                        <a class="nav-link" href="#">
-                            <img src="{% static 'images/pong.png'%}" class="imgs" />
-                        </a>
+                <ul class="nav nav-pills p-0 d-flex justify-content-center align-items-center">
+                    <li class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
+                        <form action="/game" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn p-0">
+                                <img src="{% static 'images/pong.png' %}" class="imgs" />
+                            </button>
+                        </form>
                     </li>
-                    <li
-                        class="nav-item active w-100 d-flex justify-content-center align-items-center clickable-item">
-                        <a class="nav-link" href="#">
-                            <img
-                                src="{% static 'images/league_7894746.png' %}"
-                                class="imgs" />
-                        </a>
+                    <li class="nav-item active w-100 d-flex justify-content-center align-items-center clickable-item">
+                        <form action="/tournament" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn p-0">
+                                <img src="{% static 'images/league_7894746.png' %}" class="imgs" />
+                            </button>
+                        </form>
                     </li>
-                    <li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
-                        <a class="nav-link" href="#">
-                            <img
-                                src="{% static 'images/speech-bubble_154461.png' %}"
-                                class="imgs" />
-                        </a>
+                    <li class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
+                        <form action="/chat" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn p-0">
+                                <img src="{% static 'images/speech-bubble_154461.png' %}" class="imgs" />
+                            </button>
+                        </form>
                     </li>
-                    <li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
-                        <a class="nav-link" href="#">
-                            <img
-                                src="{% static 'images/perfilpage.png' %}"
-                                class="imgs" />
-                        </a>
+                    <li class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item">
+                        <form action="/perfil" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn p-0">
+                                <img src="{% static 'images/perfilpage.png' %}" class="imgs" />
+                            </button>
+                        </form>
                     </li>
-					<li
-                        class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item"
-                        id="config-nav">
-                        <a class="nav-link" href="#">
-                            <img
-                                src="{% static '/images/configuration_93800.png' %}"
-                                class="imgs" />
-                        </a>
+                    <li class="nav-item w-100 d-flex justify-content-center align-items-center clickable-item" id="config-nav">
+                        <form action="/logout" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn p-0">
+                                <img src="{% static '/images/logout.png' %}" class="imgs" />
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -98,7 +98,7 @@
                     <!-- Segunda Content Box com Formulário para Entrar em Torneio -->
                     <div class="content-box text-center">
                         <h2>Entrar em torneio</h2>
-                        <form action="/entrar_torneio" method="POST">
+                        <form action="/tournamentRoom" method="POST">
                             <label for="codigo-torneio" class="mt-2">Digite o código do torneio:</label>
                             <input type="text" id="codigo-torneio" name="codigo" class="form-control mt-2">
                             <button type="submit" class="btn btn-primary mt-3">Iniciar</button>
