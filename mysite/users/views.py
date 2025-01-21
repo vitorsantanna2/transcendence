@@ -72,7 +72,9 @@ def twoFactorAuth(request):
     )
 
 
+@api_view(["POST"])
 def register(request):
+    print("GOT HERE!")
     data = JSONParser().parse(request)
     name = data.name
     username = data.username
@@ -100,5 +102,6 @@ def register(request):
     return JsonResponse({"message": "user created sucessfully"}, status=201)
 
 
-def home_page(request):
-    return render(request, "home.html")
+# @api_view(["GET"])
+# def home_page(request):
+#     return render(request, "home.html")
