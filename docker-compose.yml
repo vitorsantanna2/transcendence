@@ -43,6 +43,7 @@ services:
       dockerfile: requirements/django/Dockerfile
     command: /entrypoint.sh
     volumes:
+      - ./mysite/:/mysite/
       - ./mysite/:/var/www/django/
       - static_volume:/var/www/django/staticfiles/
       - media_volume:/var/www/django/media/
