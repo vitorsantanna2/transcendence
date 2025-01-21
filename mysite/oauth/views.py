@@ -1,7 +1,9 @@
 from django.shortcuts import render
 import requests
 from users import models
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
+from django.http import JsonResponse
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 
@@ -41,7 +43,7 @@ def FortyTwoLogin(request):
     user_response = requests.get(user_info_url, headers=headers)
     
     if user_response != 200:
-        return jsonResponse
+        return JsonResponse({"error": "Failed to get user info"}, status=500)
     
     user_data = user_response.json()
     
@@ -58,10 +60,15 @@ def FortyTwoLogin(request):
             "email": email,
             "username": username,
             "name": name,
-            "auth_method": "oauth",
         }
     )
     
+    if created:
+        user.auth_method = "oauth"
+        user.save()
+    
+    access_token = RefreshToken.for_user(user).access_token
     
     
-    return render(request, "game.html")
+    
+    return JsonResponse({"access_token": str(access_token)}, status=200)
