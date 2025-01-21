@@ -18,7 +18,6 @@ def registration(request):
 def configuration(request):
     return render(request, 'main/configuration.html')
 
-@login_required(login_url='/auth/login/')
 def game(request):
     return render(request, 'main/game.html')
 
