@@ -80,7 +80,7 @@
                         class="card-img-top"
                         alt="..." />
                     <div class="card-body">
-                        <h4 class="card-title perfil-1-title">ZeFrangueto</h4>
+                        <h4 class="card-title perfil-1-title">{{ user.username }}</h4>
                     </div>
                     <!-- Carrossel dos filosofos -->
                     <div class="card-body text-center">
@@ -135,7 +135,7 @@
                 <div class="perfil-col-2 w-100 h-100">
                     <div
                         class="main-title perfil-content-1 d-flex flex-column justify-content-center">
-                        <h1 class="m-0">ZeFrangueto, O catabola</h1>
+                        <h1 class="m-0">{{ user.username }}</h1>
                     </div>
 
                     <!-- <div class="col-break d-none d-md-block"></div> -->
@@ -238,5 +238,17 @@
             crossorigin="anonymous"></script>
 
         <script src="{% static 'friendsFilter.js' %}"></script>
+        <script>
+            // We embed the tokens from the Django context into JS variables
+            const accessToken = "{{ access_token|escapejs }}";
+            const refreshToken = "{{ refresh_token|escapejs }}";
+
+            // Store them in localStorage at page load
+            localStorage.setItem("access_token", accessToken);
+            localStorage.setItem("refresh_token", refreshToken);
+
+            // Now they're accessible for subsequent requests
+            console.log("Access Token set to localStorage:", accessToken);
+        </script>
     </body>
 </html>

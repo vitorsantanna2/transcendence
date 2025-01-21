@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from . import models
+from users.models import UserPong
 
 class ConversationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,3 +12,15 @@ class MessageSerializer(serializers.ModelSerializer):
         model = models.UserMessage
         fields = ['id', 'conversation', 'text', 'sender', 'receiver', 'created_at']
 
+class UserPongSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserPong
+        fields = [
+            "id",
+            "name",
+            "username",
+            "email",
+            "phoneNumber",
+            "profile_image",
+        ]
+        read_only_fields = ["id", "username", "email"]

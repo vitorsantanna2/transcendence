@@ -1,13 +1,16 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import ConversationSerializer
+from .serializers import ConversationSerializer, MessageSerializer
 from .models import UserConversation
 import logging
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework import status, permissions
+from .models import UserPong
+from .serializers import UserPongSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -53,6 +56,8 @@ def CreateMessage(request):
             message_body = {
                 "text": data.get('text'),
                 "sender": data.get('sender'),
+                "receiver": data.get('receiver'),
+                "conversation": data.get('conversation'),
                 "id": messageID,
             }
             serializer = MessageSerializer(data=message_body)
@@ -78,3 +83,15 @@ def CreateMessage(request):
             status=status.HTTP_405_METHOD_NOT_ALLOWED
         )
 
+@api_view(["PATCH"])
+@permission_classes([permissions.IsAuthenticated])
+@parser_classes([MultiPartParser, FormParser])
+def updateProfile(request):
+    # 'request.user' should be the authenticated user if you have JWT/session set up correctly.
+    user = request.user
+    
+    serializer = UserPongSerializer(user, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

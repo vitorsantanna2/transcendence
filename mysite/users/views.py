@@ -11,24 +11,32 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 
-
 def loginUser(request):
-	if request.method == "GET":
-		return render(request, "login.html")
+    if request.method == "GET":
+        return render(request, "login.html")
 
-	username = request.POST.get("username")
-	password = request.POST.get("password")
+    username = request.POST.get("username")
+    password = request.POST.get("password")
 
-	if not ValidateUserInput(username, password):
-		return HttpResponse(b"Invalid username or password", status=400)
-	
-	user = authenticate(username=username, password=password)
+    user = authenticate(username=username, password=password)
+    if user:
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+        refresh_token = str(refresh)
 
-	if user:
-		refresh = RefreshToken.for_user(user)
-		access_token = str(refresh.access_token)
+        # Instead of redirecting, render a page that can grab the token
+        return render(
+            request,
+            "perfil.html",
+            {
+                "access_token": access_token,
+                "refresh_token": refresh_token,
+            },
+        )
+    else:
+        # Handle invalid login
+        return render(request, "login.html", {"error": "Invalid credentials"})
 
-	return HttpResponse(b"Invalid username or password", status=400)
 
 def twoFactorAuth(request):
 	if request.method == "POST":
