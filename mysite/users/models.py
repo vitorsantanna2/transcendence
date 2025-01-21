@@ -57,3 +57,4 @@ class UserPong(AbstractBaseUser):
 
     def check_password(self, raw_password):
         return bcrypt.checkpw(raw_password.encode(), self.password.encode())
+
