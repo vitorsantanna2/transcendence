@@ -4,6 +4,9 @@ def CheckUserExists(username, email):
 	userUsername = UserPong.objects.filter(username=username)
 	userEmail = UserPong.objects.filter(email=email).first()
 
+	print(userUsername)
+	print(userEmail)
+ 
 	if userUsername.exists() or userEmail:
 		return True
 	return False
