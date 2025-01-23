@@ -1,101 +1,126 @@
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import authenticate, get_user_model
+from users.models import UserPong
+from .auth import CheckUserExists
+from rest_framework_simplejwt.tokens import RefreshToken
 import bcrypt
 import os
-from users.models import UserPong
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login
 from twilio.rest import Client
-from .auth import CheckUserExists, ValidateUserInput
-from rest_framework_simplejwt.tokens import RefreshToken
+from django.conf import settings
 
-# Create your views here.
+User = get_user_model()
 
 
-def loginUser(request):
-	if request.method == "GET":
-		return render(request, "login.html")
+class LoginView(APIView):
+    def post(self, request):
+        username = request.data.get("username")
+        password = request.data.get("password")
 
-	username = request.POST.get("username")
-	password = request.POST.get("password")
+        user = authenticate(username=username, password=password)
+        if user:
+            # Send 2FA code via Twilio
+            twilio_client = Client(
+                settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN
+            )
+            twilio_client.verify.services(
+                settings.TWILIO_VERIFY_SERVICE_SID
+            ).verifications.create(to=user.phoneNumber, channel="sms")
 
-    if !ValidateUserInput(username, password):
-        return HttpResponse(b"Invalid username or password", status=400)
-    
-    user = authenticate(username=username, password=password)
-
-    if user:
-        login(request, user)
-        refresh = RefreshToken.for_user(user)
-        request.session["refresh_token"] = str(refresh)       
-        return redirect("/home")
-	return HttpResponse(b"Invalid username or password", status=400)
-
-def twoFactorAuth(request):
-    if request.method == "POST":
-        form_code = request.POST.get("twoFA")
-        user_id = request.session["2fa_user_id"]
-        verf_service = os.getenv("VERIFICATION_SERVICE")
-        if not verf_service:
-            return HttpResponse(
-                b"Internal server error verification service not found", status=500
+            # Return user ID to frontend
+            return Response(
+                {"message": "2FA code sent to your phone.", "user_id": user.id},
+                status=status.HTTP_200_OK,
             )
 
-        if not user_id:
-            return HttpResponse(b"Internal server error lost user_id", status=500)
+        return Response(
+            {"error": "Invalid username or password"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
+
+class TwoFactorAuthView(APIView):
+    def post(self, request):
+        user_id = request.data.get("user_id")
+        code = request.data.get("code")
+
+        if not user_id or not code:
+            return Response(
+                {"error": "User ID and code are required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Retrieve user
         user = User.objects.filter(id=user_id).first()
-        twilio_client = Client(os.getenv("ACCOUNT_SID"), os.getenv("auth_token"))
+        if not user:
+            return Response(
+                {"error": "User not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
-        verification_check = twilio_client.verify.v2.services(
-            verf_service
-        ).verification_checks.create(to=user.phoneNumber, code=form_code)
+        # Verify 2FA code via Twilio
+        twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+        verification_check = twilio_client.verify.services(
+            settings.TWILIO_VERIFY_SERVICE_SID
+        ).verification_checks.create(to=user.phoneNumber, code=code)
 
         if verification_check.status != "approved":
-            return HttpResponse(b"Authentication failed!", status=401)
+            return Response(
+                {"error": "Invalid 2FA code."},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
 
-        del request.session["2fa_user_id"]
-        login(request, user)
-        return redirect("/auth/home")
-
-    else:
-        return render(request, "twofa.html")
-
-
-def register(request):
-    if request.method == "GET":
-        return render(request, "register.html")
-
-    name = request.POST.get("name")
-    username = request.POST.get("username")
-    email = request.POST.get("email")
-    password = request.POST.get("password")
-    confirm_pass = request.POST.get("password2")
-    phonenumber = request.POST.get("phonenumber")
-
-    user = User.objects.filter(username=username)
-
-    if CheckUserExists(username, email):
-        return HttpResponse(b"User already exists", status=409)
-    
-    if password != confirm_pass:
-        return HttpResponse(b"Passwords do not match", status=400)
-
-    hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-
-    user = UserPong(
-        name=name,
-        username=username,
-        email=email,
-        password=hashed.decode("utf-8"),
-        phoneNumber=phonenumber,
-    )
-
-    user.save()
-
-    return redirect("/auth/login")
+        # Generate JWT tokens
+        refresh = RefreshToken.for_user(user)
+        return Response(
+            {
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+            },
+            status=status.HTTP_200_OK,
+        )
 
 
-@login_required(login_url="/auth/login")
-def home_page(request):
-    return render(request, "home.html")
+class RegisterView(APIView):
+    def post(self, request):
+        name = request.data.get("name")
+        username = request.data.get("username")
+        email = request.data.get("email")
+        password = request.data.get("password")
+        confirm_pass = request.data.get("password2")
+        phone_number = request.data.get("phonenumber")
+
+        if CheckUserExists(username, email):
+            return Response(
+                {"error": "User already exists"}, status=status.HTTP_409_CONFLICT
+            )
+
+        if password != confirm_pass:
+            return Response(
+                {"error": "Passwords do not match"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        user = UserPong(
+            name=name,
+            username=username,
+            email=email,
+            password=hashed.decode("utf-8"),
+            phoneNumber=phone_number,
+        )
+        user.save()
+
+        return Response(
+            {"message": "User registered successfully"}, status=status.HTTP_201_CREATED
+        )
+
+
+class HomePageView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response(
+            {"message": "Welcome to the home page!"}, status=status.HTTP_200_OK
+        )

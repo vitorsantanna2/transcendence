@@ -1,0 +1,190 @@
+.friends-container {
+    background-color: rgba(223, 249, 253, 0.5);
+    height: 70%;
+    width: 80%;
+    border-radius: 5vh;
+  }
+
+  .chat-container {
+    background-color: rgba(223, 249, 253, 0.5);
+    height: 70%;
+    width: 80%;
+    border-radius: 5vh;
+  }
+  .joker {
+    color: black;
+    opacity: 0;
+  }
+
+  .no-heigth {
+    height: 0 !important;
+  }
+
+.custom-row {
+  background-color: #DFF9FD;
+  height: 86vh;
+  width: 10vh;
+  opacity: 0.5;
+  border-radius: 2vh;
+  margin-right: 4vh;
+}
+
+.custom-col {
+  height: 100%;
+
+}
+
+.container1
+{
+  margin-top: 1vh;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+.profile-img {
+  margin-left: 2vw;
+}
+
+.user-name {
+  margin-left: 2vw;
+}
+
+.chat-header {
+  height: 13%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-top-left-radius: 5vh;
+  border-top-right-radius: 5vh;
+}
+
+.chat-bottom {
+  height: 13%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-bottom-left-radius: 5vh;
+  border-bottom-right-radius: 5vh;
+}
+
+.input {
+  opacity: 0.5;
+  margin-left: 2vw;
+}
+
+.btn {
+  background-color: rgba(255, 255, 255, 0.0);
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.search {
+  opacity: 0.6;
+  margin-bottom: 3%;
+}
+
+  .list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 80%;
+    width: 90%;
+    border-radius: 5vh;
+  }
+
+.list-container li {
+  margin-right: 3vw;
+}
+
+.list-container h5 {
+  justify-content: center;
+}
+
+.friend {
+  width: 100%;
+
+}
+
+
+.message-status {
+
+  margin-bottom: 3vh;
+}
+
+.chat-inbox {
+  height: 80%;
+}
+
+/* BUTTONS */ 
+
+.pixel-grid {
+	display: grid;
+	row-gap: 0;
+	column-gap:0;
+	grid-template-columns: repeat(20, 20px);
+	grid-template-rows: repeat(11, 20px);
+	
+	filter: drop-shadow(0 20px 0 #545454);
+	
+	cursor: pointer;
+  }
+  
+  .pixel-grid:active {
+	transform: translate(0,20px);
+	filter: drop-shadow(0 0 0 #545454)
+  }
+  
+  
+  /* ------------------- pixel styles ------------------- */
+  
+  .transparent {
+	background-color: transparent;
+	height: 20px;
+	width: 20px;
+  }
+  
+  .black {
+	background-color: black;
+	height: 20px;
+	width: 20px;
+  }
+  
+  .lightg {
+	background-color: #909090;
+	height: 20px;
+	width: 20px;
+  }
+  
+  .white {
+	background-color: white;
+	height: 20px;
+	width: 20px;
+  }
+  
+  .grey {
+	background-color: #545454;
+	height: 20px;
+	width: 20px;
+  }
+  
+  /* ------------------- text styles ------------------- */
+  .text {
+	filter: none;
+	position: absolute;
+	display: block;
+	
+	z-index: 5;
+  
+	font-size: 40px;
+	width: 100%;
+	height: 100%;
+	top: 28%;
+	text-align: center;
+  }
+  
+  a {
+	text-decoration: none;
+	color: black;
+  }
+  
