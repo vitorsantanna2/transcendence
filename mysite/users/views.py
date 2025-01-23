@@ -13,17 +13,25 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 def loginUser(request):
     if request.method == "GET":
+        print("VOCE É BURRO")
         return render(request, "login.html")
 
     username = request.POST.get("username")
     password = request.POST.get("password")
 
+#	if not ValidateUserInput(username, password):
+#		return HttpResponse(b"Invalid username or password", status=400)
+
     user = authenticate(username=username, password=password)
+
+    print(user)
+    print("veio ate aqui")
     if user:
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
-        refresh_token = str(refresh)
+        return JsonResponse({"access_token": access_token}, status=200)
 
+    return JsonResponse(b"Invalid username or password", status=400)
 
 def twoFactorAuth(request):
 	if request.method == "POST":
