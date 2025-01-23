@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth import authenticate, get_user_model
 from users.models import UserPong
 from .auth import CheckUserExists
@@ -10,23 +10,25 @@ import bcrypt
 import os
 from twilio.rest import Client
 from django.conf import settings
+from rest_framework.decorators import permission_classes
 
 User = get_user_model()
 
-
+@permission_classes([AllowAny])
 class LoginView(APIView):
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
 
-        user = authenticate(username=username, password=password)
+        # user = authenticate(username=username, password=password)
+        user = UserPong.objects.filter(username=username).first()
         if user:
             # Send 2FA code via Twilio
             twilio_client = Client(
-                settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN
+                settings.ACCOUNT_SID, settings.AUTH_TOKEN
             )
             twilio_client.verify.services(
-                settings.TWILIO_VERIFY_SERVICE_SID
+                settings.VERIFICATION_SERVICE
             ).verifications.create(to=user.phoneNumber, channel="sms")
 
             # Return user ID to frontend
@@ -40,7 +42,7 @@ class LoginView(APIView):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-
+@permission_classes([AllowAny])
 class TwoFactorAuthView(APIView):
     def post(self, request):
         user_id = request.data.get("user_id")
@@ -61,9 +63,9 @@ class TwoFactorAuthView(APIView):
             )
 
         # Verify 2FA code via Twilio
-        twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+        twilio_client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
         verification_check = twilio_client.verify.services(
-            settings.TWILIO_VERIFY_SERVICE_SID
+            settings.VERIFICATION_SERVICE
         ).verification_checks.create(to=user.phoneNumber, code=code)
 
         if verification_check.status != "approved":
@@ -82,7 +84,7 @@ class TwoFactorAuthView(APIView):
             status=status.HTTP_200_OK,
         )
 
-
+@permission_classes([AllowAny])
 class RegisterView(APIView):
     def post(self, request):
         name = request.data.get("name")

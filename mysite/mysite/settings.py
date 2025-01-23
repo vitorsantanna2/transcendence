@@ -199,3 +199,6 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+AUTH_TOKEN = os.getenv("AUTH_TOKEN")
+ACCOUNT_SID = os.getenv("ACCOUNT_SID")
+VERIFICATION_SERVICE = os.getenv("VERIFICATION_SERVICE")
