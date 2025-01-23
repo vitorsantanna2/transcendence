@@ -30,7 +30,7 @@ def FortyTwoLogin(request):
     
     response = requests.post(token_url, data=data)
     
-    print(response)
+    
     if response.status_code != 200:
         return render(request, "login.html")
     
@@ -42,8 +42,10 @@ def FortyTwoLogin(request):
     
     user_response = requests.get(user_info_url, headers=headers)
     
-    if user_response != 200:
-        return JsonResponse({"error": "Failed to get user info"}, status=500)
+    print(user_response)
+    
+    if user_response.status_code != 200:
+        return render(request, "login.html")
     
     user_data = user_response.json()
     
