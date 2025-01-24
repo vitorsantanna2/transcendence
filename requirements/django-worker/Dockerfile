@@ -1,19 +1,18 @@
-# Use the official Python image from the Docker Hub
-FROM python:3.9-slim
+FROM python:3.10-bullseye
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+RUN apt-get update && apt-get install -y python3-dev build-essential libpcre3-dev libpq-dev openssl
 
-# Set the working directory
+RUN pip install --upgrade pip
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
 COPY mysite /mysite/
 
 COPY requirements/django-worker/entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
 
-# Install dependencies
-COPY requirements.txt /app/
-RUN apt-get update && apt-get install -y bash \
-	&& pip install --no-cache-dir -r requirements.txt
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONPATH=/mysite
+ENV PYTHONUNBUFFERED 1
 
 ENTRYPOINT ["/entrypoint.sh"]

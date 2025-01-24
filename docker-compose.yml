@@ -63,22 +63,21 @@ services:
       - transcendence
     restart: always
 
-  django-worker:
-    container_name: django-worker
-    build:
-      context: .
-      dockerfile: requirements/django/Dockerfile
-    restart: always
-    networks:
-      - transcendence
-    expose:
-      - "6379"
-    env_file:
-      - .env
-    depends_on:
-      - db
-      - redis
-
+  # django-worker:
+  #   container_name: django-worker
+  #   build:
+  #     context: .
+  #     dockerfile: requirements/django/Dockerfile
+  #   restart: always
+  #   networks:
+  #     - transcendence
+  #   expose:
+  #     - "6379"
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - db
+  #     - redis
 
   nginx:
     build:

@@ -1,2 +1,1 @@
-echo "Starting workers..."
-exec /var/www/django/manage.py runworker
+exec /var/www/django/manage.py runworker 
