@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 from users import models
 from django.contrib.auth import login, authenticate
 from django.http import JsonResponse
 from rest_framework_simplejwt.tokens import RefreshToken
+
 
 # Create your views here.
 
@@ -45,7 +46,7 @@ def FortyTwoLogin(request):
     print(user_response)
     
     if user_response.status_code != 200:
-        return render(request, "login.html")
+        return redirect("http://localhost:8443/auth/login/")
     
     user_data = user_response.json()
     
@@ -73,4 +74,4 @@ def FortyTwoLogin(request):
     
     
     
-    return JsonResponse({"access_token": str(access_token)}, status=200)
+    return redirect(f"http://localhost:8443/perfil/?access_token={access_token}")

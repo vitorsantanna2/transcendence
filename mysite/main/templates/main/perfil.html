@@ -242,52 +242,10 @@
         crossorigin="anonymous"></script>
 
     <script src="{% static 'friendsFilter.js' %}"></script>
-    <script>
-        // Existing JavaScript for tokens
-        const accessToken = "{{ access_token|escapejs }}";
-        const refreshToken = "{{ refresh_token|escapejs }}";
-
-        localStorage.setItem("access_token", accessToken);
-        localStorage.setItem("refresh_token", refreshToken);
-
-        console.log("Access Token set to localStorage:", accessToken);
-    </script>
 
     <!-- New JavaScript for Profile Picture Upload -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const uploadButton = document.getElementById("uploadButton");
-            const imageUpload = document.getElementById("imageUpload");
-            const profileImage = document.getElementById("profileImage");
+    <script src="{% static 'home.js' %}"></script>
 
-            // Trigger the file input when the upload button is clicked
-            uploadButton.addEventListener("click", function () {
-                imageUpload.click();
-            });
-
-            // Handle the file input change
-            imageUpload.addEventListener("change", function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const imageDataUrl = e.target.result;
-                        // Update the profile image preview
-                        profileImage.src = imageDataUrl;
-                        // Store the image in localStorage
-                        localStorage.setItem("profileImage", imageDataUrl);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // Load the stored image on page load, if available
-            const storedImage = localStorage.getItem("profileImage");
-            if (storedImage) {
-                profileImage.src = storedImage;
-            }
-        });
-    </script>
 </body>
 </html>
 
