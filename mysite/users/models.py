@@ -2,19 +2,22 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 import bcrypt
 
+
 class UserManager(BaseUserManager):
-    def create_user(self, username, email, name, password=None, auth_method='site', **extra_fields):
+    def create_user(
+        self, username, email, name, password=None, auth_method="site", **extra_fields
+    ):
         if not email:
             raise ValueError("Users must have an email address")
         if not username:
             raise ValueError("Users must have a username")
-        
+
         user = self.model(
             email=self.normalize_email(email),
             username=username,
             name=name,
             auth_method=auth_method,
-            **extra_fields
+            **extra_fields,
         )
         if password:
             user.set_password(password)
@@ -22,8 +25,9 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, username, email, name, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault("is_staff", True)
         return self.create_user(username, email, name, password, **extra_fields)
+
 
 class UserPong(AbstractBaseUser):
     id = models.BigAutoField(primary_key=True)
@@ -35,10 +39,10 @@ class UserPong(AbstractBaseUser):
     auth_method = models.CharField(
         max_length=10,
         choices=[
-            ('site', 'Site Registration'),
-            ('oauth', '42 API'),
+            ("site", "Site Registration"),
+            ("oauth", "42 API"),
         ],
-        default='site',
+        default="site",
     )
     oauth_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -57,4 +61,3 @@ class UserPong(AbstractBaseUser):
 
     def check_password(self, raw_password):
         return bcrypt.checkpw(raw_password.encode(), self.password.encode())
-

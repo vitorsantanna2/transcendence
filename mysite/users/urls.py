@@ -1,9 +1,15 @@
 from django.urls import path
-from . import views
-from .twofactor import twoFactorAuth
+from .views import HomePageView, LoginView, TwoFactorAuthView, RegisterView
 
 urlpatterns = [
-    path("login/", views.loginUser, name="login"),
-    path("twofa/", twoFactorAuth, name="twofa"),
-    path("register/", views.register, name="register"),
+    # Registration endpoint
+    path("register/", RegisterView.as_view(), name="register"),
+    # Login and 2FA endpoints
+    path("login/", LoginView.as_view(), name="login"),
+    path(
+        "twofa/", TwoFactorAuthView.as_view(), name="twofa"
+    ),  # Updated to use TwoFactorAuthView
+    path(
+        "test_home/", HomePageView.as_view(), name="test_home"
+    ),  # Updated to use TwoFactorAuthView
 ]
