@@ -63,6 +63,23 @@ services:
       - transcendence
     restart: always
 
+  django-worker:
+    container_name: django-worker
+    build:
+      context: .
+      dockerfile: requirements/django/Dockerfile
+    restart: always
+    networks:
+      - transcendence
+    expose:
+      - "6379"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+
+
   nginx:
     build:
       context: .
@@ -87,31 +104,14 @@ services:
       - "9090:9090"
     volumes:
       - ./requirements/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./requirements/prometheus/alerts.yml:/etc/prometheus/alerts.yml
+      - prometheus-data:/prometheus:rw
     networks:
       - transcendence
     restart: always
-
-  redis-exporter:
-    image: oliver006/redis_exporter:latest
-    container_name: redis-exporter
-    environment:
-      REDIS_ADDR: "redis:6379"
-    ports:
-      - "9121:9121"
-    networks:
-      - transcendence
-    restart: always
-  
-  postgres-exporter:
-    image: prometheuscommunity/postgres-exporter:latest
-    container_name: postgres-exporter
-    environment:
-      DATA_SOURCE_NAME: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?sslmode=disable"
-    ports:
-      - "9187:9187"
-    networks:
-      - transcendence
-    restart: always
+    depends_on:
+      - db
+      - redis
 
   grafana:
     image: grafana/grafana:latest
@@ -121,8 +121,12 @@ services:
     networks:
       - transcendence
     volumes:
+      - grafana-data:/var/lib/grafana:rw
       - ./requirements/grafana/provisioning/:/etc/grafana/provisioning/
     restart: always
+    depends_on:
+      - db
+      - prometheus
 
 networks:
     transcendence:
@@ -133,4 +137,8 @@ volumes:
   static_volume:
   media_volume:
   pgadmin:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
     driver: local
