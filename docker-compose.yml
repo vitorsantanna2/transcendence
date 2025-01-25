@@ -104,7 +104,7 @@ services:
     volumes:
       - ./requirements/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./requirements/prometheus/alerts.yml:/etc/prometheus/alerts.yml
-      - prometheus-data:/prometheus:rw
+      - prometheus-data:/prometheus
     networks:
       - transcendence
     restart: always
@@ -131,13 +131,9 @@ networks:
     transcendence:
         driver: bridge
 volumes:
-  postgres_data:
-    driver: local
-  static_volume:
-  media_volume:
-  pgadmin:
-    driver: local
-  prometheus-data:
-    driver: local
-  grafana-data:
-    driver: local
+  postgres_data: {}
+  static_volume: {}
+  media_volume: {}
+  pgadmin: {}
+  prometheus-data: {}
+  grafana-data: {}
