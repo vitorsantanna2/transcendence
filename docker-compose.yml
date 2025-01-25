@@ -99,20 +99,20 @@ services:
       - db
       - redis
 
-  # grafana:
-  #   image: grafana/grafana:latest
-  #   container_name: grafana
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - transcendence
-  #   volumes:
-  #     - grafana-data:/var/lib/grafana
-  #     - ./requirements/grafana/provisioning/:/etc/grafana/provisioning/
-  #   restart: always
-  #   depends_on:
-  #     - db
-  #     - prometheus
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - transcendence
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./requirements/grafana/provisioning/:/etc/grafana/provisioning/
+    restart: always
+    depends_on:
+      - db
+      - prometheus
 
 networks:
     transcendence:
@@ -126,3 +126,4 @@ volumes:
   pgadmin:
     driver: local
   prometheus-data:
+  grafana-data:

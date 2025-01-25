@@ -1,0 +1,12 @@
+# taken from (https://grafana.com/tutorials/provision-dashboards-and-data-sources/)
+apiVersion: 1
+
+providers:
+  - name: 'prometheus' # A uniquely identifiable name for the provider
+    folder: '' # The folder where to place the dashboards
+    type: file
+    options:
+      path:
+        /etc/grafana/provisioning/dashboards
+        # Default path for Windows: C:/Program Files/GrafanaLabs/grafana/public/dashboards
+        # Default path for Linux is: /var/lib/grafana/dashboards

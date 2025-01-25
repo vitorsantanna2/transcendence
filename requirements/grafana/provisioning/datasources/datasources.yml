@@ -1,0 +1,9 @@
+# ./grafana/provisioning/datasources/datasources.yaml
+apiVersion: 1
+
+datasources:
+  - name: django-api
+    type: prometheus
+    url: http://prometheus:9090
+    access: proxy
+    isDefault: true
