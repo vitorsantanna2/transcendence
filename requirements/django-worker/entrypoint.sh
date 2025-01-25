@@ -1,1 +1,0 @@
-exec /var/www/django/manage.py runworker 

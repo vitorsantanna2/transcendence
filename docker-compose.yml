@@ -63,22 +63,6 @@ services:
       - transcendence
     restart: always
 
-  # django-worker:
-  #   container_name: django-worker
-  #   build:
-  #     context: .
-  #     dockerfile: requirements/django/Dockerfile
-  #   restart: always
-  #   networks:
-  #     - transcendence
-  #   expose:
-  #     - "6379"
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - db
-  #     - redis
-
   nginx:
     build:
       context: .
@@ -112,28 +96,30 @@ services:
       - db
       - redis
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    ports:
-      - "3000:3000"
-    networks:
-      - transcendence
-    volumes:
-      - grafana-data:/var/lib/grafana:rw
-      - ./requirements/grafana/provisioning/:/etc/grafana/provisioning/
-    restart: always
-    depends_on:
-      - db
-      - prometheus
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: grafana
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - transcendence
+  #   volumes:
+  #     - grafana-data:/var/lib/grafana
+  #     - ./requirements/grafana/provisioning/:/etc/grafana/provisioning/
+  #   restart: always
+  #   depends_on:
+  #     - db
+  #     - prometheus
 
 networks:
     transcendence:
         driver: bridge
+
 volumes:
-  postgres_data: {}
-  static_volume: {}
-  media_volume: {}
-  pgadmin: {}
-  prometheus-data: {}
-  grafana-data: {}
+  postgres_data:
+    driver: local
+  static_volume:
+  media_volume:
+  pgadmin:
+    driver: local
+  prometheus-data:
