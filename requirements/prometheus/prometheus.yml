@@ -1,7 +1,7 @@
 global:
   scrape_interval: 10s
 
-rules_files:
+rule_files:
   - "/etc/prometheus/alerts.yml"
 
 scrape_configs:

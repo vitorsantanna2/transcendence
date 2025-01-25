@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('auth/', include('users.urls')),
     path("chat/", include("chat.urls")),
+    path('', include('django_prometheus.urls')),
 
 ]
 
