@@ -1,7 +1,7 @@
 async function handleLogin(event) {
     event.preventDefault(); // Impede o envio padrão do formulário
 
-    const email = document.getElementById('email').value;
+    const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
     try {
@@ -11,7 +11,7 @@ async function handleLogin(event) {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': '{{ csrf_token }}'
             },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ username, password }),
         });
 
         if (response.ok) {

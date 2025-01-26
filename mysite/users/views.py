@@ -19,9 +19,12 @@ class LoginView(APIView):
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
+        print("username:", username)
+        print("password:", password)
 
-        # user = authenticate(username=username, password=password)
-        user = UserPong.objects.filter(username=username).first()
+        user = authenticate(username=username, password=password)
+        # user = UserPong.objects.filter(username=username).first()
+
         if user:
             # Send 2FA code via Twilio
             twilio_client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
