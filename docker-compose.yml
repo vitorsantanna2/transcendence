@@ -36,6 +36,8 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
     networks:
       - transcendence
+    volumes:
+      - ./requirements/pgadmin/servers.json:/pgadmin4/servers.json
 
   django:
     build:
