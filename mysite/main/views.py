@@ -1,6 +1,5 @@
 import uuid
 
-from django.shortcuts import
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -8,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import permission_classes
 from users.models import UserPong
 from .models import Match
+from django.shortcuts import render, get_object_or_404
 
 @permission_classes([IsAuthenticated])
 class LocalGameView(APIView):

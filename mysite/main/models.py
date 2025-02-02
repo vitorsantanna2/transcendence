@@ -6,7 +6,7 @@ class Match(models.Model):
     game_id = models.CharField(max_length=50, primary_key=True)
     is_active = models.BooleanField(default=True)
     game_type = models.CharField(max_length=50, default="local")
-    player_1 = models.ForeignKey(UserPong, on_delete=models.CASCADE, related_name="p1")
+    player_1 = models.ForeignKey(UserPong, on_delete=models.CASCADE, related_name="p1", null=True, blank=True)
     player_2 = models.ForeignKey(
         UserPong,
         on_delete=models.CASCADE,

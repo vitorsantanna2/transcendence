@@ -14,9 +14,9 @@ urlpatterns = [
     path('base/', views.base, name='base'),
     path('chat/', views.chat, name='chat'),
     path('tournamentRoom/', views.tournamentRoom, name='tournamentRoom'),
-    path('localgame/', views.localgame, name='localgame'),
+    path('localgame/', views.LocalGameView.as_view(), name='localgame'),
     path('localgame/<str:game_id>/', views.local_id, name='local_id'),
-    path('onlinegame/', views.onlinegame, name='onlinegame'),
+    path('onlinegame/', views.OnlineGameView.as_view(), name='onlinegame'),
     path('onlinegame/<str:game_id>/', views.online_id, name='online_id')
 ]
 
